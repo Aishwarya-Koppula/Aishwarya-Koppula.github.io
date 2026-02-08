@@ -382,6 +382,71 @@
             margin-bottom: 1.5rem;
             border-radius: 8px;
         }
+
+        .card-header-row {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .card-badge {
+            width: 56px;
+            height: 56px;
+            min-width: 56px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            background: rgba(0, 217, 255, 0.05);
+            transition: all 0.4s;
+        }
+
+        .card:hover .card-badge {
+            border-color: rgba(0, 217, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.2);
+        }
+
+        .cert-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-top: 0.75rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            background: rgba(0, 217, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .cert-link:hover {
+            background: rgba(0, 217, 255, 0.15);
+            border-color: var(--accent-primary);
+        }
+
+        .timeline-badge {
+            width: 56px;
+            height: 56px;
+            min-width: 56px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 2px solid rgba(0, 217, 255, 0.2);
+            background: rgba(0, 217, 255, 0.05);
+            transition: all 0.4s;
+        }
+
+        .timeline-item:hover .timeline-badge {
+            border-color: rgba(0, 217, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.2);
+        }
+
+        .timeline-header-with-badge {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
         
         .card-title {
             font-size: 1.2rem;
@@ -538,11 +603,26 @@
             box-shadow: 0 20px 60px rgba(255, 215, 0, 0.2);
         }
         
-        .award-image {
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
+        .award-content {
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .award-thumbnail {
+            width: 72px;
+            height: 72px;
+            min-width: 72px;
+            border-radius: 12px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.05);
+            transition: all 0.4s;
+        }
+
+        .award-card:hover .award-thumbnail {
+            border-color: rgba(255, 215, 0, 0.6);
+            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
         }
         
         .award-icon { font-size: 3rem; margin-bottom: 1rem; }
@@ -941,6 +1021,24 @@
                         <li>Built <strong>Local Vendor Connect platform</strong> (Django, React.js) serving 100+ mobile vendors with <strong><3s location-based search</strong>, addressing product-market need for businesses lacking fixed locations</li>
                         <li>Conducted <strong>17 user interviews</strong> to define requirements and presented Apple Maps integration proposal demonstrating technical feasibility of extending Maps capabilities for informal economy</li>
                     </ul>
+                    <a href="./apple-certificate.pdf" target="_blank" class="cert-link">📄 View Certificate</a>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div class="timeline-header-with-badge">
+                            <img src="./intrinsic-certificate.jpeg" alt="Intrinsic Science Labs" class="timeline-badge">
+                            <div>
+                                <h3 class="timeline-title">Software Intern</h3>
+                                <div class="timeline-company">Intrinsic Science Labs</div>
+                            </div>
+                        </div>
+                        <span class="timeline-date">December 2019 - February 2021</span>
+                    </div>
+                    <ul class="timeline-highlights">
+                        <li>Designed enhanced user experiences for <strong>"Career Assistant"</strong> product across web and mobile versions using Adobe XD, improving usability and user engagement</li>
+                        <li>Developed <strong>server-side applications using Node.js</strong>, contributing to backend architecture and API development for the Career Assistant platform</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -954,13 +1052,19 @@
             </div>
             <div class="cards-grid">
                 <div class="card">
-                    <div class="card-title">Certified Scrum Product Owner® (CSPO)</div>
-                    <div class="card-org">Scrum Alliance</div>
+                    <div class="card-header-row">
+                        <img src="./cspo-badge.png" alt="CSPO Badge" class="card-badge">
+                        <div>
+                            <div class="card-title">Certified Scrum Product Owner® (CSPO)</div>
+                            <div class="card-org">Scrum Alliance</div>
+                        </div>
+                    </div>
                     <div class="card-date">Issued: October 2025 | Expires: October 2027</div>
                     <div class="card-id">Credential ID: 001792445</div>
                     <div class="card-description">
                         Trained by Amit Kulkarni, CST®. Certified to lead product development in Agile environments, manage product backlogs, and drive value delivery.
                     </div>
+                    <a href="./cspo-certificate.pdf" target="_blank" class="cert-link">📄 View Certificate</a>
                     <div class="card-tags">
                         <span class="card-tag">Product Management</span>
                         <span class="card-tag">Agile</span>
@@ -969,9 +1073,13 @@
                 </div>
 
                 <div class="card">
-                    <img src="./mckinsey-org-forward-program.png" alt="McKinsey Forward" class="cert-image">
-                    <div class="card-title">McKinsey.org Forward Program</div>
-                    <div class="card-org">McKinsey & Company</div>
+                    <div class="card-header-row">
+                        <img src="./mckinsey-badge.png" alt="McKinsey Forward" class="card-badge">
+                        <div>
+                            <div class="card-title">McKinsey.org Forward Program</div>
+                            <div class="card-org">McKinsey & Company</div>
+                        </div>
+                    </div>
                     <div class="card-date">Issued: December 2025</div>
                     <div class="card-description">
                         Completed comprehensive program on problem-solving, communication, and adaptable mindsets for the future of work.
@@ -990,6 +1098,7 @@
                     <div class="card-description">
                         Trained by Snehamayee, CST®. Integrating AI with Agile methodologies to enhance team performance.
                     </div>
+                    <a href="./ai-for-agile-certificate.pdf" target="_blank" class="cert-link">📄 View Certificate</a>
                     <div class="card-tags">
                         <span class="card-tag">AI in Scrum</span>
                         <span class="card-tag">Agile</span>
@@ -1128,9 +1237,10 @@
                 <div class="education-header">
                     <div>
                         <h3 class="education-title">Bachelor of Technology in Computer Science</h3>
-                        <div class="education-school">JNTU Hyderabad - GPA: 3.9/4.0</div>
+                        <div class="education-school">JNTU Hyderabad</div>
                         <p style="color: var(--text-secondary); margin-top: 0.5rem;">July 2018 - July 2022</p>
                     </div>
+                    <div class="gpa">CGPA: 3.9/4.0</div>
                 </div>
                 <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem;">
                     G. Narayanamma Institute of Technology & Science (GNITS). Student Coordinator at Indian Society of Technical Education. Software Developer Intern at Intrinsic Science Labs.
@@ -1159,6 +1269,16 @@
                     <div class="affiliation-role">Vice President Public Relations</div>
                     <div class="affiliation-date">Carrier Hyderabad Toastmasters Club | Jul - Sep 2025</div>
                 </div>
+
+                <div class="affiliation-card">
+                    <div class="affiliation-logo">📚</div>
+                    <h3 class="affiliation-name">Indian Society for Technical Education</h3>
+                    <div class="affiliation-role">Student Coordinator</div>
+                    <div class="affiliation-date">Jul 2019 - Jun 2022</div>
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.75rem; text-align: left; line-height: 1.6;">
+                        Led coordination between student committees and faculty advisors. Organized IGNIUM2K20, a 500+ participant inter-college technical fest.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
@@ -1171,23 +1291,31 @@
             </div>
             <div class="awards-grid">
                 <div class="award-card">
-                    <img src="./1770514860500_image.png" alt="Leadership Award" class="award-image">
-                    <h3 class="award-title">Carrier Leadership Award</h3>
-                    <div class="award-org">Carrier Technologies India Limited</div>
-                    <div class="award-date">Youngest Recipient (Top 1%)</div>
-                    <p class="award-description">
-                        Youngest recipient of Carrier's Leadership Award, typically awarded to Senior Product Managers. Recognized for exceptional leadership and driving product innovation.
-                    </p>
+                    <div class="award-content">
+                        <img src="./carrier-leadership-award.png" alt="Leadership Award" class="award-thumbnail">
+                        <div>
+                            <h3 class="award-title">Carrier Leadership Award</h3>
+                            <div class="award-org">Carrier Technologies India Limited</div>
+                            <div class="award-date">Youngest Recipient (Top 1%)</div>
+                            <p class="award-description">
+                                Youngest recipient of Carrier's Leadership Award, typically awarded to Senior Product Managers. Recognized for exceptional leadership and driving product innovation.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="award-card">
-                    <img src="./1770514815549_image.png" alt="Bryant Award" class="award-image">
-                    <h3 class="award-title">Bryant Award</h3>
-                    <div class="award-org">Carrier Technologies India Limited</div>
-                    <div class="award-date">2025</div>
-                    <p class="award-description">
-                        Recognized for outstanding performance and making significant impact through exceptional contributions to engineering excellence.
-                    </p>
+                    <div class="award-content">
+                        <img src="./carrier-bryant-award.png" alt="Bryant Award" class="award-thumbnail">
+                        <div>
+                            <h3 class="award-title">Bryant Award</h3>
+                            <div class="award-org">Carrier Technologies India Limited</div>
+                            <div class="award-date">2025</div>
+                            <p class="award-description">
+                                Recognized for outstanding performance and making significant impact through exceptional contributions to engineering excellence.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="award-card">
@@ -1200,23 +1328,31 @@
                 </div>
 
                 <div class="award-card">
-                    <img src="./WhatsApp_Image_2026-02-07_at_8_43_34_PM.jpeg" alt="ELP" class="award-image">
-                    <h3 class="award-title">Engineering Leadership Program</h3>
-                    <div class="award-org">Carrier Technologies India Limited</div>
-                    <div class="award-date">2022-2024</div>
-                    <p class="award-description">
-                        Successfully completed rigorous 24-month Engineering Leadership Program with three 8-month rotations.
-                    </p>
+                    <div class="award-content">
+                        <img src="./elp-completion.png" alt="ELP Completion" class="award-thumbnail">
+                        <div>
+                            <h3 class="award-title">Engineering Leadership Program</h3>
+                            <div class="award-org">Carrier Technologies India Limited</div>
+                            <div class="award-date">2022-2024</div>
+                            <p class="award-description">
+                                Successfully completed rigorous 24-month Engineering Leadership Program with three 8-month rotations.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="award-card">
-                    <img src="./1770515240177_image.png" alt="Toastmasters" class="award-image">
-                    <h3 class="award-title">Toastmasters Speech Contests</h3>
-                    <div class="award-org">Toastmasters International</div>
-                    <div class="award-date">2024-2025</div>
-                    <p class="award-description">
-                        Third place in Evaluation Speech Contest and Humorous Speech Contest at Carrier Hyderabad Toastmasters Club, Area G3, District 126.
-                    </p>
+                    <div class="award-content">
+                        <img src="./toastmasters-trophies.png" alt="Toastmasters" class="award-thumbnail">
+                        <div>
+                            <h3 class="award-title">Toastmasters Speech Contests</h3>
+                            <div class="award-org">Toastmasters International</div>
+                            <div class="award-date">2024-2025</div>
+                            <p class="award-description">
+                                Third place in Evaluation Speech Contest and Humorous Speech Contest at Carrier Hyderabad Toastmasters Club, Area G3, District 126.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
