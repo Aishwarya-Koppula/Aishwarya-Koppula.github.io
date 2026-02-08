@@ -4,19 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aishwarya Koppula - Product Manager & Engineer</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
             --bg-primary: #0a0e17;
-            --bg-secondary: #0f1419;
             --bg-card: #151b26;
             --text-primary: #e5e9f0;
             --text-secondary: #8892a6;
@@ -24,61 +17,39 @@
             --accent-secondary: #7000ff;
             --accent-tertiary: #00ff88;
             --border: rgba(0, 217, 255, 0.1);
-            --glow: rgba(0, 217, 255, 0.3);
         }
         
         body {
-            font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Space Grotesk', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             line-height: 1.6;
-            overflow-x: hidden;
         }
         
-        /* Animated Background */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(112, 0, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 40% 90%, rgba(0, 255, 136, 0.05) 0%, transparent 50%);
+            inset: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.05) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(112, 0, 255, 0.05) 0%, transparent 50%);
             z-index: -1;
             animation: gradientShift 15s ease infinite;
         }
         
-        @keyframes gradientShift {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
+        @keyframes gradientShift { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
         
-        /* Navigation */
+        /* Nav */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
+            position: fixed; top: 0; width: 100%;
             background: rgba(10, 14, 23, 0.8);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            padding: 1rem 0;
+            z-index: 1000; padding: 1rem 0;
         }
         
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
         
         .logo {
             font-family: 'Instrument Serif', serif;
@@ -86,49 +57,23 @@
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-        
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
+            transition: color 0.3s;
         }
+        .nav-links a:hover { color: var(--accent-primary); }
         
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent-primary);
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        /* Hero Section */
+        /* Hero */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             padding-top: 80px;
-            position: relative;
         }
         
         .hero-content {
@@ -145,7 +90,6 @@
             background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
             line-height: 1.1;
         }
         
@@ -163,51 +107,36 @@
             line-height: 1.8;
         }
         
-        .hero-image {
-            position: relative;
-        }
-        
-        .profile-photo {
-            width: 100%;
-            max-width: 450px;
-            height: auto;
-            border-radius: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .profile-photo-wrapper {
-            position: relative;
-        }
-        
+        .profile-photo-wrapper { position: relative; }
         .profile-photo-wrapper::before {
             content: '';
             position: absolute;
             inset: -10px;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             border-radius: 25px;
             opacity: 0.5;
             filter: blur(20px);
             animation: photoGlow 3s ease infinite;
         }
         
-        @keyframes photoGlow {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.8; }
+        @keyframes photoGlow { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.8; } }
+        
+        .profile-photo {
+            width: 100%;
+            max-width: 450px;
+            border-radius: 20px;
+            position: relative;
+            z-index: 1;
         }
         
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
+        .cta-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
         
         .btn {
             padding: 1rem 2rem;
             border-radius: 10px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
             display: inline-block;
             position: relative;
             overflow: hidden;
@@ -216,26 +145,9 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             color: var(--bg-primary);
-            border: none;
         }
         
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-tertiary));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .btn-primary:hover::before {
-            opacity: 1;
-        }
-        
-        .btn-primary span {
-            position: relative;
-            z-index: 1;
-        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3); }
         
         .btn-secondary {
             border: 2px solid var(--accent-primary);
@@ -246,19 +158,12 @@
         .btn-secondary:hover {
             background: var(--accent-primary);
             color: var(--bg-primary);
-            box-shadow: 0 0 30px var(--glow);
         }
         
-        /* Section Styles */
-        section {
-            padding: 5rem 0;
-            position: relative;
-        }
+        /* Sections */
+        section { padding: 5rem 0; }
         
-        .section-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
+        .section-header { text-align: center; margin-bottom: 4rem; }
         
         .section-title {
             font-family: 'Instrument Serif', serif;
@@ -267,7 +172,6 @@
             background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
         
         .section-subtitle {
@@ -277,7 +181,7 @@
             margin: 0 auto;
         }
         
-        /* Skills Grid */
+        /* Skills */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -289,7 +193,7 @@
             padding: 2rem;
             border-radius: 16px;
             border: 1px solid var(--border);
-            transition: all 0.4s ease;
+            transition: all 0.4s;
             position: relative;
             overflow: hidden;
         }
@@ -297,19 +201,14 @@
         .skill-category::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 3px;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform 0.4s;
         }
         
-        .skill-category:hover::before {
-            transform: scaleX(1);
-        }
-        
+        .skill-category:hover::before { transform: scaleX(1); }
         .skill-category:hover {
             transform: translateY(-10px);
             border-color: var(--accent-primary);
@@ -323,11 +222,7 @@
             font-weight: 600;
         }
         
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-        }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
         
         .skill-tag {
             background: rgba(0, 217, 255, 0.1);
@@ -336,8 +231,7 @@
             border-radius: 8px;
             font-size: 0.9rem;
             border: 1px solid rgba(0, 217, 255, 0.2);
-            transition: all 0.3s ease;
-            cursor: default;
+            transition: all 0.3s;
         }
         
         .skill-tag:hover {
@@ -356,11 +250,9 @@
         .timeline::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
+            left: 0; top: 0; bottom: 0;
             width: 2px;
-            background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+            background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
         }
         
         .timeline-item {
@@ -370,26 +262,18 @@
             padding: 2rem;
             border-radius: 16px;
             border: 1px solid var(--border);
-            transition: all 0.4s ease;
+            transition: all 0.4s;
         }
         
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -3.65rem;
-            top: 2rem;
-            width: 16px;
-            height: 16px;
+            left: -3.65rem; top: 2rem;
+            width: 16px; height: 16px;
             border-radius: 50%;
             background: var(--accent-primary);
             border: 3px solid var(--bg-primary);
             box-shadow: 0 0 0 4px rgba(0, 217, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-        
-        .timeline-item:hover::before {
-            box-shadow: 0 0 0 8px rgba(0, 217, 255, 0.4);
-            transform: scale(1.2);
         }
         
         .timeline-item:hover {
@@ -426,7 +310,6 @@
             background: rgba(0, 217, 255, 0.1);
             padding: 0.5rem 1rem;
             border-radius: 8px;
-            border: 1px solid rgba(0, 217, 255, 0.2);
         }
         
         .timeline-description {
@@ -457,7 +340,7 @@
             font-size: 1.2rem;
         }
         
-        /* Cards Grid */
+        /* Cards */
         .cards-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -469,7 +352,7 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2rem;
-            transition: all 0.4s ease;
+            transition: all 0.4s;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -479,36 +362,25 @@
         .card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 3px;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform 0.4s;
         }
         
-        .card:hover::before {
-            transform: scaleX(1);
-        }
-        
+        .card:hover::before { transform: scaleX(1); }
         .card:hover {
             transform: translateY(-10px);
             border-color: var(--accent-primary);
             box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
         }
         
-        .card-icon {
-            width: 60px;
-            height: 60px;
-            background: rgba(0, 217, 255, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
+        .cert-image {
+            width: 100%;
+            max-width: 120px;
             margin-bottom: 1.5rem;
-            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 8px;
         }
         
         .card-title {
@@ -546,15 +418,9 @@
             padding: 0.5rem;
             border-radius: 6px;
             margin-top: auto;
-            border: 1px solid rgba(0, 217, 255, 0.2);
         }
         
-        .card-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
         
         .card-tag {
             background: rgba(0, 217, 255, 0.1);
@@ -565,51 +431,50 @@
             border: 1px solid rgba(0, 217, 255, 0.2);
         }
         
-        /* Publication Card */
-        .publication-card {
+        /* Publication/Education Cards */
+        .publication-card, .education-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2.5rem;
             margin-bottom: 2rem;
-            transition: all 0.4s ease;
+            transition: all 0.4s;
             position: relative;
             overflow: hidden;
         }
         
-        .publication-card::before {
+        .publication-card::before, .education-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 3px;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform 0.4s;
         }
         
-        .publication-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .publication-card:hover {
+        .publication-card:hover::before, .education-card:hover::before { transform: scaleX(1); }
+        .publication-card:hover, .education-card:hover {
             transform: translateY(-10px);
             border-color: var(--accent-primary);
             box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
         }
         
-        .publication-title {
+        .publication-title, .education-title {
             font-size: 1.5rem;
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
         
-        .publication-meta {
+        .publication-meta, .education-school {
             color: var(--accent-primary);
             font-weight: 500;
             margin-bottom: 1rem;
+        }
+        
+        .education-school {
+            font-size: 1.1rem;
         }
         
         .publication-authors {
@@ -623,58 +488,11 @@
             line-height: 1.8;
         }
         
-        /* Education Card */
-        .education-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .education-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
-        }
-        
-        .education-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .education-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
-        }
-        
         .education-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
             margin-bottom: 1rem;
-        }
-        
-        .education-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .education-school {
-            color: var(--accent-primary);
-            font-size: 1.1rem;
-            font-weight: 500;
         }
         
         .gpa {
@@ -698,7 +516,7 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 2rem;
-            transition: all 0.4s ease;
+            transition: all 0.4s;
             position: relative;
             overflow: hidden;
         }
@@ -706,29 +524,28 @@
         .award-card::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
+            top: 0; left: 0; right: 0;
             height: 4px;
             background: linear-gradient(90deg, #ffd700, #ffed4e);
             transform: scaleX(0);
-            transition: transform 0.4s ease;
+            transition: transform 0.4s;
         }
         
-        .award-card:hover::before {
-            transform: scaleX(1);
-        }
-        
+        .award-card:hover::before { transform: scaleX(1); }
         .award-card:hover {
             transform: translateY(-10px);
             border-color: var(--accent-primary);
             box-shadow: 0 20px 60px rgba(255, 215, 0, 0.2);
         }
         
-        .award-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
+        .award-image {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
         }
+        
+        .award-icon { font-size: 3rem; margin-bottom: 1rem; }
         
         .award-title {
             font-size: 1.3rem;
@@ -768,7 +585,7 @@
             border-radius: 16px;
             padding: 2rem;
             text-align: center;
-            transition: all 0.4s ease;
+            transition: all 0.4s;
         }
         
         .affiliation-card:hover {
@@ -778,8 +595,7 @@
         }
         
         .affiliation-logo {
-            width: 100px;
-            height: 100px;
+            width: 100px; height: 100px;
             margin: 0 auto 1.5rem;
             border-radius: 50%;
             background: rgba(0, 217, 255, 0.1);
@@ -808,18 +624,13 @@
             font-size: 0.9rem;
         }
         
-        /* Medium Placeholder */
+        /* Placeholder */
         .articles-placeholder {
             background: var(--bg-card);
             border: 2px dashed var(--border);
             border-radius: 16px;
             padding: 4rem 2rem;
             text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .articles-placeholder:hover {
-            border-color: var(--accent-primary);
         }
         
         .articles-placeholder h3 {
@@ -861,22 +672,8 @@
             border-radius: 16px;
             padding: 2rem;
             text-align: center;
-            transition: all 0.4s ease;
+            transition: all 0.4s;
             position: relative;
-            overflow: hidden;
-        }
-        
-        .contact-card::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-        
-        .contact-card:hover::before {
-            opacity: 0.05;
         }
         
         .contact-card:hover {
@@ -885,10 +682,7 @@
             box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
         }
         
-        .contact-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
+        .contact-icon { font-size: 2.5rem; margin-bottom: 1rem; }
         
         .contact-label {
             color: var(--text-secondary);
@@ -902,23 +696,19 @@
             color: var(--text-primary);
             font-size: 1.1rem;
             font-weight: 500;
-            position: relative;
-            z-index: 1;
         }
         
         .contact-value a {
             color: var(--accent-primary);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s;
         }
         
-        .contact-value a:hover {
-            color: var(--accent-secondary);
-        }
+        .contact-value a:hover { color: var(--accent-secondary); }
         
         /* Footer */
         footer {
-            background: var(--bg-secondary);
+            background: var(--bg-primary);
             padding: 2rem 0;
             text-align: center;
             border-top: 1px solid var(--border);
@@ -931,64 +721,26 @@
         
         /* Responsive */
         @media (max-width: 768px) {
-            .hero-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .hero-image {
-                order: -1;
-            }
-            
-            .profile-photo {
-                max-width: 300px;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .timeline {
-                padding-left: 2rem;
-            }
-            
-            .timeline-item::before {
-                left: -2.65rem;
-            }
-            
-            .timeline-header {
-                flex-direction: column;
-            }
-            
-            .timeline-date {
-                align-self: flex-start;
-            }
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-image { order: -1; }
+            .profile-photo { max-width: 300px; }
+            .nav-links { display: none; }
+            .timeline { padding-left: 2rem; }
+            .timeline-item::before { left: -2.65rem; }
+            .timeline-header { flex-direction: column; }
         }
         
-        /* Smooth Scroll */
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
         
-        /* Fade Animation */
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         
-        .animate-in {
-            animation: fadeIn 0.8s ease-out;
-        }
+        .animate-in { animation: fadeIn 0.8s ease-out; }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav>
         <div class="container">
             <div class="logo">AK</div>
@@ -1002,30 +754,28 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content animate-in">
                 <div class="hero-text">
                     <h1>Aishwarya Koppula</h1>
                     <p class="subtitle">Product Manager | Engineering Leader | Published Researcher</p>
-                    <p>Master of Engineering Management student at Purdue University (4.0 GPA) with 3+ years of experience driving product innovation and leading engineering teams. Certified Scrum Product Owner passionate about leveraging AI and data-driven strategies to build impactful solutions.</p>
+                    <p>Product Lead with 3+ years driving product strategy and roadmaps from 0-to-1, and delivering platforms that scale. Master of Engineering Management student at Purdue University (4.0 GPA). Certified Scrum Product Owner passionate about leveraging AI and data-driven strategies to build impactful solutions.</p>
                     <div class="cta-buttons">
-                        <a href="#contact" class="btn btn-primary"><span>Get in Touch</span></a>
+                        <a href="mailto:aishkoppula01@gmail.com" class="btn btn-primary">Get in Touch</a>
                         <a href="https://linkedin.com/in/aishwarya-koppula-02a1361b7" target="_blank" class="btn btn-secondary">LinkedIn</a>
                         <a href="https://github.com/Aishwarya-Koppula" target="_blank" class="btn btn-secondary">GitHub</a>
                     </div>
                 </div>
                 <div class="hero-image">
                     <div class="profile-photo-wrapper">
-                        <img src="Aishwarya_Koppula_3.jpg" alt="Aishwarya Koppula" class="profile-photo">
+                        <img src="./Aishwarya_Koppula_3.jpg" alt="Aishwarya Koppula" class="profile-photo">
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills">
         <div class="container">
             <div class="section-header">
@@ -1038,10 +788,11 @@
                     <div class="skill-tags">
                         <span class="skill-tag">Product Strategy</span>
                         <span class="skill-tag">Roadmap Planning</span>
-                        <span class="skill-tag">Market Research</span>
+                        <span class="skill-tag">PRDs</span>
                         <span class="skill-tag">User Research</span>
                         <span class="skill-tag">A/B Testing</span>
                         <span class="skill-tag">Feature Prioritization</span>
+                        <span class="skill-tag">Go-to-Market Strategy</span>
                         <span class="skill-tag">Stakeholder Management</span>
                     </div>
                 </div>
@@ -1058,57 +809,56 @@
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>Data Analysis</h3>
+                    <h3>Data & Analytics</h3>
                     <div class="skill-tags">
                         <span class="skill-tag">Python</span>
                         <span class="skill-tag">SQL</span>
+                        <span class="skill-tag">PowerBI</span>
                         <span class="skill-tag">Tableau</span>
                         <span class="skill-tag">Excel</span>
-                        <span class="skill-tag">Statistical Analysis</span>
+                        <span class="skill-tag">Product Analytics</span>
                         <span class="skill-tag">Data Visualization</span>
-                        <span class="skill-tag">MySQL</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>Machine Learning & AI</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Supervised Learning</span>
-                        <span class="skill-tag">Unsupervised Learning</span>
-                        <span class="skill-tag">Model Evaluation</span>
-                        <span class="skill-tag">Feature Engineering</span>
-                        <span class="skill-tag">Generative AI</span>
+                        <span class="skill-tag">ML Models</span>
+                        <span class="skill-tag">NLP</span>
                         <span class="skill-tag">Predictive Analytics</span>
+                        <span class="skill-tag">Model Optimization</span>
+                        <span class="skill-tag">Feature Engineering</span>
                     </div>
                 </div>
                 <div class="skill-category">
                     <h3>Technical Skills</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">Java</span>
-                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Python</span>
                         <span class="skill-tag">React.js</span>
                         <span class="skill-tag">Node.js</span>
                         <span class="skill-tag">Django</span>
-                        <span class="skill-tag">RESTful APIs</span>
-                        <span class="skill-tag">Git/GitHub</span>
+                        <span class="skill-tag">Flask</span>
+                        <span class="skill-tag">REST APIs</span>
                         <span class="skill-tag">AWS</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">CI/CD</span>
                     </div>
                 </div>
                 <div class="skill-category">
-                    <h3>Business & Strategy</h3>
+                    <h3>Domain Expertise</h3>
                     <div class="skill-tags">
-                        <span class="skill-tag">McKinsey Frameworks</span>
-                        <span class="skill-tag">Problem Solving</span>
-                        <span class="skill-tag">Communication</span>
-                        <span class="skill-tag">Leadership</span>
-                        <span class="skill-tag">Adaptability</span>
-                        <span class="skill-tag">Cross-functional Collaboration</span>
+                        <span class="skill-tag">HVAC Systems</span>
+                        <span class="skill-tag">Data Centers</span>
+                        <span class="skill-tag">Sustainability</span>
+                        <span class="skill-tag">Carbon Accounting</span>
+                        <span class="skill-tag">Energy Management</span>
+                        <span class="skill-tag">IoT</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Experience Section -->
     <section id="experience">
         <div class="container">
             <div class="section-header">
@@ -1119,72 +869,63 @@
                 <div class="timeline-item">
                     <div class="timeline-header">
                         <div>
-                            <h3 class="timeline-title">Engineer - Product Sustainability</h3>
+                            <h3 class="timeline-title">Senior Engineer - Project Lead - Product Sustainability</h3>
+                            <div class="timeline-company">Carrier Technologies India Limited</div>
+                        </div>
+                        <span class="timeline-date">April 2025 - December 2025</span>
+                    </div>
+                    <ul class="timeline-highlights">
+                        <li>Built and architected <strong>STRAT (Scenario, Trend & Readiness Assessment Tool)</strong> in Python/Flask from scratch, developing Carrier's first in-house scenario modeling platform. Led product strategy from concept to production in 8 months, preventing planned outsourcing of approximately <strong>$770K</strong> and securing executive buy-in across 6 business units</li>
+                        <li>Drove product discovery and requirements gathering through <strong>11 Product Workshops</strong> across Americas, Europe, and Asia, synthesizing stakeholder feedback into <strong>9 Product Requirement Documents (PRDs)</strong> that balanced conflicting needs and guided development prioritization for multi-billion dollar portfolio</li>
+                        <li>Developed automated emissions and revenue modeling algorithms enabling executive leadership to evaluate <strong>3× more strategic scenarios</strong> across 4 key driving forces, accelerating data-driven investment decisions for portfolio optimization</li>
+                        <li>Led 4-member development team through agile sprints while personally building Python data pipelines that <strong>reduced analysis time by 50%</strong>. Managed technical architecture decisions, code reviews, and stakeholder alignment across 6 business units</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <div>
+                            <h3 class="timeline-title">Product Engineer - Product Sustainability</h3>
                             <div class="timeline-company">Carrier Technologies India Limited</div>
                         </div>
                         <span class="timeline-date">August 2024 - March 2025</span>
                     </div>
                     <ul class="timeline-highlights">
-                        <li>Diagnosed architectural and data flow bottlenecks in Carrier Sustainability Data Hub (SDH) and led planning to automate legacy processes using Carrier Excellence methodologies</li>
-                        <li>Architected the Product Data Management Tool, defining system blueprints, tech stack, and AWS integration, reducing process time from 10 weeks to 4 weeks (60% improvement) by eliminating manual workflows</li>
-                        <li>Developed a Python-based app, translating business requirements for a scenario-based emissions & revenue visualization tool into MVP in 4 weeks</li>
-                        <li>Established the AWS cloud foundation for the Global Product Sustainability team, defining governance and standards that enabled sustainability and analytics tools to scale across global business units</li>
+                        <li>Developed Python automation solution processing portfolio-wide emission data, identifying <strong>4 critical bottlenecks</strong> through Value Stream Mapping that informed product strategy. Built automated workflows enabling regulatory compliance tracking</li>
+                        <li>Delivered <strong>64% improvement</strong> in sustainability report delivery (11 weeks to 4 weeks) for SBTi, CDP, and Gigaton reporting through automated data processing, enabling regulatory compliance and supporting Carrier's 1 Gigaton carbon reduction commitment</li>
                     </ul>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-header">
                         <div>
-                            <h3 class="timeline-title">Engineering Leadership Program Associate</h3>
+                            <h3 class="timeline-title">Management Trainee - Engineering Leadership Program</h3>
                             <div class="timeline-company">Carrier Technologies India Limited</div>
                         </div>
                         <span class="timeline-date">August 2022 - July 2024</span>
                     </div>
                     <p class="timeline-description">
-                        Selected for Carrier's competitive Engineering Leadership Program, completing three rotations over two years with product ownership of key modules, driving requirements, prioritization, delivery, and stakeholder alignment across three sustainability-focused projects.
+                        Selective program with three 8-month rotations, enabling emerging talent to lead projects and grow into future product leaders.
                     </p>
                     <ul class="timeline-highlights">
-                        <li><strong>Rotation III:</strong> Governed ideation and development of a Python-based Data Center Analytics Insights plugin for Cisco data centers, delivering thermal optimization, airflow, and equipment utilization insights that modeled 5–10% potential energy savings and improved design & operational efficiency</li>
-                        <li><strong>Rotation II:</strong> Scaled an ML-based Home Energy Management System (HEMS) PoC from 1 user to 30,000+ users, improving energy cost savings, system stability, and tool standardization; led the Sustainability Analytics in scope-3 CO2 emissions modeling, automated reporting, and built an AI-based SKU verification workflow</li>
-                        <li><strong>Rotation I:</strong> Proposed and implemented a Django tool for integrating test automation with Jira, reducing a 1-month effort to 1 hour</li>
+                        <li><strong>Data Center Analytics:</strong> Led product discovery for operational dashboard plugin across 3 Cisco data centers handling 40,000+ daily sensor readings. Identified <strong>$1.8M in at-risk assets</strong> through data-driven insights, projecting 7-10% energy reduction</li>
+                        <li><strong>Carbon Accounting:</strong> Built PowerBI product for automated CO2 emissions calculations analyzing <strong>900K+ data points</strong>, enabling SBTi near-term (1.5°C pathway) and long-term (net-zero 2050) target submissions</li>
+                        <li><strong>Innovation & Technology:</strong> Scaled ML-based Home Energy Management System from pilot to <strong>7,500+ Carrier Infinity Thermostats</strong> by refactoring architecture and standardizing across 8 AWS services. Optimized ML model accuracy by 11%, targeting 24% residential energy savings</li>
+                        <li><strong>Software Test Automation:</strong> Drove process optimization by integrating Jira, Xray, Confluence via REST APIs on Django tool, reducing test cycle by 3 days per iteration (78 days annually) and achieving approximately <strong>$110K cost avoidance</strong></li>
                     </ul>
                 </div>
 
                 <div class="timeline-item">
                     <div class="timeline-header">
                         <div>
-                            <h3 class="timeline-title">Consulting Apprentice - Assistive Communication Strategy</h3>
-                            <div class="timeline-company">Bayer via Purdue University Consulting</div>
+                            <h3 class="timeline-title">Graduate Student Consultant</h3>
+                            <div class="timeline-company">Purdue University</div>
                         </div>
-                        <span class="timeline-date">Fall 2025 - Ongoing</span>
+                        <span class="timeline-date">January 2026 - Present</span>
                     </div>
-                    <p class="timeline-description">
-                        Developing assistive communication strategy solutions for Bayer's accessibility initiatives. Applying systems thinking and stakeholder analysis to create impactful recommendations.
-                    </p>
                     <ul class="timeline-highlights">
-                        <li>Paid consulting apprenticeship through Purdue University</li>
-                        <li>Conducting research on assistive communication technologies and strategies</li>
-                        <li>Collaborating with Bayer stakeholders to identify accessibility opportunities</li>
-                        <li>Developing comprehensive recommendations for implementation</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <h3 class="timeline-title">Consulting Apprentice - Agentic AI for Predictive Maintenance</h3>
-                            <div class="timeline-company">ISE Italy via Purdue University Consulting</div>
-                        </div>
-                        <span class="timeline-date">Fall 2025 - Ongoing</span>
-                    </div>
-                    <p class="timeline-description">
-                        Designing agentic AI solutions for predictive maintenance in industrial engineering applications. Leveraging machine learning and data analytics for operational excellence.
-                    </p>
-                    <ul class="timeline-highlights">
-                        <li>Paid consulting apprenticeship through Purdue University</li>
-                        <li>Implementing AI-driven predictive maintenance solutions for manufacturing systems</li>
-                        <li>Working on system architecture and model development</li>
-                        <li>Applying advanced ML techniques to improve operational efficiency</li>
+                        <li><strong>Bayer:</strong> Developing growth and market expansion strategy for assistive communication platform serving non-verbal individuals across Latin America; analyzing user acquisition funnel and product optimization opportunities</li>
+                        <li><strong>ISE Italy:</strong> Assessing agentic AI adoption strategy to enhance vibration analysis of industrial rotating equipment for predictive maintenance; developing product roadmap with implementation recommendations and business case</li>
                     </ul>
                 </div>
 
@@ -1197,36 +938,14 @@
                         <span class="timeline-date">September 2021 - June 2022</span>
                     </div>
                     <ul class="timeline-highlights">
-                        <li>Selected among the top 3 CSE students across all semesters for this competitive internship; led end-to-end project flow for Local Vendor Connect, an app supporting small vendors with real-time listings and geolocation</li>
-                        <li>Developed the backend using Django, implemented APIs for vendor listings, real-time updates, and database management; integrated maps and search functionality to enable location-based vendor discovery with sub-3-second response times for a busy neighborhood</li>
-                        <li>Executed integration, testing, and technical delivery, preparing system documentation and presenting the final solution to Apple engineers; validated functionality across 100+ vendor listings and multiple map queries, ensuring readiness for potential Apple Maps integration</li>
-                        <li>Collaborated with Apple coaches Tejasvi Adiga and Namrata Aryya from Maps Engineering team</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <h3 class="timeline-title">Web Development Intern</h3>
-                            <div class="timeline-company">Intrinsic Science Labs</div>
-                        </div>
-                        <span class="timeline-date">December 2019 - February 2021</span>
-                    </div>
-                    <p class="timeline-description">
-                        Designed user experience for "Career Assistant" product using Adobe XD for both web and mobile versions. Developed server-side applications using Node.js, PHP, and MySQL.
-                    </p>
-                    <ul class="timeline-highlights">
-                        <li>Designed better user experience for web and mobile versions using Adobe XD</li>
-                        <li>Developed server-side applications using Node.js and PHP</li>
-                        <li>Worked under supervision of industry experts with 14+ years of experience</li>
-                        <li>Gained hands-on experience in full-stack development and UX design principles</li>
+                        <li>Built <strong>Local Vendor Connect platform</strong> (Django, React.js) serving 100+ mobile vendors with <strong><3s location-based search</strong>, addressing product-market need for businesses lacking fixed locations</li>
+                        <li>Conducted <strong>17 user interviews</strong> to define requirements and presented Apple Maps integration proposal demonstrating technical feasibility of extending Maps capabilities for informal economy</li>
                     </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Certifications Section -->
     <section id="certifications">
         <div class="container">
             <div class="section-header">
@@ -1235,7 +954,6 @@
             </div>
             <div class="cards-grid">
                 <div class="card">
-                    <div class="card-icon">🎯</div>
                     <div class="card-title">Certified Scrum Product Owner® (CSPO)</div>
                     <div class="card-org">Scrum Alliance</div>
                     <div class="card-date">Issued: October 2025 | Expires: October 2027</div>
@@ -1251,12 +969,12 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-icon">📊</div>
+                    <img src="./mckinsey-org-forward-program.png" alt="McKinsey Forward" class="cert-image">
                     <div class="card-title">McKinsey.org Forward Program</div>
                     <div class="card-org">McKinsey & Company</div>
                     <div class="card-date">Issued: December 2025</div>
                     <div class="card-description">
-                        Completed comprehensive online learning program developing practical skills for the future of work. Learned McKinsey approach to problem-solving, effective communication, and building adaptable, resilient mindsets.
+                        Completed comprehensive program on problem-solving, communication, and adaptable mindsets for the future of work.
                     </div>
                     <div class="card-tags">
                         <span class="card-tag">Problem Solving</span>
@@ -1266,12 +984,11 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-icon">🤖</div>
                     <div class="card-title">AI for Agile Professionals</div>
                     <div class="card-org">World of Agile</div>
                     <div class="card-date">Issued: November 2025 | 6 Contact Hours</div>
                     <div class="card-description">
-                        Trained by Snehamayee, CST®. Completed course on integrating AI with Agile methodologies to enhance Scrum practices and team performance.
+                        Trained by Snehamayee, CST®. Integrating AI with Agile methodologies to enhance team performance.
                     </div>
                     <div class="card-tags">
                         <span class="card-tag">AI in Scrum</span>
@@ -1280,31 +997,15 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-icon">📜</div>
-                    <div class="card-title">Scoping, Auditing and Analysis of Data Science Projects</div>
+                    <div class="card-title">Data Science Project Analysis</div>
                     <div class="card-org">INSOFE</div>
                     <div class="card-date">Issued: November 2018</div>
                     <div class="card-id">Credential ID: 05CSE20/201909/3339</div>
-                </div>
-
-                <div class="card">
-                    <div class="card-icon">☕</div>
-                    <div class="card-title">Java Certificate</div>
-                    <div class="card-org">HackerRank</div>
-                    <div class="card-date">Verified</div>
-                </div>
-
-                <div class="card">
-                    <div class="card-icon">🧩</div>
-                    <div class="card-title">Problem Solving (Intermediate)</div>
-                    <div class="card-org">HackerRank</div>
-                    <div class="card-date">Verified</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Publications Section -->
     <section id="publications">
         <div class="container">
             <div class="section-header">
@@ -1316,20 +1017,33 @@
                 <div class="publication-meta">Published by CRC Press / Taylor & Francis • 2024</div>
                 <div class="publication-authors">Co-authors: K. Aishwarya, R. Christina, Y. Priya Amrutha</div>
                 <p class="publication-description">
-                    Spearheaded research project developing an IoT and machine learning-based system for real-time monitoring of air and noise pollution. Led ML model training, data analysis, and integration with mobile app interfaces. The system successfully deployed sensors for continuous environmental monitoring and implemented predictive analytics to forecast pollution trends.
+                    Spearheaded research project developing an IoT and machine learning-based system for real-time monitoring of air and noise pollution. Led ML model training, data analysis, and integration with mobile app interfaces.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Academic Projects Section -->
     <section id="projects">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Academic Projects</h2>
-                <p class="section-subtitle">Hands-on learning through real-world applications</p>
+                <h2 class="section-title">Projects & Leadership</h2>
+                <p class="section-subtitle">Innovation and team leadership</p>
             </div>
             <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-title">Energy Management Hackathon</h3>
+                    <div class="card-org">Carrier - 4th Place Globally (84 Participants)</div>
+                    <div class="card-date">April 2023 - June 2023</div>
+                    <p class="card-description">
+                        Won company-wide product innovation competition with integrated smart energy management solution combining HVAC optimization, renewable energy integration, and intelligent load management. Led 4-person team through product discovery, market research, and business case development. Presented go-to-market strategy to executive leadership at Innovation Labs.
+                    </p>
+                    <div class="card-tags">
+                        <span class="card-tag">Product Innovation</span>
+                        <span class="card-tag">Team Leadership</span>
+                        <span class="card-tag">Go-to-Market</span>
+                    </div>
+                </div>
+
                 <div class="card">
                     <h3 class="card-title">Local Vendor Connect</h3>
                     <div class="card-org">Apple Partnership Project</div>
@@ -1340,37 +1054,20 @@
                     <div class="card-tags">
                         <span class="card-tag">React.js</span>
                         <span class="card-tag">Django</span>
-                        <span class="card-tag">MySQL</span>
-                        <span class="card-tag">RESTful APIs</span>
                         <span class="card-tag">Apple Maps</span>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3 class="card-title">Air and Sound Pollution Tracking System</h3>
+                    <h3 class="card-title">Air & Sound Pollution Tracking</h3>
                     <div class="card-org">Published Research</div>
                     <div class="card-date">January 2021 - August 2021</div>
                     <p class="card-description">
-                        Led team project using IoT and Machine Learning for real-time environmental monitoring. Successfully published paper in CRC Press/Taylor & Francis. Responsibilities included ML model training, data analysis, and mobile app integration.
+                        Led team project using IoT and Machine Learning for real-time environmental monitoring. Successfully published paper in Taylor & Francis.
                     </p>
                     <div class="card-tags">
-                        <span class="card-tag">IoT Sensors</span>
+                        <span class="card-tag">IoT</span>
                         <span class="card-tag">Machine Learning</span>
-                        <span class="card-tag">Python</span>
-                        <span class="card-tag">Data Analysis</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3 class="card-title">Adaptive Traffic Signal Control System</h3>
-                    <div class="card-org">Academic Research</div>
-                    <div class="card-date">August 2020 - December 2020</div>
-                    <p class="card-description">
-                        Led development of ML and video-processing-based traffic signal system. Designed hybrid control model and validated through real-time video processing. Managed complete system design and documentation.
-                    </p>
-                    <div class="card-tags">
-                        <span class="card-tag">Machine Learning</span>
-                        <span class="card-tag">Computer Vision</span>
                         <span class="card-tag">Python</span>
                     </div>
                 </div>
@@ -1378,7 +1075,20 @@
         </div>
     </section>
 
-    <!-- Medium Articles Section -->
+    <section id="future-projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">AI/ML Projects</h2>
+                <p class="section-subtitle">Building next-generation intelligent solutions</p>
+            </div>
+            <div class="articles-placeholder">
+                <h3>Projects in Development</h3>
+                <p>Upcoming AI and machine learning projects showcasing cutting-edge implementations.</p>
+                <span class="coming-soon-badge">Coming Soon</span>
+            </div>
+        </div>
+    </section>
+
     <section id="articles">
         <div class="container">
             <div class="section-header">
@@ -1387,13 +1097,12 @@
             </div>
             <div class="articles-placeholder">
                 <h3>Writing in Progress</h3>
-                <p>Upcoming articles on Product Management strategies, AI integration in Agile, and Engineering Leadership best practices.</p>
+                <p>Upcoming articles on Product Management strategies and Engineering Leadership.</p>
                 <span class="coming-soon-badge">Coming Soon</span>
             </div>
         </div>
     </section>
 
-    <!-- Education Section -->
     <section id="education">
         <div class="container">
             <div class="section-header">
@@ -1406,12 +1115,12 @@
                     <div>
                         <h3 class="education-title">Master of Engineering Management</h3>
                         <div class="education-school">Purdue University</div>
-                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Expected Graduation: May 2027</p>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">January 2026 - December 2027</p>
                     </div>
                     <div class="gpa">GPA: 4.0/4.0</div>
                 </div>
                 <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem;">
-                    Pursuing advanced degree in Engineering Management with perfect GPA. Specialized coursework in engineering management, product development, data analytics, and organizational leadership. Currently engaged in consulting apprenticeships with Bayer and ISE Italy.
+                    Specialized coursework in Product Management, Agile Project Management, Business Analytics, Strategic Management, and Brand Management. Active member of American Society for Engineering Management (ASEM).
                 </p>
             </div>
 
@@ -1419,18 +1128,17 @@
                 <div class="education-header">
                     <div>
                         <h3 class="education-title">Bachelor of Technology in Computer Science</h3>
-                        <div class="education-school">Jawaharlal Nehru Technological University (JNTU), Hyderabad</div>
-                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Graduated: 2022</p>
+                        <div class="education-school">JNTU Hyderabad - GPA: 3.9/4.0</div>
+                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">July 2018 - July 2022</p>
                     </div>
                 </div>
                 <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem;">
-                    G. Narayanamma Institute of Technology & Science (GNITS). Comprehensive curriculum covering computer science fundamentals, software engineering, machine learning, and web development. Completed multiple research projects resulting in published papers and industry internships.
+                    G. Narayanamma Institute of Technology & Science (GNITS). Student Coordinator at Indian Society of Technical Education. Software Developer Intern at Intrinsic Science Labs.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Affiliations & Memberships -->
     <section id="affiliations">
         <div class="container">
             <div class="section-header">
@@ -1442,20 +1150,19 @@
                     <div class="affiliation-logo">🏛️</div>
                     <h3 class="affiliation-name">American Society for Engineering Management</h3>
                     <div class="affiliation-role">Student Member</div>
-                    <div class="affiliation-date">Expires: January 19, 2027</div>
+                    <div class="affiliation-date">Active Member</div>
                 </div>
 
                 <div class="affiliation-card">
                     <div class="affiliation-logo">🎤</div>
                     <h3 class="affiliation-name">Toastmasters International</h3>
                     <div class="affiliation-role">Vice President Public Relations</div>
-                    <div class="affiliation-date">Carrier Hyderabad Toastmasters Club | July - September 2025</div>
+                    <div class="affiliation-date">Carrier Hyderabad Toastmasters Club | Jul - Sep 2025</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Awards & Recognition -->
     <section id="awards">
         <div class="container">
             <div class="section-header">
@@ -1464,59 +1171,57 @@
             </div>
             <div class="awards-grid">
                 <div class="award-card">
-                    <div class="award-icon">🏆</div>
+                    <img src="./1770514860500_image.png" alt="Leadership Award" class="award-image">
+                    <h3 class="award-title">Carrier Leadership Award</h3>
+                    <div class="award-org">Carrier Technologies India Limited</div>
+                    <div class="award-date">Youngest Recipient (Top 1%)</div>
+                    <p class="award-description">
+                        Youngest recipient of Carrier's Leadership Award, typically awarded to Senior Product Managers. Recognized for exceptional leadership and driving product innovation.
+                    </p>
+                </div>
+
+                <div class="award-card">
+                    <img src="./1770514815549_image.png" alt="Bryant Award" class="award-image">
                     <h3 class="award-title">Bryant Award</h3>
                     <div class="award-org">Carrier Technologies India Limited</div>
-                    <div class="award-date">January 2025</div>
+                    <div class="award-date">2025</div>
                     <p class="award-description">
-                        Recognized for outstanding performance and making significant impact through exceptional contributions to engineering excellence and innovation.
+                        Recognized for outstanding performance and making significant impact through exceptional contributions to engineering excellence.
                     </p>
                 </div>
 
                 <div class="award-card">
-                    <div class="award-icon">⭐</div>
-                    <h3 class="award-title">Leadership Award</h3>
+                    <h3 class="award-title">Titan Award & 3x Spot Awards</h3>
                     <div class="award-org">Carrier Technologies India Limited</div>
-                    <div class="award-date">May 2025</div>
+                    <div class="award-date">2022-2025</div>
                     <p class="award-description">
-                        Honored for exemplary leadership, guiding the team with vision, integrity, and unwavering dedication to excellence in engineering projects.
+                        Multiple recognitions for exceptional performance, innovation, and contributions to product development and team success.
                     </p>
                 </div>
 
                 <div class="award-card">
-                    <div class="award-icon">🎓</div>
-                    <h3 class="award-title">Engineering Leadership Program Certificate</h3>
+                    <img src="./WhatsApp_Image_2026-02-07_at_8_43_34_PM.jpeg" alt="ELP" class="award-image">
+                    <h3 class="award-title">Engineering Leadership Program</h3>
                     <div class="award-org">Carrier Technologies India Limited</div>
                     <div class="award-date">2022-2024</div>
                     <p class="award-description">
-                        Successfully completed rigorous 24-month Engineering Leadership Program, developing advanced technical and leadership capabilities.
+                        Successfully completed rigorous 24-month Engineering Leadership Program with three 8-month rotations.
                     </p>
                 </div>
 
                 <div class="award-card">
-                    <div class="award-icon">🎤</div>
-                    <h3 class="award-title">Third Place - Evaluation Speech Contest</h3>
+                    <img src="./1770515240177_image.png" alt="Toastmasters" class="award-image">
+                    <h3 class="award-title">Toastmasters Speech Contests</h3>
                     <div class="award-org">Toastmasters International</div>
                     <div class="award-date">2024-2025</div>
                     <p class="award-description">
-                        Demonstrated exceptional evaluation and communication skills at Carrier Hyderabad Toastmasters Club, Area G3, District 126.
-                    </p>
-                </div>
-
-                <div class="award-card">
-                    <div class="award-icon">😄</div>
-                    <h3 class="award-title">Third Place - Humorous Speech Contest</h3>
-                    <div class="award-org">Toastmasters International</div>
-                    <div class="award-date">2024-2025</div>
-                    <p class="award-description">
-                        Showcased creativity and public speaking excellence through engaging and entertaining presentations at the club level.
+                        Third place in Evaluation Speech Contest and Humorous Speech Contest at Carrier Hyderabad Toastmasters Club, Area G3, District 126.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
     <section id="contact">
         <div class="container">
             <div class="section-header">
@@ -1551,15 +1256,13 @@
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 Aishwarya Koppula. All rights reserved. | Purdue University | Carrier Technologies</p>
+            <p>&copy; 2026 Aishwarya Koppula. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
-        // Smooth scroll reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -1567,10 +1270,7 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
         document.querySelectorAll('section').forEach(section => {
             section.style.opacity = '0';
