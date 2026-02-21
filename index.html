@@ -4,107 +4,206 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aishwarya Koppula - Product Manager & Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --bg-primary: #0a0e17;
-            --bg-card: #151b26;
-            --text-primary: #e5e9f0;
-            --text-secondary: #8892a6;
-            --accent-primary: #00d9ff;
-            --accent-secondary: #7000ff;
-            --accent-tertiary: #00ff88;
-            --border: rgba(0, 217, 255, 0.1);
+            --bg-primary: #f7fbff;
+            --bg-card: #ffffff;
+            --text-primary: #071938;
+            --text-secondary: #516176;
+            --accent-primary: #0077b6;
+            --accent-secondary: #ff6b6b;
+            --accent-tertiary: #00b388;
+            --border: rgba(0, 119, 182, 0.08);
+            /* Font scale – full-screen layout, slightly larger */
+            --text-xs: 0.875rem;
+            --text-sm: 0.9375rem;
+            --text-base: 1rem;
+            --text-md: 1.0625rem;
+            --text-lg: 1.125rem;
+            --text-xl: 1.25rem;
+            --text-2xl: 1.5rem;
+            --text-3xl: clamp(1.75rem, 3.5vw, 2.25rem);
         }
         
         body {
             font-family: 'Space Grotesk', sans-serif;
+            font-size: var(--text-base);
             background: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         body::before {
             content: '';
             position: fixed;
             inset: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(0, 217, 255, 0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(112, 0, 255, 0.05) 0%, transparent 50%);
+            background: radial-gradient(circle at 20% 50%, rgba(0, 119, 182, 0.04) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.03) 0%, transparent 50%);
             z-index: -1;
             animation: gradientShift 15s ease infinite;
         }
         
         @keyframes gradientShift { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
         
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+        .container { max-width: 96%; width: 100%; margin: 0 auto; padding: 0 0.75rem; }
+        @media (min-width: 1400px) { .container { max-width: 1360px; } }
         
         /* Nav */
         nav {
             position: fixed; top: 0; width: 100%;
-            background: rgba(10, 14, 23, 0.8);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            z-index: 1000; padding: 1rem 0;
+            z-index: 1000; padding: 0.6rem 0;
         }
         
         nav .container { display: flex; justify-content: space-between; align-items: center; }
+        nav .resume-btn { padding: 0.4rem 0.75rem; border-radius: 6px; font-size: var(--text-sm); }
         
         .logo {
-            font-family: 'Instrument Serif', serif;
-            font-size: 1.5rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: var(--text-xl);
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            list-style: none;
+            align-items: center;
+        }
         .nav-links a {
-            color: var(--text-secondary);
+            color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
+            font-size: var(--text-sm);
             transition: color 0.3s;
         }
         .nav-links a:hover { color: var(--accent-primary); }
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            font-size: var(--text-lg);
+            color: var(--text-primary);
+            cursor: pointer;
+        }
         
         /* Hero */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
-            padding-top: 80px;
+            padding-top: 64px;
+        }
+
+        /* Collapsible summaries for compact layout (disabled - descriptions are visible in fixed containers) */
+        .card.collapsed, .timeline-item.collapsed {
+            max-height: none;
+            overflow: visible;
+            position: relative;
+        }
+
+        .card .fade-overlay, .timeline-item .fade-overlay {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 48px;
+            background: linear-gradient(180deg, rgba(247,251,255,0), rgba(247,251,255,0.95));
+            pointer-events: none;
+        }
+
+        /* Hover hint: show short hint overlay on title hover */
+        .card-title { display: inline-block; position: relative; white-space: normal; }
+        .card-title::after {
+            content: '';
+            display: block;
+            height: 6px;
+            width: 100%;
+        }
+        .card:hover .card-title::before {
+            content: 'Scroll for more';
+            position: absolute;
+            top: -1.4rem;
+            left: 0;
+            font-size: var(--text-xs);
+            color: var(--text-secondary);
+            background: rgba(255,255,255,0.9);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .timeline-title { white-space: normal; position: relative; }
+        .timeline-item:hover .timeline-title::before {
+            content: 'Scroll for more';
+            position: absolute;
+            top: -1.2rem;
+            left: 0;
+            font-size: var(--text-xs);
+            color: var(--text-secondary);
+            background: rgba(255,255,255,0.95);
+            padding: 2px 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            white-space: nowrap;
+        }
+
+        .read-more-btn {
+            display: inline-block;
+            margin-top: 0.6rem;
+            background: transparent;
+            border: 1px solid var(--accent-primary);
+            color: var(--accent-primary);
+            padding: 0.35rem 0.6rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle { display: inline-block; }
+            .nav-links { display: none; position: absolute; right: 1.5rem; top: 64px; background: var(--bg-card); padding: 1rem; border-radius: 8px; box-shadow: 0 8px 24px rgba(7,25,56,0.08); flex-direction: column; gap: 0.75rem; }
+            .nav-links.show { display: flex; }
+            .cta-buttons { justify-content: center; }
+            .card.collapsed, .timeline-item.collapsed { max-height: 120px; }
         }
         
         .hero-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 1.5rem;
             align-items: center;
         }
         
         .hero-text h1 {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(2.5rem, 5vw, 4.5rem);
-            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: var(--text-3xl);
+            margin-bottom: 0.6rem;
             background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            line-height: 1.1;
+            line-height: 1.15;
         }
         
         .hero-text .subtitle {
-            font-size: 1.5rem;
+            font-size: var(--text-lg);
             color: var(--accent-primary);
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.75rem;
             font-weight: 500;
         }
         
         .hero-text p {
-            font-size: 1.1rem;
+            font-size: var(--text-base);
             color: var(--text-secondary);
-            margin-bottom: 2rem;
-            line-height: 1.8;
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
         }
         
         .profile-photo-wrapper { position: relative; }
@@ -123,17 +222,18 @@
         
         .profile-photo {
             width: 100%;
-            max-width: 450px;
-            border-radius: 20px;
+            max-width: 280px;
+            border-radius: 12px;
             position: relative;
             z-index: 1;
         }
         
-        .cta-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .cta-buttons { display: flex; gap: 0.6rem; flex-wrap: wrap; }
         
         .btn {
-            padding: 1rem 2rem;
-            border-radius: 10px;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: var(--text-sm);
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
@@ -147,7 +247,7 @@
             color: var(--bg-primary);
         }
         
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 217, 255, 0.3); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 119, 182, 0.18); }
         
         .btn-secondary {
             border: 2px solid var(--accent-primary);
@@ -160,91 +260,94 @@
             color: var(--bg-primary);
         }
         
-        /* Sections */
-        section { padding: 5rem 0; }
+        /* Sections – reduced vertical margin for full-screen feel */
+        section { padding: 1rem 0; }
         
-        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header { text-align: center; margin-bottom: 1rem; }
         
         .section-title {
-            font-family: 'Instrument Serif', serif;
-            font-size: clamp(2rem, 4vw, 3rem);
-            margin-bottom: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: var(--text-2xl);
+            margin-bottom: 0.4rem;
             background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
         .section-subtitle {
-            font-size: 1.1rem;
+            font-size: var(--text-sm);
             color: var(--text-secondary);
-            max-width: 600px;
+            max-width: 560px;
             margin: 0 auto;
         }
         
-        /* Skills */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        .section-resume-link {
+            display: inline-block;
+            margin-top: 0.5rem;
+            font-size: var(--text-sm);
         }
+        
+        .section-resume-link a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        .section-resume-link a:hover { border-bottom-color: var(--accent-primary); }
+        
+        /* Skills – single scrollable list (no tiles) */
+        .skills-scroll {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem 1.75rem;
+            max-height: 72vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scrollbar-gutter: stable;
+        }
+        .skills-scroll::-webkit-scrollbar { width: 8px; }
+        .skills-scroll::-webkit-scrollbar-track { background: rgba(0, 119, 182, 0.06); border-radius: 4px; }
+        .skills-scroll::-webkit-scrollbar-thumb { background: rgba(0, 119, 182, 0.3); border-radius: 4px; }
+        .skills-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0, 119, 182, 0.5); }
         
         .skill-category {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.2s;
         }
-        
-        .skill-category::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            transform: scaleX(0);
-            transition: transform 0.4s;
-        }
-        
-        .skill-category:hover::before { transform: scaleX(1); }
-        .skill-category:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
-        }
+        .skill-category:last-child { border-bottom: none; }
+        .skill-category:hover { background: rgba(0, 119, 182, 0.02); }
         
         .skill-category h3 {
             color: var(--accent-primary);
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
+            font-size: var(--text-lg);
             font-weight: 600;
+            margin-bottom: 0.6rem;
         }
         
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
         
         .skill-tag {
-            background: rgba(0, 217, 255, 0.1);
+            background: rgba(0, 119, 182, 0.08);
             color: var(--text-primary);
-            padding: 0.5rem 1rem;
+            padding: 0.4rem 0.75rem;
             border-radius: 8px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            transition: all 0.3s;
+            font-size: var(--text-sm);
+            border: 1px solid rgba(0, 119, 182, 0.12);
+            transition: all 0.2s;
         }
-        
         .skill-tag:hover {
-            background: rgba(0, 217, 255, 0.2);
+            background: rgba(0, 119, 182, 0.12);
             border-color: var(--accent-primary);
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 217, 255, 0.3);
         }
         
         /* Timeline */
         .timeline {
             position: relative;
-            padding-left: 3rem;
+            padding-left: 2.25rem;
         }
         
         .timeline::before {
@@ -256,79 +359,133 @@
         }
         
         .timeline-item {
-            margin-bottom: 3rem;
+            margin-bottom: 1.25rem;
             position: relative;
             background: var(--bg-card);
-            padding: 2rem;
-            border-radius: 16px;
+            padding: 1rem 1.1rem;
+            border-radius: 10px;
             border: 1px solid var(--border);
-            transition: all 0.4s;
+            transition: all 0.3s;
+            min-height: 220px;
+            max-height: 400px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
         }
         
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -3.65rem; top: 2rem;
-            width: 16px; height: 16px;
+            left: -2.9rem; top: 1.1rem;
+            width: 10px; height: 10px;
             border-radius: 50%;
             background: var(--accent-primary);
-            border: 3px solid var(--bg-primary);
-            box-shadow: 0 0 0 4px rgba(0, 217, 255, 0.3);
+            border: 2px solid var(--bg-primary);
+            box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.12);
         }
         
         .timeline-item:hover {
-            transform: translateX(15px);
+            transform: translateX(8px);
             border-color: var(--accent-primary);
-            box-shadow: -20px 20px 60px rgba(0, 217, 255, 0.15);
+            box-shadow: -8px 8px 24px rgba(0, 119, 182, 0.08);
         }
         
         .timeline-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1rem;
-            gap: 1rem;
+            margin-bottom: 0.5rem;
+            gap: 0.5rem;
+            flex-shrink: 0;
         }
         
         .timeline-title {
-            font-size: 1.5rem;
+            font-size: var(--text-sm);
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.15rem;
         }
         
         .timeline-company {
             color: var(--accent-primary);
-            font-size: 1.1rem;
+            font-size: var(--text-xs);
             font-weight: 500;
         }
         
         .timeline-date {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: var(--text-xs);
             white-space: nowrap;
-            background: rgba(0, 217, 255, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
+            background: rgba(0, 119, 182, 0.06);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
         }
         
         .timeline-description {
             color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 1rem;
+            line-height: 1.45;
+            margin-bottom: 0.25rem;
+            font-size: var(--text-xs);
+            flex-grow: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 0.5rem;
+            display: block !important;
+            scrollbar-gutter: stable;
+        }
+        
+        .timeline-description::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .timeline-description::-webkit-scrollbar-track {
+            background: rgba(0, 119, 182, 0.08);
+            border-radius: 3px;
+        }
+        
+        .timeline-description::-webkit-scrollbar-thumb {
+            background: rgba(0, 119, 182, 0.35);
+            border-radius: 3px;
+        }
+        
+        .timeline-description::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 119, 182, 0.5);
         }
         
         .timeline-highlights {
             list-style: none;
             padding: 0;
+            margin: 0;
+            flex-grow: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 0.5rem;
+            scrollbar-gutter: stable;
+        }
+        
+        .timeline-highlights::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .timeline-highlights::-webkit-scrollbar-track {
+            background: rgba(0, 119, 182, 0.08);
+            border-radius: 3px;
+        }
+        
+        .timeline-highlights::-webkit-scrollbar-thumb {
+            background: rgba(0, 119, 182, 0.35);
+            border-radius: 3px;
         }
         
         .timeline-highlights li {
-            padding-left: 1.5rem;
+            padding-left: 1rem;
             position: relative;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.35rem;
             color: var(--text-secondary);
-            line-height: 1.7;
+            line-height: 1.5;
+            font-size: var(--text-xs);
         }
         
         .timeline-highlights li::before {
@@ -337,33 +494,37 @@
             left: 0;
             color: var(--accent-primary);
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: var(--text-sm);
         }
         
         /* Cards */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 0.75rem;
         }
+
+        .articles-grid { display: grid; grid-template-columns: 1fr; gap: 0.5rem; }
         
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.4s;
+            border-radius: 10px;
+            padding: 0.75rem 0.9rem;
+            transition: all 0.3s;
             display: flex;
             flex-direction: column;
             position: relative;
             overflow: hidden;
+            min-height: 220px;
+            max-height: 380px;
         }
         
         .card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
-            height: 3px;
+            height: 2px;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             transform: scaleX(0);
             transition: transform 0.4s;
@@ -371,75 +532,76 @@
         
         .card:hover::before { transform: scaleX(1); }
         .card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-4px);
             border-color: var(--accent-primary);
-            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
+            box-shadow: 0 10px 28px rgba(0, 119, 182, 0.1);
         }
         
         .cert-image {
             width: 100%;
-            max-width: 120px;
-            margin-bottom: 1.5rem;
-            border-radius: 8px;
+            max-width: 80px;
+            margin-bottom: 0.75rem;
+            border-radius: 6px;
         }
 
         .card-header-row {
             display: flex;
-            gap: 1rem;
+            gap: 0.6rem;
             align-items: flex-start;
         }
 
         .card-badge {
-            width: 56px;
-            height: 56px;
-            min-width: 56px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 8px;
             object-fit: cover;
-            border: 2px solid rgba(0, 217, 255, 0.2);
-            background: rgba(0, 217, 255, 0.05);
-            transition: all 0.4s;
+            border: 1px solid rgba(0, 119, 182, 0.10);
+            background: rgba(0, 119, 182, 0.04);
+            transition: all 0.3s;
         }
 
         .card:hover .card-badge {
-            border-color: rgba(0, 217, 255, 0.5);
-            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.2);
+            border-color: rgba(0, 119, 182, 0.45);
+            box-shadow: 0 4px 12px rgba(0, 119, 182, 0.12);
         }
 
         .cert-link {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.25rem;
             color: var(--accent-primary);
             text-decoration: none;
-            font-size: 0.85rem;
+            font-size: var(--text-xs);
             font-weight: 500;
-            margin-top: 0.75rem;
-            padding: 0.4rem 0.8rem;
+            margin-top: 0.4rem;
+            padding: 0.25rem 0.5rem;
             border-radius: 6px;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 119, 182, 0.10);
+            background: rgba(0, 119, 182, 0.04);
             transition: all 0.3s;
+            flex-shrink: 0;
         }
 
         .cert-link:hover {
-            background: rgba(0, 217, 255, 0.15);
+            background: rgba(0, 119, 182, 0.10);
             border-color: var(--accent-primary);
         }
 
         .timeline-badge {
-            width: 56px;
-            height: 56px;
-            min-width: 56px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            border-radius: 8px;
             object-fit: cover;
-            border: 2px solid rgba(0, 217, 255, 0.2);
-            background: rgba(0, 217, 255, 0.05);
-            transition: all 0.4s;
+            border: 1px solid rgba(0, 119, 182, 0.10);
+            background: rgba(0, 119, 182, 0.04);
+            transition: all 0.3s;
         }
 
         .timeline-item:hover .timeline-badge {
-            border-color: rgba(0, 217, 255, 0.5);
-            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.2);
+            border-color: rgba(0, 119, 182, 0.45);
+            box-shadow: 0 4px 12px rgba(0, 119, 182, 0.12);
         }
 
         .timeline-header-with-badge {
@@ -449,70 +611,102 @@
         }
         
         .card-title {
-            font-size: 1.2rem;
+            font-size: var(--text-sm);
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.15rem;
         }
         
         .card-org {
             color: var(--accent-primary);
             font-weight: 500;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.15rem;
+            font-size: var(--text-xs);
         }
         
         .card-date {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+            font-size: var(--text-xs);
+            margin-bottom: 0.35rem;
         }
         
         .card-description {
             color: var(--text-secondary);
-            line-height: 1.7;
-            margin-top: 1rem;
-            font-size: 0.95rem;
+            line-height: 1.45;
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+            font-size: var(--text-xs);
             flex-grow: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 0.5rem;
+            display: block !important;
+            scrollbar-gutter: stable;
+        }
+        
+        .card-description::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .card-description::-webkit-scrollbar-track {
+            background: rgba(0, 119, 182, 0.08);
+            border-radius: 3px;
+        }
+        
+        .card-description::-webkit-scrollbar-thumb {
+            background: rgba(0, 119, 182, 0.35);
+            border-radius: 3px;
+        }
+        
+        .card-description::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 119, 182, 0.5);
         }
         
         .card-id {
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: var(--text-xs);
             color: var(--text-secondary);
-            background: rgba(0, 217, 255, 0.1);
-            padding: 0.5rem;
+            background: rgba(0, 119, 182, 0.06);
+            padding: 0.35rem;
             border-radius: 6px;
             margin-top: auto;
         }
         
-        .card-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: auto; flex-shrink: 0; }
         
         .card-tag {
-            background: rgba(0, 217, 255, 0.1);
+            background: rgba(0, 119, 182, 0.06);
             color: var(--accent-primary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            border: 1px solid rgba(0, 217, 255, 0.2);
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: var(--text-xs);
+            border: 1px solid rgba(0, 119, 182, 0.10);
         }
+        
+        .card-tag a { color: inherit; text-decoration: none; }
         
         /* Publication/Education Cards */
         .publication-card, .education-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2.5rem;
-            margin-bottom: 2rem;
-            transition: all 0.4s;
+            border-radius: 10px;
+            padding: 1rem 1.1rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            min-height: 200px;
+            max-height: 360px;
+            display: flex;
+            flex-direction: column;
         }
         
         .publication-card::before, .education-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
-            height: 3px;
+            height: 2px;
             background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
             transform: scaleX(0);
             transition: transform 0.4s;
@@ -520,77 +714,107 @@
         
         .publication-card:hover::before, .education-card:hover::before { transform: scaleX(1); }
         .publication-card:hover, .education-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-4px);
             border-color: var(--accent-primary);
-            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
+            box-shadow: 0 10px 28px rgba(0, 119, 182, 0.1);
         }
         
         .publication-title, .education-title {
-            font-size: 1.5rem;
+            font-size: var(--text-sm);
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.15rem;
         }
         
         .publication-meta, .education-school {
             color: var(--accent-primary);
             font-weight: 500;
-            margin-bottom: 1rem;
+            margin-bottom: 0.35rem;
+            font-size: var(--text-xs);
         }
         
-        .education-school {
-            font-size: 1.1rem;
-        }
+        .education-school { font-size: var(--text-xs); }
         
         .publication-authors {
             color: var(--text-secondary);
             font-style: italic;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: var(--text-xs);
         }
         
         .publication-description {
             color: var(--text-secondary);
-            line-height: 1.8;
+            line-height: 1.45;
+            font-size: var(--text-xs);
+            flex-grow: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 0.35rem;
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+            display: block !important;
+            scrollbar-gutter: stable;
+        }
+        
+        .publication-description::-webkit-scrollbar { width: 6px; }
+        .publication-description::-webkit-scrollbar-track { background: rgba(0, 119, 182, 0.08); border-radius: 3px; }
+        .publication-description::-webkit-scrollbar-thumb { background: rgba(0, 119, 182, 0.35); border-radius: 3px; }
+        .publication-description::-webkit-scrollbar-thumb:hover { background: rgba(0, 119, 182, 0.5); }
+        
+        .education-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        @media (max-width: 640px) {
+            .education-grid { grid-template-columns: 1fr; }
         }
         
         .education-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
+        
+        .education-grid .education-card { margin-bottom: 0; }
         
         .gpa {
             background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
             color: var(--bg-primary);
-            padding: 0.75rem 1.5rem;
-            border-radius: 10px;
-            font-size: 1.2rem;
+            padding: 0.4rem 0.9rem;
+            border-radius: 8px;
+            font-size: var(--text-md);
             font-weight: 700;
         }
         
         /* Awards */
         .awards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.75rem;
         }
         
         .award-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
-            transition: all 0.4s;
+            border-radius: 10px;
+            padding: 0.9rem 1rem;
+            transition: all 0.3s;
             position: relative;
             overflow: hidden;
+            min-height: 200px;
+            max-height: 360px;
+            display: flex;
+            flex-direction: column;
         }
         
         .award-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
-            height: 4px;
+            height: 2px;
             background: linear-gradient(90deg, #ffd700, #ffed4e);
             transform: scaleX(0);
             transition: transform 0.4s;
@@ -598,183 +822,197 @@
         
         .award-card:hover::before { transform: scaleX(1); }
         .award-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-4px);
             border-color: var(--accent-primary);
-            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 10px 28px rgba(255, 215, 0, 0.15);
         }
         
         .award-content {
             display: flex;
-            gap: 1.5rem;
+            gap: 0.75rem;
             align-items: flex-start;
         }
 
         .award-thumbnail {
-            width: 72px;
-            height: 72px;
-            min-width: 72px;
-            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            min-width: 44px;
+            border-radius: 8px;
             object-fit: cover;
-            border: 2px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.3);
             background: rgba(255, 215, 0, 0.05);
-            transition: all 0.4s;
+            transition: all 0.3s;
         }
 
         .award-card:hover .award-thumbnail {
             border-color: rgba(255, 215, 0, 0.6);
-            box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
+            box-shadow: 0 2px 12px rgba(255, 215, 0, 0.2);
         }
         
-        .award-icon { font-size: 3rem; margin-bottom: 1rem; }
+        .award-icon { font-size: var(--text-xl); margin-bottom: 0.25rem; }
         
         .award-title {
-            font-size: 1.3rem;
+            font-size: var(--text-sm);
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.15rem;
         }
         
         .award-org {
             color: var(--accent-primary);
             font-weight: 500;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.15rem;
+            font-size: var(--text-xs);
         }
         
         .award-date {
             color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
+            font-size: var(--text-xs);
+            margin-bottom: 0.35rem;
         }
         
         .award-description {
             color: var(--text-secondary);
-            line-height: 1.7;
-            font-size: 0.95rem;
+            line-height: 1.45;
+            font-size: var(--text-xs);
+            flex-grow: 1;
+            min-height: 0;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-right: 0.35rem;
+            display: block !important;
+            scrollbar-gutter: stable;
         }
+        
+        .award-description::-webkit-scrollbar { width: 6px; }
+        .award-description::-webkit-scrollbar-track { background: rgba(0, 119, 182, 0.08); border-radius: 3px; }
+        .award-description::-webkit-scrollbar-thumb { background: rgba(0, 119, 182, 0.35); border-radius: 3px; }
+        .award-description::-webkit-scrollbar-thumb:hover { background: rgba(0, 119, 182, 0.5); }
         
         /* Affiliations */
         .affiliations-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 0.75rem;
         }
         
         .affiliation-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
+            border-radius: 10px;
+            padding: 0.9rem;
             text-align: center;
-            transition: all 0.4s;
+            transition: all 0.3s;
         }
         
         .affiliation-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-4px);
             border-color: var(--accent-primary);
-            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
+            box-shadow: 0 10px 28px rgba(0, 119, 182, 0.08);
         }
         
         .affiliation-logo {
-            width: 100px; height: 100px;
-            margin: 0 auto 1.5rem;
+            width: 48px; height: 48px;
+            margin: 0 auto 0.5rem;
             border-radius: 50%;
-            background: rgba(0, 217, 255, 0.1);
+            background: rgba(0, 119, 182, 0.06);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            border: 2px solid rgba(0, 217, 255, 0.2);
+            font-size: var(--text-xl);
+            border: 1px solid rgba(0, 119, 182, 0.10);
         }
         
         .affiliation-name {
-            font-size: 1.2rem;
+            font-size: var(--text-sm);
             font-weight: 600;
             color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.15rem;
         }
         
         .affiliation-role {
             color: var(--accent-primary);
             font-weight: 500;
-            margin-bottom: 0.5rem;
+            font-size: var(--text-xs);
+            margin-bottom: 0.25rem;
         }
         
         .affiliation-date {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: var(--text-xs);
         }
         
         /* Placeholder */
         .articles-placeholder {
             background: var(--bg-card);
             border: 2px dashed var(--border);
-            border-radius: 16px;
-            padding: 4rem 2rem;
+            border-radius: 10px;
+            padding: 2rem 1.5rem;
             text-align: center;
         }
         
         .articles-placeholder h3 {
-            font-family: 'Instrument Serif', serif;
-            font-size: 2rem;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: var(--text-lg);
             color: var(--text-primary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
         }
         
         .articles-placeholder p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
+            font-size: var(--text-base);
+            margin-bottom: 1rem;
         }
         
         .coming-soon-badge {
             display: inline-block;
-            background: rgba(0, 217, 255, 0.1);
+            background: rgba(0, 119, 182, 0.06);
             color: var(--accent-primary);
-            padding: 0.5rem 1.5rem;
+            padding: 0.35rem 1rem;
             border-radius: 20px;
             border: 1px solid var(--accent-primary);
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            font-size: var(--text-xs);
         }
         
         /* Contact */
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
         }
         
         .contact-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem;
+            border-radius: 10px;
+            padding: 1rem;
             text-align: center;
-            transition: all 0.4s;
+            transition: all 0.3s;
             position: relative;
         }
         
         .contact-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-4px);
             border-color: var(--accent-primary);
-            box-shadow: 0 20px 60px rgba(0, 217, 255, 0.2);
+            box-shadow: 0 10px 28px rgba(0, 119, 182, 0.08);
         }
         
-        .contact-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .contact-icon { font-size: var(--text-xl); margin-bottom: 0.5rem; }
         
         .contact-label {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: var(--text-xs);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
         }
         
         .contact-value {
             color: var(--text-primary);
-            font-size: 1.1rem;
+            font-size: var(--text-sm);
             font-weight: 500;
         }
         
@@ -789,14 +1027,14 @@
         /* Footer */
         footer {
             background: var(--bg-primary);
-            padding: 2rem 0;
+            padding: 1.25rem 0;
             text-align: center;
             border-top: 1px solid var(--border);
         }
         
         footer p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: var(--text-xs);
         }
         
         /* Responsive */
@@ -818,19 +1056,39 @@
         }
         
         .animate-in { animation: fadeIn 0.8s ease-out; }
+
+        /* Section reordering: Experience → Consulting → AI/ML → Articles → Certifications → Education → Awards → Affiliations */
+        body { display: flex; flex-direction: column; }
+        section#skills { order: 0; }
+        section#certifications { order: 1; }
+        section#experience { order: 2; }
+        section#consulting-projects { order: 3; }
+        section#future-projects { order: 4; }
+        section#articles { order: 5; }
+        section#education { order: 6; }
+        section#awards { order: 7; }
+        section#affiliations { order: 8; }
+        section#publications { order: 9; }
+        section#academic-projects { order: 10; }
+        section#contact { order: 11; }
+        nav { order: -1; }
+        .hero { order: 0.5; }
     </style>
 </head>
 <body>
     <nav>
         <div class="container">
             <div class="logo">AK</div>
+            <button class="menu-toggle" aria-label="Menu">☰</button>
             <ul class="nav-links">
                 <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
                 <li><a href="#certifications">Certifications</a></li>
-                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#consulting-projects">Projects</a></li>
+                <li><a href="#education">Education</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+            <a href="./Aishwarya Koppula Resume.pdf" download class="btn btn-primary resume-btn" title="Download resume PDF">Resume</a>
         </div>
     </nav>
 
@@ -839,12 +1097,12 @@
             <div class="hero-content animate-in">
                 <div class="hero-text">
                     <h1>Aishwarya Koppula</h1>
-                    <p class="subtitle">Product Manager | Data-Driven Decision Making | Strategist</p>
-                    <p>Product Lead with 3+ years driving product strategy and roadmaps from 0-to-1, and delivering platforms that scale. Master of Engineering Management student at Purdue University (4.0 GPA). Certified Scrum Product Owner passionate about leveraging AI and data-driven strategies to build impactful solutions.</p>
+                    <p class="subtitle">Associate Product Manager | Data-Driven Decision Making | Strategist</p>
+                    <p>Product Manager with 3+ years building B2B SaaS platforms at a Fortune 200 company. Built an enterprise scenario modeling platform from zero (preventing $770K outsourcing), delivered 64% faster regulatory reporting through automation, and led cross-functional product delivery. CSPO-certified; M.S. Engineering Management at Purdue (4.0 GPA). Seeking PM internship/co-op.</p>
                     <div class="cta-buttons">
                         <a href="mailto:aishkoppula01@gmail.com" class="btn btn-primary">Get in Touch</a>
-                        <a href="https://linkedin.com/in/aishwarya-koppula-02a1361b7" target="_blank" class="btn btn-secondary">LinkedIn</a>
-                        <a href="https://github.com/Aishwarya-Koppula" target="_blank" class="btn btn-secondary">GitHub</a>
+                        <a href="https://www.linkedin.com/in/aishwarya-koppula-02a1361b7" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">LinkedIn</a>
+                        <a href="https://github.com/Aishwarya-Koppula" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
                     </div>
                 </div>
                 <div class="hero-image">
@@ -862,7 +1120,7 @@
                 <h2 class="section-title">Skills & Expertise</h2>
                 <p class="section-subtitle">A comprehensive toolkit for product development and engineering</p>
             </div>
-            <div class="skills-grid">
+            <div class="skills-scroll">
                 <div class="skill-category">
                     <h3>Product Management</h3>
                     <div class="skill-tags">
@@ -944,22 +1202,24 @@
             <div class="section-header">
                 <h2 class="section-title">Professional Experience</h2>
                 <p class="section-subtitle">Building products and solving problems across industries</p>
+                <p class="section-resume-link">Full experience details match my resume → <a href="./Aishwarya Koppula Resume.pdf" download>Download Resume (PDF)</a></p>
             </div>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-header">
                         <div>
-                            <h3 class="timeline-title">Senior Engineer - Project Lead - Product Sustainability</h3>
-                            <div class="timeline-company">Carrier Technologies India Limited</div>
+                                <h3 class="timeline-title">Senior Engineer - Product Owner - Product Sustainability</h3>
+                                <div class="timeline-company">Carrier</div>
                         </div>
                         <span class="timeline-date">April 2025 - December 2025</span>
                     </div>
-                    <ul class="timeline-highlights">
-                        <li>Built and architected <strong>STRAT (Scenario, Trend & Readiness Assessment Tool)</strong> in Python/Flask from scratch, developing Carrier's first in-house scenario modeling platform. Led product strategy from concept to production in 8 months, preventing planned outsourcing of approximately <strong>$770K</strong> and securing executive buy-in across 6 business units</li>
-                        <li>Drove product discovery and requirements gathering through <strong>11 Product Workshops</strong> across Americas, Europe, and Asia, synthesizing stakeholder feedback into <strong>9 Product Requirement Documents (PRDs)</strong> that balanced conflicting needs and guided development prioritization for multi-billion dollar portfolio</li>
-                        <li>Developed automated emissions and revenue modeling algorithms enabling executive leadership to evaluate <strong>3× more strategic scenarios</strong> across 4 key driving forces, accelerating data-driven investment decisions for portfolio optimization</li>
-                        <li>Led 4-member development team through agile sprints while personally building Python data pipelines that <strong>reduced analysis time by 50%</strong>. Managed technical architecture decisions, code reviews, and stakeholder alignment across 6 business units</li>
-                    </ul>
+                        <ul class="timeline-highlights">
+                            <li>Delivered $770K cost avoidance and enabled strategic portfolio decisions across 6 business units by building <strong>STRAT</strong> (Scenario, Trend & Readiness Assessment Tool), Carrier's first enterprise scenario modeling platform from 0-to-1 in 8 months.</li>
+                            <li>Enabled 12× more strategic scenario evaluations through automated emissions and revenue modeling algorithms, accelerating portfolio optimization for multi-billion dollar investments.</li>
+                            <li>Secured enterprise-wide adoption by synthesizing requirements from 11 global workshops into 9 PRDs, resolving competing stakeholder priorities and defining the product roadmap.</li>
+                            <li>Managed a 4-member cross-functional team through agile delivery and reduced analysis cycle time by 60% via automated data pipelines.</li>
+                            <li>Award: Youngest recipient of the Carrier Leadership Award (Top 1%) for excellence in product delivery.</li>
+                        </ul>
                 </div>
 
                 <div class="timeline-item">
@@ -971,8 +1231,8 @@
                         <span class="timeline-date">August 2024 - March 2025</span>
                     </div>
                     <ul class="timeline-highlights">
-                        <li>Developed Python automation solution processing portfolio-wide emission data, identifying <strong>4 critical bottlenecks</strong> through Value Stream Mapping that informed product strategy. Built automated workflows enabling regulatory compliance tracking</li>
-                        <li>Delivered <strong>64% improvement</strong> in sustainability report delivery (11 weeks to 4 weeks) for SBTi, CDP, and Gigaton reporting through automated data processing, enabling regulatory compliance and supporting Carrier's 1 Gigaton carbon reduction commitment</li>
+                        <li>Delivered 64% faster sustainability reporting (11 weeks to 4 weeks) for SBTi, CDP, and Gigaton by building automated data processing workflows, enabling Carrier's 1 Gigaton carbon reduction commitment.</li>
+                        <li>Identified 4 critical bottlenecks using Value Stream Mapping and built automated workflows for continuous regulatory compliance tracking.</li>
                     </ul>
                 </div>
 
@@ -988,24 +1248,10 @@
                         Selective program with three 8-month rotations, enabling emerging talent to lead projects and grow into future product leaders.
                     </p>
                     <ul class="timeline-highlights">
-                        <li><strong>Data Center Analytics:</strong> Led product discovery for operational dashboard plugin across 3 Cisco data centers handling 40,000+ daily sensor readings. Identified <strong>$1.8M in at-risk assets</strong> through data-driven insights, projecting 7-10% energy reduction</li>
-                        <li><strong>Carbon Accounting:</strong> Built PowerBI product for automated CO2 emissions calculations analyzing <strong>900K+ data points</strong>, enabling SBTi near-term (1.5°C pathway) and long-term (net-zero 2050) target submissions</li>
-                        <li><strong>Innovation & Technology:</strong> Scaled ML-based Home Energy Management System from pilot to <strong>7,500+ Carrier Infinity Thermostats</strong> by refactoring architecture and standardizing across 8 AWS services. Optimized ML model accuracy by 11%, targeting 24% residential energy savings</li>
-                        <li><strong>Software Test Automation:</strong> Drove process optimization by integrating Jira, Xray, Confluence via REST APIs on Django tool, reducing test cycle by 3 days per iteration (78 days annually) and achieving approximately <strong>$110K cost avoidance</strong></li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <h3 class="timeline-title">Graduate Student Consultant</h3>
-                            <div class="timeline-company">Purdue University</div>
-                        </div>
-                        <span class="timeline-date">January 2026 - Present</span>
-                    </div>
-                    <ul class="timeline-highlights">
-                        <li><strong>Bayer:</strong> Developing growth and market expansion strategy for assistive communication platform serving non-verbal individuals across Latin America; analyzing user acquisition funnel and product optimization opportunities</li>
-                        <li><strong>ISE Italy:</strong> Assessing agentic AI adoption strategy to enhance vibration analysis of industrial rotating equipment for predictive maintenance; developing product roadmap with implementation recommendations and business case</li>
+                        <li><strong>Data Center Analytics:</strong> Identified $1.8M in at-risk assets via operational dashboard across 3 Cisco data centers (44K+ daily sensor readings); projected 7-10% energy reduction.</li>
+                        <li><strong>Carbon Accounting & Reporting:</strong> Built PowerBI product automating CO2 calculations across 1.3M+ data points, enabling SBTi submissions (1.5°C pathway, net-zero 2050).</li>
+                        <li><strong>Home Energy Management System:</strong> Scaled ML-based HEMS from pilot to 9K+ thermostats; improved ML accuracy by 11% targeting 24% residential savings.</li>
+                        <li><strong>Test Automation:</strong> Integrated Jira, Xray, Confluence via REST APIs to reduce test cycles and achieve ~$110K cost avoidance.</li>
                     </ul>
                 </div>
 
@@ -1058,7 +1304,6 @@
                         </div>
                     </div>
                     <div class="card-date">Issued: October 2025 | Expires: October 2027</div>
-                    <div class="card-id">Credential ID: 001792445</div>
                     <div class="card-description">
                         Trained by Amit Kulkarni, CST®. Certified to lead product development in Agile environments, manage product backlogs, and drive value delivery.
                     </div>
@@ -1108,7 +1353,12 @@
                     <div class="card-title">Data Science Project Analysis</div>
                     <div class="card-org">INSOFE</div>
                     <div class="card-date">Issued: November 2018</div>
-                    <div class="card-id">Credential ID: 05CSE20/201909/3339</div>
+                    <div class="card-description">Comprehensive training in data science project execution and analysis techniques.</div>
+                    <a href="#certifications" class="cert-link" title="Certificate link coming soon">📄 View Certificate</a>
+                    <div class="card-tags">
+                        <span class="card-tag">Data Science</span>
+                        <span class="card-tag">Analytics</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1120,31 +1370,93 @@
                 <h2 class="section-title">Research & Publications</h2>
                 <p class="section-subtitle">Contributing to academic research and industry knowledge</p>
             </div>
-            <div class="publication-card">
-                <h3 class="publication-title">Air and Sound Pollution Tracking Using IoT and Machine Learning</h3>
-                <div class="publication-meta">Published by CRC Press / Taylor & Francis • 2024</div>
-                <div class="publication-authors">Co-authors: K. Aishwarya, R. Christina, Y. Priya Amrutha</div>
-                <p class="publication-description">
-                    Spearheaded research project developing an IoT and machine learning-based system for real-time monitoring of air and noise pollution. Led ML model training, data analysis, and integration with mobile app interfaces.
-                </p>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-title">Air and Sound Pollution Tracking Using IoT and Machine Learning</h3>
+                    <div class="card-org">Published by CRC Press / Taylor & Francis</div>
+                    <div class="card-date">2024</div>
+                    <div class="card-description">
+                        Spearheaded research project developing an IoT and machine learning-based system for real-time monitoring of air and noise pollution. Led ML model training, data analysis, and integration with mobile app interfaces. Co-authors: K. Aishwarya, R. Christina, Y. Priya Amrutha.
+                    </div>
+                    <a href="https://www.taylorfrancis.com/" target="_blank" rel="noopener noreferrer" class="cert-link">📖 View Publication</a>
+                    <div class="card-tags">
+                        <span class="card-tag">IoT</span>
+                        <span class="card-tag">Machine Learning</span>
+                        <span class="card-tag">Environmental Science</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="projects">
+    <section id="academic-projects">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Projects & Leadership</h2>
-                <p class="section-subtitle">Innovation and team leadership</p>
+                <h2 class="section-title">Academic Projects</h2>
+                <p class="section-subtitle">Research and academic project work</p>
             </div>
             <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-title">Air & Sound Pollution Tracking</h3>
+                    <div class="card-org">Academic Research</div>
+                    <div class="card-date">January 2021 - August 2021</div>
+                    <p class="card-description">
+                        Spearheaded an IoT and machine learning system for real-time monitoring of air and noise pollution; led ML model training, data analysis, and integration with mobile interfaces. Published via CRC Press / Taylor & Francis.
+                    </p>
+                    <div class="card-tags">
+                        <span class="card-tag">IoT</span>
+                        <span class="card-tag">Machine Learning</span>
+                        <span class="card-tag">Data Science</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Local Vendor Connect</h3>
+                    <div class="card-org">Academic / Capstone Project</div>
+                    <div class="card-date">September 2021 - June 2022</div>
+                    <p class="card-description">
+                        Built a location-based platform connecting mobile vendors with customers (Django + React). Implemented vendor registration, product management, and fast location search; conducted 17 user interviews and prototyped Maps integration.
+                    </p>
+                    <div class="card-tags">
+                        <span class="card-tag">React.js</span>
+                        <span class="card-tag">Django</span>
+                        <span class="card-tag">User Research</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="consulting-projects">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Consulting & Projects</h2>
+                <p class="section-subtitle">Consulting engagements and selected product projects</p>
+            </div>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-title">Graduate Student Consultant</h3>
+                    <div class="card-org">Purdue University</div>
+                    <div class="card-date">January 2026 - Present</div>
+                    <div class="card-description">
+                        <strong>Bayer:</strong> Developing growth and market expansion strategy for assistive communication platform serving non-verbal individuals across Latin America; analyzing user acquisition funnel and product optimization opportunities.
+                        <br/><br/>
+                        <strong>ISE Italy:</strong> Evaluated AI-driven predictive maintenance solutions for industrial rotating equipment; defining product roadmap with phased implementation plan and ROI projections.
+                    </div>
+                    <div class="card-tags">
+                        <span class="card-tag">Product Strategy</span>
+                        <span class="card-tag">Predictive Maintenance</span>
+                        <span class="card-tag">Consulting</span>
+                    </div>
+                </div>
+
                 <div class="card">
                     <h3 class="card-title">Energy Management Hackathon</h3>
                     <div class="card-org">Carrier - 4th Place Globally (84 Participants)</div>
                     <div class="card-date">April 2023 - June 2023</div>
-                    <p class="card-description">
-                        Won company-wide product innovation competition with integrated smart energy management solution combining HVAC optimization, renewable energy integration, and intelligent load management. Led 4-person team through product discovery, market research, and business case development. Presented go-to-market strategy to executive leadership at Innovation Labs.
-                    </p>
+                    <div class="card-description">
+                        Won company-wide innovation competition with a smart energy management solution combining HVAC optimization, renewable energy integration, and intelligent load management. Led 4-person team through product discovery, market research, and business case development.
+                    </div>
                     <div class="card-tags">
                         <span class="card-tag">Product Innovation</span>
                         <span class="card-tag">Team Leadership</span>
@@ -1153,30 +1465,16 @@
                 </div>
 
                 <div class="card">
-                    <h3 class="card-title">Local Vendor Connect</h3>
-                    <div class="card-org">Apple Partnership Project</div>
-                    <div class="card-date">September 2021 - June 2022</div>
-                    <p class="card-description">
-                        Built location-based platform connecting mobile vendors with customers. Developed single-page web application with vendor registration, product management, and customer search. Conducted 17 user interviews and proposed Apple Maps integration.
-                    </p>
-                    <div class="card-tags">
-                        <span class="card-tag">React.js</span>
-                        <span class="card-tag">Django</span>
-                        <span class="card-tag">Apple Maps</span>
+                    <h3 class="card-title">Meeting Intelligence Engine</h3>
+                    <div class="card-date">Feb 2026 - Present</div>
+                    <div class="card-description">
+                        Building an automated knowledge pipeline integrating Google & Microsoft APIs and an LLM-based synthesis agent to summarize meeting materials and reduce prep time. Features AI synthesis, PDF parsing, and transcript summarization.
                     </div>
-                </div>
-
-                <div class="card">
-                    <h3 class="card-title">Air & Sound Pollution Tracking</h3>
-                    <div class="card-org">Published Research</div>
-                    <div class="card-date">January 2021 - August 2021</div>
-                    <p class="card-description">
-                        Led team project using IoT and Machine Learning for real-time environmental monitoring. Successfully published paper in Taylor & Francis.
-                    </p>
                     <div class="card-tags">
-                        <span class="card-tag">IoT</span>
-                        <span class="card-tag">Machine Learning</span>
-                        <span class="card-tag">Python</span>
+                        <a href="https://github.com/Aishwarya-Koppula/meeting-intelligence-engine" target="_blank" rel="noopener noreferrer" class="card-tag">GitHub</a>
+                        <span class="card-tag">GenAI</span>
+                        <span class="card-tag">NLP</span>
+                        <span class="card-tag" style="color:#ff6b6b;">In Progress</span>
                     </div>
                 </div>
             </div>
@@ -1189,10 +1487,19 @@
                 <h2 class="section-title">AI/ML Projects</h2>
                 <p class="section-subtitle">Building next-generation intelligent solutions</p>
             </div>
-            <div class="articles-placeholder">
-                <h3>Projects in Development</h3>
-                <p>Upcoming AI and machine learning projects showcasing cutting-edge implementations.</p>
-                <span class="coming-soon-badge">Coming Soon</span>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-title">Meeting Intelligence Engine</h3>
+                    <div class="card-date">Feb 2026 - Present</div>
+                    <div class="card-description">
+                        Developing an AI-powered system to extract key insights, action items, and summaries from meeting recordings and transcripts. Utilizing advanced NLP and GenAI models to enhance team productivity and meeting effectiveness.
+                    </div>
+                    <div class="card-tags">
+                        <a href="https://github.com/Aishwarya-Koppula/meeting-intelligence-engine" target="_blank" rel="noopener noreferrer" class="card-tag">GitHub</a>
+                        <span class="card-tag">GenAI</span>
+                        <span class="card-tag">NLP</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1208,10 +1515,10 @@
                     <div class="card-title">How Plotly Dash Became My Go-To for Data Visualization — And Why It Should Be Yours</div>
                     <div class="card-org">Medium</div>
                     <div class="card-date">February 2026</div>
-                    <p class="card-description">
+                    <div class="card-description">
                         A deep dive into why Plotly Dash stands out as a powerful framework for building interactive data visualizations and dashboards with Python.
-                    </p>
-                    <a href="https://medium.com/@aishkoppula01/how-plotly-dash-became-my-go-to-for-data-visualization-and-why-it-should-be-yours-6348d8e2f0a1" target="_blank" class="cert-link">📖 Read on Medium</a>
+                    </div>
+                    <a href="https://medium.com/@aishkoppula01/how-plotly-dash-became-my-go-to-for-data-visualization-and-why-it-should-be-yours-6348d8e2f0a1" target="_blank" rel="noopener noreferrer" class="cert-link">📖 Read on Medium</a>
                     <div class="card-tags">
                         <span class="card-tag">Data Visualization</span>
                         <span class="card-tag">Plotly Dash</span>
@@ -1229,32 +1536,34 @@
                 <p class="section-subtitle">Academic excellence and continuous learning</p>
             </div>
             
-            <div class="education-card">
-                <div class="education-header">
-                    <div>
-                        <h3 class="education-title">Master of Engineering Management</h3>
-                        <div class="education-school">Purdue University</div>
-                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">January 2026 - December 2027</p>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-header">
+                        <div>
+                            <h3 class="education-title">Master of Engineering Management</h3>
+                            <div class="education-school">Purdue University</div>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem;">January 2026 - December 2027</p>
+                        </div>
+                        <div class="gpa">GPA: 4.0/4.0</div>
                     </div>
-                    <div class="gpa">GPA: 4.0/4.0</div>
+                    <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem; display:none;">
+                        Specialized coursework in Product Management, Agile Project Management, Business Analytics, Strategic Management, and Brand Management. Active member of American Society for Engineering Management (ASEM).
+                    </p>
                 </div>
-                <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem;">
-                    Specialized coursework in Product Management, Agile Project Management, Business Analytics, Strategic Management, and Brand Management. Active member of American Society for Engineering Management (ASEM).
-                </p>
-            </div>
 
-            <div class="education-card">
-                <div class="education-header">
-                    <div>
-                        <h3 class="education-title">Bachelor of Technology in Computer Science</h3>
-                        <div class="education-school">JNTU Hyderabad</div>
-                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">July 2018 - July 2022</p>
+                <div class="education-card">
+                    <div class="education-header">
+                        <div>
+                            <h3 class="education-title">Bachelor of Technology in Computer Science</h3>
+                            <div class="education-school">JNTU Hyderabad</div>
+                            <p style="color: var(--text-secondary); margin-top: 0.5rem;">July 2018 - July 2022</p>
+                        </div>
+                        <div class="gpa">GPA: 3.9/4.0</div>
                     </div>
-                    <div class="gpa">GPA: 3.9/4.0</div>
+                    <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem; display:none;">
+                        G. Narayanamma Institute of Technology & Science (GNITS). Student Coordinator at Indian Society of Technical Education. Software Developer Intern at Intrinsic Science Labs.
+                    </p>
                 </div>
-                <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem;">
-                    G. Narayanamma Institute of Technology & Science (GNITS). Student Coordinator at Indian Society of Technical Education. Software Developer Intern at Intrinsic Science Labs.
-                </p>
             </div>
         </div>
     </section>
@@ -1285,7 +1594,7 @@
                     <h3 class="affiliation-name">Indian Society for Technical Education</h3>
                     <div class="affiliation-role">Student Coordinator</div>
                     <div class="affiliation-date">Jul 2019 - Jun 2022</div>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.75rem; text-align: left; line-height: 1.6;">
+                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.75rem; text-align: left; line-height: 1.6; display:none;">
                         Led coordination between student committees and faculty advisors. Organized IGNIUM2K20, a 500+ participant inter-college technical fest.
                     </p>
                 </div>
@@ -1387,7 +1696,7 @@
                     <div class="contact-icon">💼</div>
                     <div class="contact-label">LinkedIn</div>
                     <div class="contact-value">
-                        <a href="https://linkedin.com/in/aishwarya-koppula-02a1361b7" target="_blank">Connect on LinkedIn</a>
+                        <a href="https://www.linkedin.com/in/aishwarya-koppula-02a1361b7" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
                     </div>
                 </div>
 
@@ -1395,7 +1704,7 @@
                     <div class="contact-icon">💻</div>
                     <div class="contact-label">GitHub</div>
                     <div class="contact-value">
-                        <a href="https://github.com/Aishwarya-Koppula" target="_blank">View Projects</a>
+                        <a href="https://github.com/Aishwarya-Koppula" target="_blank" rel="noopener noreferrer">View Projects</a>
                     </div>
                 </div>
             </div>
@@ -1424,6 +1733,22 @@
             section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
             observer.observe(section);
         });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        if (menuToggle && navLinks) {
+            menuToggle.addEventListener('click', () => navLinks.classList.toggle('show'));
+        }
+
+        // Compact summaries and read-more behavior for cards and timeline items
+        function makeCompact(el) {
+            // Descriptions now always visible with scrollbars - no processing needed
+            return;
+        }
+
+        document.querySelectorAll('.card').forEach(makeCompact);
+        document.querySelectorAll('.timeline-item').forEach(makeCompact);
     </script>
 </body>
 </html>
