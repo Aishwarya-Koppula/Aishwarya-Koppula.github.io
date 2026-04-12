@@ -1085,17 +1085,15 @@
 
         /* Section reordering */
         body { display: flex; flex-direction: column; }
-        section#certifications { order: 0; }
-        section#experience { order: 1; }
-        section#consulting-projects { order: 2; }
-        section#future-projects { order: 3; }
-        section#articles { order: 4; }
+        section#experience { order: 0; }
+        section#consulting-projects { order: 1; }
+        section#certifications { order: 2; }
+        section#articles { order: 3; }
         section#education { order: 5; }
         section#awards { order: 6; }
         section#affiliations { order: 7; }
         section#publications { order: 8; }
-        section#academic-projects { order: 9; }
-        section#skills { order: 10; }
+        section#skills { order: 9; }
         section#contact { order: 11; }
         nav { order: -1; }
         .hero { order: 0.5; }
@@ -1107,9 +1105,9 @@
             <div class="logo">AK</div>
             <button class="menu-toggle" aria-label="Menu">☰</button>
             <ul class="nav-links">
-                <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#consulting-projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
                 <li><a href="#education">Education</a></li>
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -1398,43 +1396,6 @@
         </div>
     </section>
 
-    <section id="academic-projects">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Academic Projects</h2>
-                <p class="section-subtitle">Research and academic project work</p>
-            </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <h3 class="card-title">Air & Sound Pollution Tracking</h3>
-                    <div class="card-org">Academic Research</div>
-                    <div class="card-date">January 2021 - August 2021</div>
-                    <p class="card-description">
-                        Spearheaded an IoT and machine learning system for real-time monitoring of air and noise pollution; led ML model training, data analysis, and integration with mobile interfaces. Published via CRC Press / Taylor & Francis.
-                    </p>
-                    <div class="card-tags">
-                        <span class="card-tag">IoT</span>
-                        <span class="card-tag">Machine Learning</span>
-                        <span class="card-tag">Data Science</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3 class="card-title">Local Vendor Connect</h3>
-                    <div class="card-org">Academic / Capstone Project</div>
-                    <div class="card-date">September 2021 - June 2022</div>
-                    <p class="card-description">
-                        Built a location-based platform connecting mobile vendors with customers (Django + React). Implemented vendor registration, product management, and fast location search; conducted 17 user interviews and prototyped Maps integration.
-                    </p>
-                    <div class="card-tags">
-                        <span class="card-tag">React.js</span>
-                        <span class="card-tag">Django</span>
-                        <span class="card-tag">User Research</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section id="consulting-projects">
         <div class="container">
@@ -1457,7 +1418,7 @@
                         Led product strategy and architecture. Shipped a fully functional React + Node.js MVP in 24 hours using Claude Code and Cursor. Built a behavioral intelligence engine using geolocation clustering to identify regulars and shared social circles. Recognized for bridging product strategy with production-ready code.
                     </div>
                     <div class="card-tags">
-                        <a href="https://lodge-project-hackathon-flzo37jox.vercel.app" target="_blank" rel="noopener noreferrer" class="card-tag">Live Demo</a>
+                        <a href="https://lodge-project-hackathon-kf92hl9ep.vercel.app" target="_blank" rel="noopener noreferrer" class="card-tag">Live Demo</a>
                         <a href="https://www.canva.com/design/DAHF7Lphm2k/j19o7zKBtvUGOqqTY5xwUA/edit" target="_blank" rel="noopener noreferrer" class="card-tag">Pitch Deck</a>
                         <span class="card-tag">React</span>
                         <span class="card-tag">Node.js</span>
@@ -1467,33 +1428,31 @@
                 </div>
 
                 <div class="card">
-                    <h3 class="card-title">Graduate Student Consultant</h3>
+                    <h3 class="card-title">Graduate Consultant — ISE Italy (Enterprise AI Feasibility)</h3>
                     <div class="card-org">Purdue University</div>
                     <div class="card-date">January 2026 - Present</div>
                     <div class="card-description">
-                        <strong>ISE Italy (Enterprise AI Feasibility):</strong> Architected and deployed a hybrid Digital Twin for industrial vibration analysis, integrating 1D CNNs, digital signatures, and Math + LLM rule hierarchies to automate a 9-step diagnostic workflow. Implemented the technical transition of rotating equipment diagnostics from hour-long manual inspections to sub-second automated results, achieving a 65% automation rate across the enterprise diagnostic pipeline.
-                        <br/><br/>
-                        <strong>Bayer (LoriCommunica):</strong> Optimized an AI-powered assistive communication platform utilizing Computer Vision for smile and eye tracking to enable digital interaction for users with motor disabilities; identified product gaps to improve UX for the Latin American market. Analyzed the user acquisition funnel and market entry barriers across LATAM to develop a phased go-to-market strategy, resulting in a localized product optimization roadmap tailored to enterprise healthcare infrastructure.
+                        Architected and deployed a hybrid Digital Twin for industrial vibration analysis, integrating 1D CNNs, digital signatures, and Math + LLM rule hierarchies to automate a 9-step diagnostic workflow. Implemented the technical transition of rotating equipment diagnostics from hour-long manual inspections to sub-second automated results, achieving a 65% automation rate across the enterprise diagnostic pipeline.
                     </div>
                     <div class="card-tags">
                         <span class="card-tag">Digital Twin</span>
-                        <span class="card-tag">Computer Vision</span>
-                        <span class="card-tag">Product Strategy</span>
+                        <span class="card-tag">1D CNNs</span>
+                        <span class="card-tag">LLMs</span>
                         <span class="card-tag">Consulting</span>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3 class="card-title">Energy Management Hackathon</h3>
-                    <div class="card-org">Carrier - 4th Place Globally (84 Participants)</div>
-                    <div class="card-date">April 2023 - June 2023</div>
+                    <h3 class="card-title">Graduate Consultant — Bayer (LoriCommunica)</h3>
+                    <div class="card-org">Purdue University</div>
+                    <div class="card-date">January 2026 - Present</div>
                     <div class="card-description">
-                        Won company-wide innovation competition with a smart energy management solution combining HVAC optimization, renewable energy integration, and intelligent load management. Led 4-person team through product discovery, market research, and business case development.
+                        Optimized an AI-powered assistive communication platform utilizing Computer Vision for smile and eye tracking to enable digital interaction for users with motor disabilities; identified product gaps to improve UX for the Latin American market. Analyzed the user acquisition funnel and market entry barriers across LATAM to develop a phased go-to-market strategy, resulting in a localized product optimization roadmap tailored to enterprise healthcare infrastructure.
                     </div>
                     <div class="card-tags">
-                        <span class="card-tag">Product Innovation</span>
-                        <span class="card-tag">Team Leadership</span>
+                        <span class="card-tag">Computer Vision</span>
                         <span class="card-tag">Go-to-Market</span>
+                        <span class="card-tag">Consulting</span>
                     </div>
                 </div>
 
@@ -1517,54 +1476,52 @@
                         <span class="card-tag">Gmail</span>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section id="future-projects">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">AI/ML Projects</h2>
-                <p class="section-subtitle">Building next-generation intelligent solutions</p>
-            </div>
-            <div class="cards-grid">
                 <div class="card">
-                    <h3 class="card-title">Lodge — 1st Place, MEMPC Hackathon 2026</h3>
-                    <div class="card-org">Purdue University | Inter-College Hackathon</div>
-                    <div class="card-date">April 2026</div>
-                    <div class="project-images">
-                        <img src="./lodge-app.jpeg" alt="Lodge App - Social infrastructure platform">
-                        <img src="./lodge-hackathon-win.jpeg" alt="Lodge winning 1st place at MEMPC Hackathon">
-                    </div>
+                    <h3 class="card-title">Energy Management Hackathon</h3>
+                    <div class="card-org">Carrier - 4th Place Globally (84 Participants)</div>
+                    <div class="card-date">April 2023 - June 2023</div>
                     <div class="card-description">
-                        A social infrastructure platform that matches relocated individuals based on repeated behavioral proximity and shared everyday routines. Built a behavioral intelligence engine using geolocation clustering. Won 1st place beating Cornell, Duke, and five other top programs.
+                        Won company-wide innovation competition with a smart energy management solution combining HVAC optimization, renewable energy integration, and intelligent load management. Led 4-person team through product discovery, market research, and business case development.
                     </div>
                     <div class="card-tags">
-                        <a href="https://lodge-project-hackathon-flzo37jox.vercel.app" target="_blank" rel="noopener noreferrer" class="card-tag">Live Demo</a>
-                        <a href="https://www.canva.com/design/DAHF7Lphm2k/j19o7zKBtvUGOqqTY5xwUA/edit" target="_blank" rel="noopener noreferrer" class="card-tag">Pitch Deck</a>
-                        <span class="card-tag">React</span>
-                        <span class="card-tag">Node.js</span>
-                        <span class="card-tag">Claude Code</span>
+                        <span class="card-tag">Product Innovation</span>
+                        <span class="card-tag">Team Leadership</span>
+                        <span class="card-tag">Go-to-Market</span>
                     </div>
                 </div>
 
                 <div class="card">
-                    <h3 class="card-title">Agentic AI Student Assistant</h3>
-                    <div class="card-org">Personal Project</div>
-                    <div class="card-date">Feb 2026 - Apr 2026</div>
+                    <h3 class="card-title">Local Vendor Connect</h3>
+                    <div class="card-org">Academic / Capstone Project</div>
+                    <div class="card-date">September 2021 - June 2022</div>
                     <div class="card-description">
-                        An agentic AI tool that synthesizes lecture transcripts, technical PDFs, and calendar events into structured summaries using OpenAI API and Whisper. Features session memory that links entities across sessions and achieves 100% accuracy in action item extraction, cutting manual information retrieval time by 80%.
+                        Built a location-based platform connecting mobile vendors with customers (Django + React). Implemented vendor registration, product management, and fast location search; conducted 17 user interviews and prototyped Maps integration.
                     </div>
                     <div class="card-tags">
-                        <a href="https://github.com/Aishwarya-Koppula/meeting-intelligence-engine" target="_blank" rel="noopener noreferrer" class="card-tag">GitHub</a>
-                        <span class="card-tag">Python</span>
-                        <span class="card-tag">OpenAI API</span>
-                        <span class="card-tag">Whisper</span>
+                        <span class="card-tag">React.js</span>
+                        <span class="card-tag">Django</span>
+                        <span class="card-tag">User Research</span>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-title">Air & Sound Pollution Tracking</h3>
+                    <div class="card-org">Academic Research</div>
+                    <div class="card-date">January 2021 - August 2021</div>
+                    <div class="card-description">
+                        Spearheaded an IoT and machine learning system for real-time monitoring of air and noise pollution; led ML model training, data analysis, and integration with mobile interfaces. Published via CRC Press / Taylor & Francis.
+                    </div>
+                    <div class="card-tags">
+                        <span class="card-tag">IoT</span>
+                        <span class="card-tag">Machine Learning</span>
+                        <span class="card-tag">Data Science</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 
     <section id="articles">
         <div class="container">
@@ -1681,7 +1638,7 @@
                             <p class="award-description">
                                 Won first place with Lodge, a social infrastructure platform, beating teams from Cornell, Duke, and five other top programs. Led product strategy and shipped a full React + Node.js MVP in 24 hours using Claude Code and Cursor.
                             </p>
-                            <a href="https://lodge-project-hackathon-flzo37jox.vercel.app" target="_blank" rel="noopener noreferrer" class="cert-link">🔗 Live Demo</a>
+                            <a href="https://lodge-project-hackathon-kf92hl9ep.vercel.app" target="_blank" rel="noopener noreferrer" class="cert-link">🔗 Live Demo</a>
                         </div>
                     </div>
                 </div>
@@ -1721,20 +1678,6 @@
                     <p class="award-description">
                         Multiple recognitions for exceptional performance, innovation, and contributions to product development and team success.
                     </p>
-                </div>
-
-                <div class="award-card">
-                    <div class="award-content">
-                        <div>
-                            <h3 class="award-title">Engineering Leadership Program</h3>
-                            <div class="award-org">Carrier Technologies India Limited</div>
-                            <div class="award-date">2022-2024</div>
-                            <p class="award-description">
-                                Successfully completed rigorous 24-month Engineering Leadership Program with three 8-month rotations.
-                            </p>
-
-                        </div>
-                    </div>
                 </div>
 
                 <div class="award-card">
