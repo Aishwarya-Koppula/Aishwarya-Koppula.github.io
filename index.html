@@ -4,1728 +4,1291 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aishwarya Koppula - Product Manager & Engineer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;0,900;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         :root {
-            --bg-primary: #f7fbff;
-            --bg-card: #ffffff;
-            --text-primary: #071938;
-            --text-secondary: #516176;
-            --accent-primary: #0077b6;
-            --accent-secondary: #ff6b6b;
-            --accent-tertiary: #00b388;
-            --border: rgba(0, 119, 182, 0.08);
-            /* Font scale – full-screen layout, slightly larger */
-            --text-xs: 0.875rem;
-            --text-sm: 0.9375rem;
-            --text-base: 1rem;
-            --text-md: 1.0625rem;
-            --text-lg: 1.125rem;
-            --text-xl: 1.25rem;
-            --text-2xl: 1.5rem;
-            --text-3xl: clamp(1.75rem, 3.5vw, 2.25rem);
+            --bg: #f7f3ec;
+            --surface: #ffffff;
+            --surface-alt: #f0ebdf;
+            --text-primary: #2c2a25;
+            --text-secondary: #6b6355;
+            --text-tertiary: #9a9282;
+            --border: #e3dbc8;
+            --accent: #7c8a6e;
+            --accent-soft: #eef1e7;
+            --accent-soft-border: rgba(124, 138, 110, 0.3);
+            --accent-2: #c6885c;
+            --accent-2-soft: #f6e8dc;
+            --accent-2-soft-border: rgba(198, 136, 92, 0.32);
+            --ink: #33392f;
+            --ink-text: #f2ede1;
+            --ink-text-secondary: #c7c0ae;
+            --radius: 14px;
+            --radius-sm: 10px;
+            --shadow: 0 1px 2px rgba(44, 42, 37, 0.05);
+            --shadow-hover: 0 14px 30px rgba(44, 42, 37, 0.1);
+            --max-width: 1360px;
+
+            /* Type scale: six fixed sizes + three responsive display sizes. Keep every font-size on this scale. */
+            --fs-2xs: 0.75rem;
+            --fs-xs: 0.85rem;
+            --fs-sm: 0.95rem;
+            --fs-md: 1.05rem;
+            --fs-lg: 1.2rem;
+            --fs-xl: 1.5rem;
+            --fs-tagline: clamp(1.2rem, 3.5vw, 1.6rem);
+            --fs-title: clamp(1.5rem, 4vw, 2.1rem);
+            --fs-display: clamp(2.5rem, 7vw, 3.75rem);
         }
-        
+
         body {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: var(--text-base);
-            background: var(--bg-primary);
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
             color: var(--text-primary);
-            line-height: 1.5;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
         }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 20% 50%, rgba(0, 119, 182, 0.04) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.03) 0%, transparent 50%);
-            z-index: -1;
-            animation: gradientShift 15s ease infinite;
-        }
-        
-        @keyframes gradientShift { 0%, 100% { opacity: 1; } 50% { opacity: 0.8; } }
-        
-        .container { max-width: 96%; width: 100%; margin: 0 auto; padding: 0 0.75rem; }
-        @media (min-width: 1400px) { .container { max-width: 1360px; } }
-        
+
+        html { scroll-behavior: smooth; }
+
+        .container { max-width: var(--max-width); width: 100%; margin: 0 auto; padding: 0 1.5rem; }
+        @media (max-width: 640px) { .container { padding: 0 1.25rem; } }
+
         /* Nav */
         nav {
             position: fixed; top: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
+            background: rgba(247, 243, 236, 0.9);
+            backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
-            z-index: 1000; padding: 0.6rem 0;
+            z-index: 1000; padding: 0.9rem 0;
+            order: -1;
         }
-        
-        nav .container { display: flex; justify-content: space-between; align-items: center; }
-        nav .resume-btn { padding: 0.4rem 0.75rem; border-radius: 6px; font-size: var(--text-sm); }
-        
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: var(--text-xl);
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 1.25rem;
-            list-style: none;
-            align-items: center;
-        }
+
+        nav .container { max-width: var(--max-width); display: flex; justify-content: space-between; align-items: center; }
+
+        .logo { font-family: 'Fraunces', serif; font-style: italic; font-weight: 700; font-size: var(--fs-lg); color: var(--text-primary); }
+        .logo .accent { color: var(--accent); }
+
+        .nav-links { display: flex; gap: 1.6rem; list-style: none; align-items: center; }
         .nav-links a {
-            color: var(--text-primary);
+            color: var(--text-secondary);
             text-decoration: none;
             font-weight: 500;
-            font-size: var(--text-sm);
-            transition: color 0.3s;
+            font-size: var(--fs-xs);
+            transition: color 0.2s;
         }
-        .nav-links a:hover { color: var(--accent-primary); }
-        .menu-toggle {
-            display: none;
-            background: transparent;
-            border: none;
-            font-size: var(--text-lg);
-            color: var(--text-primary);
-            cursor: pointer;
-        }
-        
-        /* Hero */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding-top: 64px;
-        }
+        .nav-links a:hover { color: var(--accent); }
 
-        /* Collapsible summaries for compact layout (disabled - descriptions are visible in fixed containers) */
-        .card.collapsed, .timeline-item.collapsed {
-            max-height: none;
-            overflow: visible;
-            position: relative;
-        }
+        .menu-toggle { display: none; background: transparent; border: none; font-size: var(--fs-lg); color: var(--text-primary); cursor: pointer; }
 
-        .card .fade-overlay, .timeline-item .fade-overlay {
-            content: '';
-            position: absolute;
-            left: 0; right: 0; bottom: 0;
-            height: 48px;
-            background: linear-gradient(180deg, rgba(247,251,255,0), rgba(247,251,255,0.95));
-            pointer-events: none;
-        }
-
-        /* Hover hint: show short hint overlay on title hover */
-        .card-title { display: inline-block; position: relative; white-space: normal; }
-        .card-title::after {
-            content: '';
-            display: block;
-            height: 6px;
-            width: 100%;
-        }
-        .card:hover .card-title::before {
-            content: 'Scroll for more';
-            position: absolute;
-            top: -1.4rem;
-            left: 0;
-            font-size: var(--text-xs);
-            color: var(--text-secondary);
-            background: rgba(255,255,255,0.9);
-            padding: 2px 8px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            white-space: nowrap;
-        }
-
-        .timeline-title { white-space: normal; position: relative; }
-        .timeline-item:hover .timeline-title::before {
-            content: 'Scroll for more';
-            position: absolute;
-            top: -1.2rem;
-            left: 0;
-            font-size: var(--text-xs);
-            color: var(--text-secondary);
-            background: rgba(255,255,255,0.95);
-            padding: 2px 8px;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            white-space: nowrap;
-        }
-
-        .read-more-btn {
-            display: inline-block;
-            margin-top: 0.6rem;
-            background: transparent;
-            border: 1px solid var(--accent-primary);
-            color: var(--accent-primary);
-            padding: 0.35rem 0.6rem;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
+        @media (max-width: 800px) {
             .menu-toggle { display: inline-block; }
-            .nav-links { display: none; position: absolute; right: 1.5rem; top: 64px; background: var(--bg-card); padding: 1rem; border-radius: 8px; box-shadow: 0 8px 24px rgba(7,25,56,0.08); flex-direction: column; gap: 0.75rem; }
+            .nav-links {
+                display: none; position: absolute; right: 1.5rem; top: 60px;
+                background: var(--surface); padding: 1rem 1.25rem; border-radius: 12px;
+                box-shadow: var(--shadow-hover); border: 1px solid var(--border);
+                flex-direction: column; gap: 0.85rem; align-items: flex-start;
+            }
             .nav-links.show { display: flex; }
-            .cta-buttons { justify-content: center; }
-            .card.collapsed, .timeline-item.collapsed { max-height: 120px; }
         }
-        
-        .hero-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            align-items: center;
-        }
-        
-        .hero-text h1 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: var(--text-3xl);
-            margin-bottom: 0.6rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.15;
-        }
-        
-        .hero-text .subtitle {
-            font-size: var(--text-lg);
-            color: var(--accent-primary);
-            margin-bottom: 0.75rem;
-            font-weight: 500;
-        }
-        
-        .hero-text p {
-            font-size: var(--text-base);
-            color: var(--text-secondary);
-            margin-bottom: 1.25rem;
-            line-height: 1.6;
-        }
-        
-        .profile-photo-wrapper { position: relative; }
-        .profile-photo-wrapper::before {
-            content: '';
-            position: absolute;
-            inset: -10px;
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            border-radius: 25px;
-            opacity: 0.5;
-            filter: blur(20px);
-            animation: photoGlow 3s ease infinite;
-        }
-        
-        @keyframes photoGlow { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.8; } }
-        
-        .profile-photo {
-            width: 100%;
-            max-width: 280px;
-            border-radius: 12px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .cta-buttons { display: flex; gap: 0.6rem; flex-wrap: wrap; }
-        
+
+        /* Buttons */
         .btn {
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: var(--text-sm);
+            padding: 0.65rem 1.25rem;
+            border-radius: 999px;
+            font-size: var(--fs-sm);
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s;
-            display: inline-block;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: var(--bg-primary);
-        }
-        
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0, 119, 182, 0.18); }
-        
-        .btn-secondary {
-            border: 2px solid var(--accent-primary);
-            color: var(--accent-primary);
-            background: transparent;
-        }
-        
-        .btn-secondary:hover {
-            background: var(--accent-primary);
-            color: var(--bg-primary);
-        }
-        
-        /* Sections – reduced vertical margin for full-screen feel */
-        section { padding: 1rem 0; }
-        
-        .section-header { text-align: center; margin-bottom: 1rem; }
-        
-        .section-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: var(--text-2xl);
-            margin-bottom: 0.4rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .section-subtitle {
-            font-size: var(--text-sm);
-            color: var(--text-secondary);
-            max-width: 560px;
-            margin: 0 auto;
-        }
-        
-        .section-resume-link {
-            display: inline-block;
-            margin-top: 0.5rem;
-            font-size: var(--text-sm);
-        }
-        
-        .section-resume-link a {
-            color: var(--accent-primary);
-            text-decoration: none;
-            font-weight: 500;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s;
-        }
-        
-        .section-resume-link a:hover { border-bottom-color: var(--accent-primary); }
-        
-        /* Skills – single scrollable list (no tiles) */
-        .skills-scroll {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.25rem 1.75rem;
-            max-height: 72vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-            scrollbar-gutter: stable;
-        }
-        .skills-scroll::-webkit-scrollbar { width: 8px; }
-        .skills-scroll::-webkit-scrollbar-track { background: rgba(0, 119, 182, 0.06); border-radius: 4px; }
-        .skills-scroll::-webkit-scrollbar-thumb { background: rgba(0, 119, 182, 0.3); border-radius: 4px; }
-        .skills-scroll::-webkit-scrollbar-thumb:hover { background: rgba(0, 119, 182, 0.5); }
-        
-        .skill-category {
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border);
-            transition: background 0.2s;
-        }
-        .skill-category:last-child { border-bottom: none; }
-        .skill-category:hover { background: rgba(0, 119, 182, 0.02); }
-        
-        .skill-category h3 {
-            color: var(--accent-primary);
-            font-size: var(--text-lg);
-            font-weight: 600;
-            margin-bottom: 0.6rem;
-        }
-        
-        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-        
-        .skill-tag {
-            background: rgba(0, 119, 182, 0.08);
-            color: var(--text-primary);
-            padding: 0.4rem 0.75rem;
-            border-radius: 8px;
-            font-size: var(--text-sm);
-            border: 1px solid rgba(0, 119, 182, 0.12);
             transition: all 0.2s;
-        }
-        .skill-tag:hover {
-            background: rgba(0, 119, 182, 0.12);
-            border-color: var(--accent-primary);
-        }
-        
-        /* Timeline */
-        .timeline {
-            position: relative;
-            padding-left: 2.25rem;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 2px;
-            background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
-        }
-        
-        .timeline-item {
-            margin-bottom: 1.25rem;
-            position: relative;
-            background: var(--bg-card);
-            padding: 1rem 1.1rem;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            transition: all 0.3s;
-            min-height: 220px;
-            max-height: 400px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -2.9rem; top: 1.1rem;
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            background: var(--accent-primary);
-            border: 2px solid var(--bg-primary);
-            box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.12);
-        }
-        
-        .timeline-item:hover {
-            transform: translateX(8px);
-            border-color: var(--accent-primary);
-            box-shadow: -8px 8px 24px rgba(0, 119, 182, 0.08);
-        }
-        
-        .timeline-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
-            gap: 0.5rem;
-            flex-shrink: 0;
-        }
-        
-        .timeline-title {
-            font-size: var(--text-sm);
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.15rem;
-        }
-        
-        .timeline-company {
-            color: var(--accent-primary);
-            font-size: var(--text-xs);
-            font-weight: 500;
-        }
-        
-        .timeline-date {
-            color: var(--text-secondary);
-            font-size: var(--text-xs);
-            white-space: nowrap;
-            background: rgba(0, 119, 182, 0.06);
-            padding: 0.25rem 0.5rem;
-            border-radius: 6px;
-        }
-        
-        .timeline-description {
-            color: var(--text-secondary);
-            line-height: 1.45;
-            margin-bottom: 0.25rem;
-            font-size: var(--text-xs);
-            flex-grow: 1;
-            min-height: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-right: 0.5rem;
-            display: block !important;
-            scrollbar-gutter: stable;
-        }
-        
-        .timeline-description::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .timeline-description::-webkit-scrollbar-track {
-            background: rgba(0, 119, 182, 0.08);
-            border-radius: 3px;
-        }
-        
-        .timeline-description::-webkit-scrollbar-thumb {
-            background: rgba(0, 119, 182, 0.35);
-            border-radius: 3px;
-        }
-        
-        .timeline-description::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 119, 182, 0.5);
-        }
-        
-        .timeline-highlights {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            flex-grow: 1;
-            min-height: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-right: 0.5rem;
-            scrollbar-gutter: stable;
-        }
-        
-        .timeline-highlights::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .timeline-highlights::-webkit-scrollbar-track {
-            background: rgba(0, 119, 182, 0.08);
-            border-radius: 3px;
-        }
-        
-        .timeline-highlights::-webkit-scrollbar-thumb {
-            background: rgba(0, 119, 182, 0.35);
-            border-radius: 3px;
-        }
-        
-        .timeline-highlights li {
-            padding-left: 1rem;
-            position: relative;
-            margin-bottom: 0.35rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            font-size: var(--text-xs);
-        }
-        
-        .timeline-highlights li::before {
-            content: '▹';
-            position: absolute;
-            left: 0;
-            color: var(--accent-primary);
-            font-weight: bold;
-            font-size: var(--text-sm);
-        }
-        
-        /* Cards */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 0.75rem;
-        }
-
-        .articles-grid { display: grid; grid-template-columns: 1fr; gap: 0.5rem; }
-        
-        .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 0.75rem 0.9rem;
-            transition: all 0.3s;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            min-height: 220px;
-            max-height: 380px;
-        }
-        
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            transform: scaleX(0);
-            transition: transform 0.4s;
-        }
-        
-        .card:hover::before { transform: scaleX(1); }
-        .card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 10px 28px rgba(0, 119, 182, 0.1);
-        }
-        
-        .cert-image {
-            width: 100%;
-            max-width: 80px;
-            margin-bottom: 0.75rem;
-            border-radius: 6px;
-        }
-
-        .card-header-row {
-            display: flex;
-            gap: 0.6rem;
-            align-items: flex-start;
-        }
-
-        .card-badge {
-            width: 40px;
-            height: 40px;
-            min-width: 40px;
-            border-radius: 8px;
-            object-fit: cover;
-            border: 1px solid rgba(0, 119, 182, 0.10);
-            background: rgba(0, 119, 182, 0.04);
-            transition: all 0.3s;
-        }
-
-        .card:hover .card-badge {
-            border-color: rgba(0, 119, 182, 0.45);
-            box-shadow: 0 4px 12px rgba(0, 119, 182, 0.12);
-        }
-
-        .cert-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            color: var(--accent-primary);
-            text-decoration: none;
-            font-size: var(--text-xs);
-            font-weight: 500;
-            margin-top: 0.4rem;
-            padding: 0.25rem 0.5rem;
-            border-radius: 6px;
-            border: 1px solid rgba(0, 119, 182, 0.10);
-            background: rgba(0, 119, 182, 0.04);
-            transition: all 0.3s;
-            flex-shrink: 0;
-        }
-
-        .cert-link:hover {
-            background: rgba(0, 119, 182, 0.10);
-            border-color: var(--accent-primary);
-        }
-
-        .timeline-badge {
-            width: 40px;
-            height: 40px;
-            min-width: 40px;
-            border-radius: 8px;
-            object-fit: cover;
-            border: 1px solid rgba(0, 119, 182, 0.10);
-            background: rgba(0, 119, 182, 0.04);
-            transition: all 0.3s;
-        }
-
-        .timeline-item:hover .timeline-badge {
-            border-color: rgba(0, 119, 182, 0.45);
-            box-shadow: 0 4px 12px rgba(0, 119, 182, 0.12);
-        }
-
-        .timeline-header-with-badge {
-            display: flex;
-            gap: 1rem;
-            align-items: flex-start;
-        }
-        
-        .card-title {
-            font-size: var(--text-sm);
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.15rem;
-        }
-        
-        .card-org {
-            color: var(--accent-primary);
-            font-weight: 500;
-            margin-bottom: 0.15rem;
-            font-size: var(--text-xs);
-        }
-        
-        .card-date {
-            color: var(--text-secondary);
-            font-size: var(--text-xs);
-            margin-bottom: 0.35rem;
-        }
-        
-        .card-description {
-            color: var(--text-secondary);
-            line-height: 1.45;
-            margin-top: 0.25rem;
-            margin-bottom: 0.25rem;
-            font-size: var(--text-xs);
-            flex-grow: 1;
-            min-height: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-right: 0.5rem;
-            display: block !important;
-            scrollbar-gutter: stable;
-        }
-        
-        .card-description::-webkit-scrollbar {
-            width: 6px;
-        }
-        
-        .card-description::-webkit-scrollbar-track {
-            background: rgba(0, 119, 182, 0.08);
-            border-radius: 3px;
-        }
-        
-        .card-description::-webkit-scrollbar-thumb {
-            background: rgba(0, 119, 182, 0.35);
-            border-radius: 3px;
-        }
-        
-        .card-description::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 119, 182, 0.5);
-        }
-        
-        .card-id {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: var(--text-xs);
-            color: var(--text-secondary);
-            background: rgba(0, 119, 182, 0.06);
-            padding: 0.35rem;
-            border-radius: 6px;
-            margin-top: auto;
-        }
-        
-        .card-tags { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: auto; flex-shrink: 0; }
-        
-        .card-tag {
-            background: rgba(0, 119, 182, 0.06);
-            color: var(--accent-primary);
-            padding: 0.15rem 0.4rem;
-            border-radius: 4px;
-            font-size: var(--text-xs);
-            border: 1px solid rgba(0, 119, 182, 0.10);
-        }
-        
-        .card-tag a { color: inherit; text-decoration: none; }
-        
-        /* Publication/Education Cards */
-        .publication-card, .education-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1rem 1.1rem;
-            margin-bottom: 1rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            min-height: 200px;
-            max-height: 360px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .publication-card::before, .education-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
-            transform: scaleX(0);
-            transition: transform 0.4s;
-        }
-        
-        .publication-card:hover::before, .education-card:hover::before { transform: scaleX(1); }
-        .publication-card:hover, .education-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 10px 28px rgba(0, 119, 182, 0.1);
-        }
-        
-        .publication-title, .education-title {
-            font-size: var(--text-sm);
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.15rem;
-        }
-        
-        .publication-meta, .education-school {
-            color: var(--accent-primary);
-            font-weight: 500;
-            margin-bottom: 0.35rem;
-            font-size: var(--text-xs);
-        }
-        
-        .education-school { font-size: var(--text-xs); }
-        
-        .publication-authors {
-            color: var(--text-secondary);
-            font-style: italic;
-            margin-bottom: 0.5rem;
-            font-size: var(--text-xs);
-        }
-        
-        .publication-description {
-            color: var(--text-secondary);
-            line-height: 1.45;
-            font-size: var(--text-xs);
-            flex-grow: 1;
-            min-height: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-right: 0.35rem;
-            margin-top: 0.25rem;
-            margin-bottom: 0.25rem;
-            display: block !important;
-            scrollbar-gutter: stable;
-        }
-        
-        .publication-description::-webkit-scrollbar { width: 6px; }
-        .publication-description::-webkit-scrollbar-track { background: rgba(0, 119, 182, 0.08); border-radius: 3px; }
-        .publication-description::-webkit-scrollbar-thumb { background: rgba(0, 119, 182, 0.35); border-radius: 3px; }
-        .publication-description::-webkit-scrollbar-thumb:hover { background: rgba(0, 119, 182, 0.5); }
-        
-        .education-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-        @media (max-width: 640px) {
-            .education-grid { grid-template-columns: 1fr; }
-        }
-        
-        .education-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
-        }
-        
-        .education-grid .education-card { margin-bottom: 0; }
-        
-        .gpa {
-            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-            color: var(--bg-primary);
-            padding: 0.4rem 0.9rem;
-            border-radius: 8px;
-            font-size: var(--text-md);
-            font-weight: 700;
-        }
-        
-        /* Awards */
-        .awards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 0.75rem;
-        }
-        
-        .award-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 0.9rem 1rem;
-            transition: all 0.3s;
-            position: relative;
-            overflow: hidden;
-            min-height: 200px;
-            max-height: 360px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .award-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #ffd700, #ffed4e);
-            transform: scaleX(0);
-            transition: transform 0.4s;
-        }
-        
-        .award-card:hover::before { transform: scaleX(1); }
-        .award-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 10px 28px rgba(255, 215, 0, 0.15);
-        }
-        
-        .award-content {
-            display: flex;
-            gap: 0.75rem;
-            align-items: flex-start;
-        }
-
-        .award-thumbnail {
-            width: 44px;
-            height: 44px;
-            min-width: 44px;
-            border-radius: 8px;
-            object-fit: cover;
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            background: rgba(255, 215, 0, 0.05);
-            transition: all 0.3s;
-        }
-
-        .award-card:hover .award-thumbnail {
-            border-color: rgba(255, 215, 0, 0.6);
-            box-shadow: 0 2px 12px rgba(255, 215, 0, 0.2);
-        }
-        
-        .award-icon { font-size: var(--text-xl); margin-bottom: 0.25rem; }
-        
-        .award-title {
-            font-size: var(--text-sm);
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.15rem;
-        }
-        
-        .award-org {
-            color: var(--accent-primary);
-            font-weight: 500;
-            margin-bottom: 0.15rem;
-            font-size: var(--text-xs);
-        }
-        
-        .award-date {
-            color: var(--text-secondary);
-            font-size: var(--text-xs);
-            margin-bottom: 0.35rem;
-        }
-        
-        .award-description {
-            color: var(--text-secondary);
-            line-height: 1.45;
-            font-size: var(--text-xs);
-            flex-grow: 1;
-            min-height: 0;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding-right: 0.35rem;
-            display: block !important;
-            scrollbar-gutter: stable;
-        }
-        
-        .award-description::-webkit-scrollbar { width: 6px; }
-        .award-description::-webkit-scrollbar-track { background: rgba(0, 119, 182, 0.08); border-radius: 3px; }
-        .award-description::-webkit-scrollbar-thumb { background: rgba(0, 119, 182, 0.35); border-radius: 3px; }
-        .award-description::-webkit-scrollbar-thumb:hover { background: rgba(0, 119, 182, 0.5); }
-        
-        /* Affiliations */
-        .affiliations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 0.75rem;
-        }
-        
-        .affiliation-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 0.9rem;
-            text-align: center;
-            transition: all 0.3s;
-        }
-        
-        .affiliation-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 10px 28px rgba(0, 119, 182, 0.08);
-        }
-        
-        .affiliation-logo {
-            width: 48px; height: 48px;
-            margin: 0 auto 0.5rem;
-            border-radius: 50%;
-            background: rgba(0, 119, 182, 0.06);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: var(--text-xl);
-            border: 1px solid rgba(0, 119, 182, 0.10);
-        }
-        
-        .affiliation-name {
-            font-size: var(--text-sm);
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.15rem;
-        }
-        
-        .affiliation-role {
-            color: var(--accent-primary);
-            font-weight: 500;
-            font-size: var(--text-xs);
-            margin-bottom: 0.25rem;
-        }
-        
-        .affiliation-date {
-            color: var(--text-secondary);
-            font-size: var(--text-xs);
-        }
-        
-        /* Placeholder */
-        .articles-placeholder {
-            background: var(--bg-card);
-            border: 2px dashed var(--border);
-            border-radius: 10px;
-            padding: 2rem 1.5rem;
-            text-align: center;
-        }
-        
-        .articles-placeholder h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: var(--text-lg);
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-        
-        .articles-placeholder p {
-            color: var(--text-secondary);
-            font-size: var(--text-base);
-            margin-bottom: 1rem;
-        }
-        
-        .coming-soon-badge {
             display: inline-block;
-            background: rgba(0, 119, 182, 0.06);
-            color: var(--accent-primary);
-            padding: 0.35rem 1rem;
-            border-radius: 20px;
-            border: 1px solid var(--accent-primary);
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-size: var(--text-xs);
         }
-        
-        /* Contact */
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 0.75rem;
+        .btn-primary { background: var(--ink); color: var(--ink-text); }
+        .btn-primary:hover { background: var(--accent); color: #fff; transform: translateY(-1px); }
+        .btn-secondary { border: 1px solid var(--border); color: var(--text-primary); background: var(--surface); }
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+        nav .resume-btn { padding: 0.45rem 1rem; font-size: var(--fs-xs); }
+
+        /* Hero */
+        .hero { padding: 6.5rem 0 3rem; position: relative; overflow: hidden; }
+        .hero-line-accent { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 900px; max-width: 160%; opacity: 0.35; pointer-events: none; z-index: 0; }
+        .hero-inner {
+            position: relative; z-index: 1;
+            display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3rem;
+            align-items: center; text-align: left; max-width: 1180px; margin: 0 auto;
         }
-        
-        .contact-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 1rem;
-            text-align: center;
-            transition: all 0.3s;
-            position: relative;
+        .hero-photo-col { display: flex; flex-direction: column; align-items: center; }
+        .hero-photo-caption {
+            margin-top: 1rem; text-align: center; font-size: var(--fs-2xs); color: var(--text-secondary);
+            max-width: 240px; line-height: 1.6;
         }
-        
-        .contact-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-primary);
-            box-shadow: 0 10px 28px rgba(0, 119, 182, 0.08);
+        .hero-photo-caption .sep { color: var(--accent); font-weight: 700; margin: 0 0.3rem; }
+        @media (max-width: 900px) {
+            .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 1.5rem; }
+            .hero-photo-col { order: -1; }
         }
-        
-        .contact-icon { font-size: var(--text-xl); margin-bottom: 0.5rem; }
-        
-        .contact-label {
-            color: var(--text-secondary);
-            font-size: var(--text-xs);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.25rem;
+
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--ink); color: var(--ink-text);
+            padding: 0.4rem 0.9rem; border-radius: 6px;
+            font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+            font-size: var(--fs-xs); margin-bottom: 1.75rem;
         }
-        
-        .contact-value {
+        .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-2); flex-shrink: 0; }
+
+        .hero-name {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: var(--fs-display);
+            line-height: 1.08;
+            letter-spacing: -0.01em;
             color: var(--text-primary);
-            font-size: var(--text-sm);
-            font-weight: 500;
         }
-        
-        .contact-value a {
-            color: var(--accent-primary);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .contact-value a:hover { color: var(--accent-secondary); }
-        
-        /* Footer */
-        footer {
-            background: var(--bg-primary);
-            padding: 1.25rem 0;
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-        
-        footer p {
-            color: var(--text-secondary);
-            font-size: var(--text-xs);
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-image { order: -1; }
-            .profile-photo { max-width: 300px; }
-            .nav-links { display: none; }
-            .timeline { padding-left: 2rem; }
-            .timeline-item::before { left: -2.65rem; }
-            .timeline-header { flex-direction: column; }
-        }
-        
-        html { scroll-behavior: smooth; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-in { animation: fadeIn 0.8s ease-out; }
+        .hero-name .accent { color: var(--accent); }
 
-        /* Project image gallery inside cards */
-        .project-images {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            margin: 0.5rem 0;
-            flex-shrink: 0;
+        .hero-tagline {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 600;
+            font-size: var(--fs-tagline);
+            margin: 1.1rem 0 1.25rem;
+            color: var(--text-primary);
         }
+        .hero-tagline .accent { color: var(--accent-2); }
+
+        .hero-summary { color: var(--text-secondary); font-size: var(--fs-sm); max-width: 600px; margin-bottom: 1.25rem; }
+
+        .cta-buttons { display: flex; gap: 0.65rem; flex-wrap: wrap; justify-content: flex-start; }
+
+        .hero-divider { width: 100%; max-width: 480px; height: 1px; background: var(--border); margin: 2.25rem 0; }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; width: 100%; max-width: 480px; margin: 0; }
+        .stat-value { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-xl); color: var(--text-primary); }
+        .stat-value .accent { color: var(--accent); }
+        .stat-label { font-size: var(--fs-2xs); color: var(--text-secondary); margin-top: 0.3rem; line-height: 1.35; }
+        @media (max-width: 600px) { .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1rem; } }
+
+        .hero-photo { position: relative; width: 220px; height: 220px; }
+        @media (max-width: 900px) { .hero-photo { width: 180px; height: 180px; margin-bottom: 1rem; } }
+        .hero-photo::before {
+            content: ''; position: absolute; top: -14px; left: -14px; width: 100%; height: 100%;
+            background: var(--accent); border-radius: 18px; z-index: 0;
+        }
+        .hero-photo::after {
+            content: ''; position: absolute; bottom: -14px; right: -14px; width: 100%; height: 100%;
+            background: var(--accent-2); border-radius: 18px; z-index: 0; opacity: 0.55;
+        }
+        .hero-photo img {
+            position: relative; z-index: 1;
+            width: 100%; height: 100%; object-fit: cover;
+            border-radius: 16px; border: 5px solid var(--surface);
+            box-shadow: var(--shadow-hover);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 0.7s ease-out; }
+
+        /* Sections */
+        section { padding: 3.5rem 0; }
+        #contact { padding: 2.5rem 0 3rem; }
+        section:not(.hero) { border-top: 1px solid var(--border); }
+        .section-alt { background: var(--surface-alt); }
+        .section-blush { background: var(--accent-2-soft); }
+        .section-dark { background: var(--ink); color: var(--ink-text); border-top-color: rgba(242, 237, 225, 0.12) !important; }
+        .section-dark .section-title { color: var(--ink-text); }
+        .section-dark .section-subtitle { color: var(--ink-text-secondary); }
+        .section-dark .section-eyebrow { color: var(--accent-2); }
+
+        .section-header { text-align: left; margin-bottom: 2rem; }
+        .section-eyebrow {
+            font-size: var(--fs-2xs); font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: var(--fs-title);
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        .section-subtitle { color: var(--text-secondary); font-size: var(--fs-sm); max-width: 520px; }
+        .section-resume-link { display: inline-block; margin-top: 0.6rem; font-size: var(--fs-xs); }
+        .section-resume-link a { color: var(--accent); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; transition: border-color 0.2s; }
+        .section-resume-link a:hover { border-bottom-color: var(--accent); }
+
+        /* Experience + education roadmap: one zigzag line that always fits, no scrolling, no clipping */
+        .roadmap {
+            position: relative;
+            display: flex; align-items: stretch; gap: 0.3rem;
+            overflow: visible;
+            padding: 160px 0.5rem;
+        }
+        .roadmap::before {
+            content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            transform: translateY(-1px);
+        }
+        .roadmap-stop { position: relative; flex: 1 1 0; min-width: 0; max-width: 190px; }
+        .roadmap-icon {
+            width: 48px; height: 48px; margin: 0 auto 0.4rem; border-radius: 50%;
+            background: var(--surface); border: 1px solid var(--border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: var(--fs-lg); box-shadow: 0 2px 6px rgba(44, 42, 37, 0.18); overflow: hidden;
+        }
+        .roadmap-icon img { width: 100%; height: 100%; object-fit: contain; padding: 4px; box-sizing: border-box; }
+        .roadmap-date {
+            position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+            background: var(--ink); color: var(--ink-text); white-space: nowrap;
+            font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.01em;
+            padding: 0.3rem 0.65rem; border-radius: 999px; z-index: 2;
+            box-shadow: 0 2px 6px rgba(44, 42, 37, 0.25);
+        }
+        .roadmap-card {
+            position: absolute; left: 50%; transform: translateX(-50%);
+            width: 165px; text-align: center; cursor: pointer; z-index: 1;
+            transition: width 0.2s ease;
+        }
+        .roadmap-stop.top .roadmap-card { bottom: calc(50% + 22px); }
+        .roadmap-stop.bottom .roadmap-card { top: calc(50% + 22px); }
+        .roadmap-card::after {
+            content: ''; position: absolute; left: 50%; width: 1px; height: 18px; background: var(--border);
+        }
+        .roadmap-stop.top .roadmap-card::after { bottom: -18px; }
+        .roadmap-stop.bottom .roadmap-card::after { top: -18px; }
+        .roadmap-role { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-sm); color: var(--text-primary); line-height: 1.3; }
+        .roadmap-org { font-family: 'Inter', sans-serif; font-weight: 700; font-size: var(--fs-xs); color: var(--accent); margin-top: 0.25rem; }
+        .roadmap-stop.bottom .roadmap-org { color: var(--accent-2); }
+        .roadmap-hint { font-size: var(--fs-2xs); color: var(--text-tertiary); margin-top: 0.4rem; font-style: italic; }
+        .roadmap-card:hover .roadmap-hint, .roadmap-card.expanded .roadmap-hint { display: none; }
+        .roadmap-details {
+            max-height: 0; opacity: 0; overflow: hidden; text-align: left;
+            transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.25s ease, padding-top 0.25s ease;
+        }
+        .roadmap-card:hover, .roadmap-card.expanded {
+            width: 270px; z-index: 6;
+            background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 0.85rem 1rem; box-shadow: var(--shadow-hover);
+        }
+        .roadmap-card:hover .roadmap-details, .roadmap-card.expanded .roadmap-details {
+            max-height: 320px; opacity: 1; margin-top: 0.6rem; padding-top: 0.6rem;
+            border-top: 1px dashed var(--border); overflow-y: auto;
+        }
+        .roadmap-detail-date { color: var(--text-secondary); font-size: var(--fs-2xs); font-weight: 600; margin-bottom: 0.5rem; }
+        .roadmap-detail-text { color: var(--text-secondary); font-size: var(--fs-xs); line-height: 1.6; }
+        .roadmap-highlights { list-style: none; }
+        .roadmap-highlights li {
+            padding-left: 1rem; position: relative; margin-bottom: 0.55rem;
+            color: var(--text-secondary); line-height: 1.55; font-size: var(--fs-xs);
+        }
+        .roadmap-highlights li:last-child { margin-bottom: 0; }
+        .roadmap-highlights li::before {
+            content: '•'; position: absolute; left: 0; color: var(--accent); font-weight: 700;
+        }
+        @media (max-width: 560px) {
+            .roadmap { flex-direction: column; gap: 0; padding: 1.25rem 0; }
+            .roadmap::before { display: none; }
+            .roadmap-stop {
+                flex: none; max-width: none; min-width: 0;
+                display: flex; align-items: center; gap: 0.75rem;
+                padding: 0.85rem 0.25rem; border-bottom: 1px dashed var(--border);
+            }
+            .roadmap-stop:last-child { border-bottom: none; }
+            .roadmap-icon { margin: 0; flex-shrink: 0; }
+            .roadmap-date {
+                position: static; transform: none; flex-shrink: 0; order: -1;
+            }
+            .roadmap-card {
+                position: static; transform: none; width: auto !important; text-align: left; flex: 1;
+                bottom: auto !important; top: auto !important;
+            }
+            .roadmap-card::after { display: none; }
+            .roadmap-card:hover, .roadmap-card.expanded { background: none; border: none; box-shadow: none; padding: 0; }
+        }
+        .cert-link {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            color: var(--accent); text-decoration: none; font-size: var(--fs-xs); font-weight: 600;
+            margin-top: 0.5rem;
+        }
+        .cert-link:hover { text-decoration: underline; }
+
+        /* Standardised pinboard + sticky-note theme, reused by every card-style section */
+        .notes-board {
+            background: #ab9170;
+            background-image: radial-gradient(rgba(44, 42, 37, 0.1) 1px, transparent 1px);
+            background-size: 16px 16px;
+            border-radius: var(--radius);
+            padding: 2.5rem 1.75rem 2rem;
+            box-shadow: inset 0 2px 10px rgba(44, 42, 37, 0.18);
+            display: flex; flex-direction: column; gap: 2.25rem;
+        }
+        .board-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.25rem; }
+        .board-row-2 > .board-zone, .board-row-2 > .notes-board { min-width: 0; }
+        @media (max-width: 760px) { .board-row-2 { grid-template-columns: 1fr; gap: 2.25rem; } }
+        .board-zone-notes {
+            display: flex; flex-direction: row; gap: 1.25rem;
+            overflow-x: auto; scroll-snap-type: x proximity;
+            padding: 0.4rem 0.25rem 0.75rem;
+            scrollbar-width: none;
+        }
+        .board-zone-notes::-webkit-scrollbar { display: none; }
+        .sticky-note {
+            position: relative; cursor: pointer; flex: 0 0 148px; scroll-snap-align: start;
+            padding: 1rem 0.85rem 0.85rem; text-align: center;
+            border-radius: 3px;
+            box-shadow: 0 6px 14px rgba(44, 42, 37, 0.22);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .board-zone-notes.notes-wide .sticky-note { flex-basis: 175px; }
+        .sticky-note:nth-child(3n+1) { background: #f3ecd4; transform: rotate(-2.5deg); }
+        .sticky-note:nth-child(3n+2) { background: #e7ecd9; transform: rotate(1.8deg); }
+        .sticky-note:nth-child(3n) { background: #f6e3d0; transform: rotate(-1.2deg); }
+        .sticky-note:hover { box-shadow: 0 10px 20px rgba(44, 42, 37, 0.28); }
+        .sticky-note.expanded {
+            flex-basis: 230px; transform: rotate(0deg); z-index: 5;
+            box-shadow: 0 16px 28px rgba(44, 42, 37, 0.3);
+        }
+        .note-pin {
+            position: absolute; top: -7px; left: 50%; transform: translateX(-50%);
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--accent-2); box-shadow: 0 2px 4px rgba(44, 42, 37, 0.4);
+        }
+        .note-icon {
+            width: 30px; height: 30px; margin: 0 auto 0.45rem; border-radius: 50%;
+            background: rgba(44, 42, 37, 0.06); display: flex; align-items: center; justify-content: center;
+            font-size: var(--fs-sm); overflow: hidden;
+        }
+        .note-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .note-title { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-xs); color: var(--text-primary); margin-bottom: 0.2rem; line-height: 1.3; }
+        .note-meta { color: var(--text-secondary); font-weight: 600; font-size: var(--fs-2xs); }
+        .note-gpa {
+            display: inline-block; margin-top: 0.4rem; background: rgba(44, 42, 37, 0.08); color: var(--text-primary);
+            padding: 0.2rem 0.6rem; border-radius: 999px; font-size: var(--fs-2xs); font-weight: 700;
+        }
+        .sticky-note-hint { font-size: var(--fs-2xs); color: var(--text-tertiary); margin-top: 0.5rem; font-style: italic; }
+        .sticky-note.expanded .sticky-note-hint { display: none; }
+        .sticky-note-details {
+            max-height: 0; opacity: 0; overflow: hidden; text-align: left;
+            transition: max-height 0.45s ease, opacity 0.3s ease, margin-top 0.3s ease, padding-top 0.3s ease;
+            font-size: var(--fs-xs); color: var(--text-secondary); line-height: 1.55;
+        }
+        .sticky-note.expanded .sticky-note-details {
+            max-height: 800px; opacity: 1; margin-top: 0.7rem; padding-top: 0.7rem;
+            border-top: 1px dashed rgba(44, 42, 37, 0.2);
+        }
+        .note-date { color: var(--text-primary); font-weight: 600; font-size: var(--fs-2xs); margin-bottom: 0.4rem; }
+        .note-description { margin-bottom: 0.5rem; }
+        .note-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; }
+        .note-tag {
+            background: rgba(44, 42, 37, 0.07); color: var(--text-primary);
+            padding: 0.2rem 0.55rem; border-radius: 999px; font-size: var(--fs-2xs); font-weight: 600;
+        }
+        .note-link {
+            display: inline-block; margin-top: 0.4rem; font-size: var(--fs-2xs); font-weight: 700;
+            color: var(--text-primary); text-decoration: underline;
+        }
+        .note-images { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 0.6rem; }
+        .note-images img { width: 100%; border-radius: 8px; object-fit: cover; aspect-ratio: 16/10; }
+        @media (max-width: 480px) { .note-images { grid-template-columns: 1fr; } }
+        .note-detail-photo { width: 100%; border-radius: 8px; object-fit: cover; max-height: 160px; margin-bottom: 0.6rem; }
+
+        /* Skills: editorial list, not another pill grid */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; align-items: start; }
+        .skill-category {
+            background: var(--surface); border: 1px solid var(--border); border-top: 3px solid var(--accent);
+            border-radius: var(--radius); padding: 1.75rem 1.6rem; box-shadow: var(--shadow);
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+        .skill-category:nth-child(even) { border-top-color: var(--accent-2); }
+        .skill-category:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+        .skill-category h3 {
+            font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-md); color: var(--text-primary);
+            margin-bottom: 0.9rem; padding-bottom: 0.75rem; border-bottom: 1px dashed var(--border);
+        }
+        .skill-list { color: var(--text-secondary); font-size: var(--fs-sm); line-height: 1.85; overflow-wrap: break-word; word-break: break-word; }
+        .skill-list .sep { color: var(--accent); font-weight: 700; margin: 0 0.35rem; }
+        .skill-category:nth-child(even) .skill-list .sep { color: var(--accent-2); }
+
+        /* Project image gallery */
+        .project-images { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 0.9rem; }
         .project-images img {
-            width: 100%;
-            border-radius: 6px;
-            border: 1px solid var(--border);
-            object-fit: cover;
-            aspect-ratio: 16/10;
-            transition: all 0.3s;
-            cursor: pointer;
+            width: 100%; border-radius: 10px; border: 1px solid var(--border);
+            object-fit: cover; aspect-ratio: 16/10;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .project-images img:hover {
-            border-color: var(--accent-primary);
-            box-shadow: 0 4px 12px rgba(0, 119, 182, 0.15);
-            transform: scale(1.02);
+        .project-images img:nth-child(1):hover { transform: rotate(-1.5deg) scale(1.03); box-shadow: var(--shadow-hover); }
+        .project-images img:nth-child(2):hover { transform: rotate(1.5deg) scale(1.03); box-shadow: var(--shadow-hover); }
+        @media (max-width: 480px) { .project-images { grid-template-columns: 1fr; } }
+
+        /* Values */
+        .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .value-card {
+            background: rgba(242, 237, 225, 0.06);
+            border: 1px solid rgba(242, 237, 225, 0.14);
+            border-left: 3px solid var(--accent);
+            border-radius: 12px; padding: 1.1rem 1.2rem;
+            font-family: 'Fraunces', serif; font-style: italic; font-weight: 500;
+            font-size: var(--fs-sm); color: var(--ink-text); line-height: 1.5;
         }
-        @media (max-width: 480px) {
-            .project-images { grid-template-columns: 1fr; }
+        .value-card strong { font-style: normal; color: var(--accent-2); }
+        .value-card:nth-child(even) { border-left-color: var(--accent-2); }
+        .value-card:nth-child(even) strong { color: var(--accent); }
+        @media (max-width: 900px) { .values-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 480px) { .values-grid { grid-template-columns: 1fr; } }
+
+        /* Contact */
+        .intent-label { font-size: var(--fs-xs); color: var(--text-secondary); margin-bottom: 0.85rem; }
+        .intent-chips { display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 2rem; }
+        .intent-chip {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            background: var(--surface); border: 1px solid var(--border);
+            padding: 0.6rem 1.1rem; border-radius: 999px;
+            font-size: var(--fs-sm); font-weight: 600; color: var(--text-primary);
+            text-decoration: none; transition: all 0.2s;
+        }
+        .intent-chip:nth-child(1):hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+        .intent-chip:nth-child(2):hover { border-color: var(--accent-2); color: var(--accent-2); background: var(--accent-2-soft); }
+        .intent-chip:nth-child(3):hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+        .contact-layout { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 2.5rem; align-items: start; }
+        @media (max-width: 800px) {
+            .contact-layout { grid-template-columns: 1fr; gap: 2rem; }
+            .contact-stamp { margin: 0 auto; }
         }
 
-        /* Section reordering */
-        body { display: flex; flex-direction: column; }
-        section#experience { order: 0; }
-        section#projects { order: 1; }
-        section#certifications { order: 2; }
-        section#articles { order: 3; }
-        section#education { order: 5; }
-        section#awards { order: 6; }
-        section#affiliations { order: 7; }
-        section#publications { order: 8; }
-        section#skills { order: 9; }
-        section#contact { order: 11; }
-        nav { order: -1; }
-        .hero { order: 0.5; }
+        /* Contact: one compact "stamp" card bundling all 3 links, instead of 3 big cards */
+        .contact-stamp {
+            position: relative; max-width: 270px;
+            background: var(--surface); border: 1.5px dashed var(--border);
+            border-radius: var(--radius); padding: 1.25rem 1.3rem 0.5rem;
+            box-shadow: var(--shadow); transform: rotate(1.25deg);
+        }
+        .contact-stamp-mark {
+            position: absolute; top: -16px; right: -14px;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: var(--accent-2); color: var(--ink-text);
+            display: flex; align-items: center; justify-content: center;
+            font-size: var(--fs-lg); transform: rotate(-10deg);
+            box-shadow: 0 4px 10px rgba(44, 42, 37, 0.25);
+        }
+        .contact-stamp-label-top {
+            font-size: var(--fs-2xs); text-transform: uppercase; letter-spacing: 0.08em;
+            color: var(--text-tertiary); font-weight: 700; margin-bottom: 0.5rem;
+        }
+        .contact-stamp-row {
+            display: flex; align-items: center; gap: 0.65rem;
+            padding: 0.65rem 0.1rem; text-decoration: none;
+            border-bottom: 1px dashed var(--border);
+            transition: padding-left 0.2s ease;
+        }
+        .contact-stamp-row:last-child { border-bottom: none; }
+        .contact-stamp-row:hover { padding-left: 0.4rem; }
+        .contact-stamp-icon { font-size: var(--fs-md); flex-shrink: 0; }
+        .contact-stamp-text { display: flex; flex-direction: column; min-width: 0; }
+        .contact-stamp-label { font-size: var(--fs-2xs); color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.04em; }
+        .contact-stamp-value { font-size: var(--fs-xs); font-weight: 600; color: var(--text-primary); overflow-wrap: anywhere; }
+        .contact-stamp-row:hover .contact-stamp-value { color: var(--accent); }
+        .contact-stamp-row:nth-child(3):hover .contact-stamp-value { color: var(--accent-2); }
+
+        /* Footer */
+        footer { padding: 2rem 0; text-align: center; border-top: 1px solid var(--border); }
+        footer p { color: var(--text-tertiary); font-size: var(--fs-xs); }
+
+
+        /* Section reordering (kept from prior layout decisions) */
+        section#experience-work { order: 0; }
+        section#credentials { order: 1; }
+        section#values { order: 10; }
+        section#gallery { order: 11; }
+        section#contact { order: 12; }
+
+        /* Scroll-dot pagination for horizontal scrollers (timeline + each board zone) */
+        .scroll-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.9rem; }
+        .scroll-dots[hidden] { display: none; }
+        .scroll-dot {
+            width: 8px; height: 8px; border-radius: 50%; border: none; padding: 0;
+            background: var(--border); cursor: pointer; transition: background 0.2s ease, transform 0.2s ease;
+        }
+        .scroll-dot.active { background: var(--accent); transform: scale(1.3); }
+        .notes-board .scroll-dot { background: rgba(44, 42, 37, 0.25); }
+        .notes-board .scroll-dot.active { background: var(--ink-text); }
+
+        /* Board category labels, one per zone: pinned tab style so they pop off the board */
+        .board-category {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: 'Fraunces', serif; font-weight: 700; font-style: normal;
+            font-size: var(--fs-lg); color: var(--ink);
+            background: var(--ink-text);
+            padding: 0.5rem 1.1rem; border-radius: 999px;
+            margin-bottom: 1.25rem;
+            box-shadow: 0 5px 14px rgba(44, 42, 37, 0.3);
+        }
+        .board-category .count {
+            font-family: 'Inter', sans-serif; font-weight: 700; font-style: normal;
+            font-size: var(--fs-2xs); color: var(--ink-text);
+            background: var(--accent); padding: 0.15rem 0.55rem; border-radius: 999px;
+        }
+
+        /* Certifications/awards/affiliations as compact, colorful badges instead of big cards */
+        .cert-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+        .cert-badge {
+            position: relative; cursor: pointer; display: inline-block; vertical-align: top;
+            border-radius: 999px;
+            padding: 0.5rem 1rem 0.5rem 0.5rem; width: 175px;
+            box-shadow: 0 3px 8px rgba(44, 42, 37, 0.1);
+            transition: box-shadow 0.25s ease, border-radius 0.25s ease, padding 0.25s ease, width 0.2s ease, transform 0.2s ease;
+        }
+        .cert-badge:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(44, 42, 37, 0.16); }
+        .cert-badge:nth-child(3n+1) { background: var(--accent-soft); border: 1px solid var(--accent-soft-border); }
+        .cert-badge:nth-child(3n+2) { background: var(--accent-2-soft); border: 1px solid var(--accent-2-soft-border); }
+        .cert-badge:nth-child(3n) { background: var(--surface); border: 1px solid var(--border); }
+        .cert-badge-top { display: flex; align-items: center; gap: 0.5rem; }
+        .cert-badge-icon {
+            width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+            background: rgba(44, 42, 37, 0.06); display: flex; align-items: center; justify-content: center;
+            font-size: var(--fs-sm); overflow: hidden;
+        }
+        .cert-badge-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .cert-badge-icon.logo-icon img { object-fit: contain; padding: 3px; box-sizing: border-box; }
+        .cert-badge-name { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-2xs); color: var(--text-primary); line-height: 1.25; }
+        .cert-badge-details {
+            max-height: 0; opacity: 0; overflow: hidden; width: 100%; text-align: left;
+            transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease, padding-top 0.3s ease;
+            font-size: var(--fs-2xs); color: var(--text-secondary); line-height: 1.55;
+        }
+        .cert-badge.expanded {
+            border-radius: var(--radius); padding: 0.9rem 1.1rem; box-shadow: var(--shadow-hover); width: 250px;
+        }
+        .cert-badge.expanded .cert-badge-details {
+            max-height: 400px; opacity: 1; margin-top: 0.6rem; padding-top: 0.6rem;
+            border-top: 1px dashed rgba(44, 42, 37, 0.15);
+        }
+        .cert-badge-meta { color: var(--text-primary); font-weight: 600; font-size: var(--fs-2xs); margin-bottom: 0.35rem; }
+        .cert-badge-desc { margin-bottom: 0.4rem; }
+
+        /* Credentials & Recognition: groups of badges, lighter than The Board */
+        .credential-group { margin-bottom: 2rem; }
+        .credential-group:last-child { margin-bottom: 0; }
+        .credential-group-title {
+            display: flex; align-items: center; gap: 0.6rem;
+            font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-lg); color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        .credential-group-title .count {
+            font-family: 'Inter', sans-serif; font-weight: 700; font-size: var(--fs-2xs); color: var(--ink-text);
+            background: var(--accent); padding: 0.15rem 0.55rem; border-radius: 999px;
+        }
+        .credential-group:nth-child(even) .credential-group-title .count { background: var(--accent-2); }
+
+        /* Credentials + Skills side by side to save vertical space */
+        .credentials-skills-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: start; }
+        @media (max-width: 900px) { .credentials-skills-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
+        .skills-col .skills-grid { grid-template-columns: 1fr; gap: 1rem; }
+        .skills-col .skill-category { padding: 1.1rem 1.25rem; }
+        .skills-col .skill-list { font-size: var(--fs-xs); line-height: 1.7; }
+        .credentials-col .cert-badge { width: 155px; }
+        .credentials-col .cert-badge.expanded { width: 230px; }
+
+        /* Gallery: a light mix of personal and team photos, scrolls sideways */
+        .gallery-grid {
+            display: flex; gap: 1.1rem; flex-wrap: nowrap; align-items: flex-end;
+            overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none;
+            padding: 0.5rem 0.25rem 1rem;
+        }
+        .gallery-grid::-webkit-scrollbar { display: none; }
+        .gallery-grid img {
+            width: auto; height: 200px; max-width: 280px; object-fit: cover; flex-shrink: 0;
+            scroll-snap-align: start;
+            border-radius: 10px; border: 5px solid var(--surface);
+            box-shadow: 0 6px 16px rgba(44, 42, 37, 0.18);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .gallery-grid img:nth-child(odd) { transform: rotate(-2.5deg); }
+        .gallery-grid img:nth-child(even) { transform: rotate(2.5deg); }
+        .gallery-grid img:hover { transform: rotate(0deg) scale(1.05); box-shadow: 0 10px 20px rgba(44, 42, 37, 0.25); z-index: 2; position: relative; }
+        @media (max-width: 600px) { .gallery-grid img { height: 150px; } }
+
+        footer { order: 13; }
+        .hero { order: 0; }
     </style>
 </head>
 <body>
     <nav>
         <div class="container">
-            <div class="logo">AK</div>
+            <div class="logo">AK<span class="accent">.</span></div>
             <button class="menu-toggle" aria-label="Menu">☰</button>
             <ul class="nav-links">
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#certifications">Certifications</a></li>
-                <li><a href="#education">Education</a></li>
                 <li><a href="#skills">Skills</a></li>
+                <li><a href="#values">Values</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <a href="./Aishwarya Koppula Resume.pdf" download class="btn btn-primary resume-btn" title="Download resume PDF">Resume</a>
+            <a href="./Aishwarya_Koppula_resume.pdf" download class="btn btn-primary resume-btn" title="Download resume PDF">Resume</a>
         </div>
     </nav>
 
     <section class="hero">
+        <svg class="hero-line-accent" viewBox="0 0 900 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 200 C 150 50, 300 250, 450 120 S 750 30, 900 160" stroke="#7c8a6e" stroke-width="2"/>
+            <path d="M50 260 C 200 140, 320 300, 500 220 S 780 120, 870 240" stroke="#c6885c" stroke-width="2" opacity="0.6"/>
+        </svg>
         <div class="container">
-            <div class="hero-content animate-in">
-                <div class="hero-text">
-                    <h1>Aishwarya Koppula</h1>
-                    <p class="subtitle">Product Manager | 0-to-1 Builder | Data-Driven Strategist</p>
-                    <p>Engineer turned strategist with three years of Fortune 200 product and AI delivery; led consulting engagements for Bayer and ISE Italy translating ambiguous client problems into structured diagnostics, prioritized roadmaps, and quantified business cases, with a track record of delivering structured recommendations to C-suite and founder audiences. Pursuing MEM (4.0) at Purdue.</p>
+            <div class="hero-inner animate-in">
+                <div class="hero-text-col">
+                    <div class="hero-badge"><span class="dot"></span>West Lafayette, IN · Open to Relocation</div>
+                    <h1 class="hero-name">Aishwarya<br>Koppula<span class="accent">.</span></h1>
+                    <p class="hero-tagline">Product manager turning complex B2B and AI problems into products people rely on.</p>
+                    <p class="hero-summary">I'm Aishwarya, a Master of Engineering Management (Tech MBA) student at Purdue with four years of product experience across B2B platforms and AI. At Carrier, I owned a financial and regulatory planning platform end to end and became the youngest recipient of the company's Leadership Award. Since then, I've built AI products and use cases at Trane, Cummins, and ISE, from competitor intelligence tools to enterprise data pipelines to industrial fault detection. I start with what users really need, work closely with engineers to build it, and make sure it delivers. Outside of work, I build my own AI workflows and simple tools to learn new technologies, and I enjoy shipping MVPs that get the job done. I'm looking for product roles where AI meets real business problems.</p>
+                </div>
+                <div class="hero-photo-col">
+                    <div class="hero-photo">
+                        <img src="./Aishwarya_Koppula_3.jpg" alt="Aishwarya Koppula">
+                    </div>
+                    <p class="hero-photo-caption">Purdue MEM (Tech MBA) <span class="sep">&middot;</span> AI Workflows <span class="sep">&middot;</span> Product &amp; Program Management <span class="sep">&middot;</span> Ex-Carrier, Trane</p>
+                    <div class="hero-divider"></div>
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <div class="stat-value">4+</div>
+                            <div class="stat-label">Years in Product &amp; AI</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">6</div>
+                            <div class="stat-label">Organizations Delivered For</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value"><span class="accent">$2.5M+</span></div>
+                            <div class="stat-label">Business Impact Delivered</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value">Top 1%</div>
+                            <div class="stat-label">Carrier Leadership Award, Operational Excellence &amp; Reliability</div>
+                        </div>
+                    </div>
                     <div class="cta-buttons">
                         <a href="mailto:aishkoppula01@gmail.com" class="btn btn-primary">Get in Touch</a>
                         <a href="https://www.linkedin.com/in/aishwarya-koppula-02a1361b7" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">LinkedIn</a>
                         <a href="https://github.com/Aishwarya-Koppula" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
                     </div>
                 </div>
-                <div class="hero-image">
-                    <div class="profile-photo-wrapper">
-                        <img src="./Aishwarya_Koppula_3.jpg" alt="Aishwarya Koppula" class="profile-photo">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Skills & Expertise</h2>
-                <p class="section-subtitle">A comprehensive toolkit for product development and engineering</p>
-            </div>
-            <div class="skills-scroll">
-                <div class="skill-category">
-                    <h3>Product Management</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">0-to-1 Product Development</span>
-                        <span class="skill-tag">User Research</span>
-                        <span class="skill-tag">PRD/BRD</span>
-                        <span class="skill-tag">Roadmap Prioritization</span>
-                        <span class="skill-tag">Feature Prioritization</span>
-                        <span class="skill-tag">Go-to-Market Strategy</span>
-                        <span class="skill-tag">A/B Testing</span>
-                        <span class="skill-tag">Product Analytics</span>
-                        <span class="skill-tag">Backlog Management</span>
-                        <span class="skill-tag">Stakeholder Management</span>
-                        <span class="skill-tag">Competitive Analysis</span>
-                        <span class="skill-tag">KPI Development</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Technical</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Python</span>
-                        <span class="skill-tag">SQL</span>
-                        <span class="skill-tag">REST APIs</span>
-                        <span class="skill-tag">GenAI & LLMs</span>
-                        <span class="skill-tag">Agentic AI</span>
-                        <span class="skill-tag">AWS</span>
-                        <span class="skill-tag">React.js</span>
-                        <span class="skill-tag">Node.js</span>
-                        <span class="skill-tag">PowerBI</span>
-                        <span class="skill-tag">Tableau</span>
-                        <span class="skill-tag">Figma</span>
-                        <span class="skill-tag">Jira</span>
-                        <span class="skill-tag">Confluence</span>
-                        <span class="skill-tag">Git</span>
-                        <span class="skill-tag">Snowflake</span>
-                        <span class="skill-tag">Docker</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Domain</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">B2B SaaS</span>
-                        <span class="skill-tag">IoT</span>
-                        <span class="skill-tag">Data Products</span>
-                        <span class="skill-tag">Sustainability & Carbon Accounting</span>
-                        <span class="skill-tag">Energy Management</span>
-                        <span class="skill-tag">AI</span>
-                        <span class="skill-tag">Agile</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Certifications</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">CSPO</span>
-                        <span class="skill-tag">McKinsey Forward Program</span>
-                        <span class="skill-tag">AI for Agile Professionals</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="experience">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Professional Experience</h2>
-                <p class="section-subtitle">Building products and solving problems across industries</p>
-                <p class="section-resume-link">Full experience details match my resume → <a href="./Aishwarya Koppula Resume.pdf" download>Download Resume (PDF)</a></p>
-            </div>
-            <div class="timeline">
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <h3 class="timeline-title">Strategy Intern</h3>
-                            <div class="timeline-company">Trane Technologies | Davidson, NC</div>
-                        </div>
-                        <span class="timeline-date">May 2026 – Present</span>
-                    </div>
-                    <ul class="timeline-highlights">
-                        <li>Scoping and leading delivery of a supplier sustainability analytics platform enabling procurement managers to model emissions outcomes, regulatory compliance trajectories, and cost glide paths across hybrid sourcing scenarios; defined role-based access tiers and data governance policies to ensure sensitive supplier data is surfaced only to authorized stakeholders.</li>
-                        <li>Analyzing sustainability engagement requirements across hyperscaler clients to inform Trane's net-zero strategy across building systems and energy solutions.</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <h3 class="timeline-title">GTM Strategy Consultant</h3>
-                            <div class="timeline-company">Bayer – LoriComunica | Purdue University</div>
-                        </div>
-                        <span class="timeline-date">Jan 2026 – May 2026</span>
-                    </div>
-                    <ul class="timeline-highlights">
-                        <li>Diagnosed a conversion failure from 4,652 downloads to 1 paying subscriber and traced root cause to post-install friction and trial design rather than acquisition; structured finding changed the intervention from a marketing fix to a product fix.</li>
-                        <li>Scored 11 competitors across 10 dimensions, isolated 3 capability gaps blocking US market entry, and recommended a 4-tier pricing architecture anchored against $299 US market leaders.</li>
-                        <li>Validated the Shareable Context Card as the highest-leverage growth lever with 73% upgrade intent in prototype testing and built a GTM roadmap projecting $5K MRR within 12 months through SLP clinic partnerships; delivered structured recommendation directly to founders.</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <h3 class="timeline-title">AI Strategy Consultant</h3>
-                            <div class="timeline-company">ISE Italy | Purdue University</div>
-                        </div>
-                        <span class="timeline-date">Jan 2026 – May 2026</span>
-                    </div>
-                    <ul class="timeline-highlights">
-                        <li>Identified fault classification and automated reporting as the critical diagnostic gap in the client's production line; scoped and validated a solution achieving 90.3% accuracy that compresses per-inspection time from 5 hours to 15 minutes.</li>
-                        <li>Built the business case for $76K annual savings, flagged loosening detection as the key risk before scale, and structured a phased rollout roadmap with competitive positioning for production deployment; presented findings directly to the CEO.</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <h3 class="timeline-title">Technical Product Owner</h3>
-                            <div class="timeline-company">Carrier | $20B global portfolio</div>
-                        </div>
-                        <span class="timeline-date">Apr 2025 – Dec 2025</span>
-                    </div>
-                    <ul class="timeline-highlights">
-                        <li>Identified the absence of integrated scenario modeling as the binding constraint on Carrier's C-suite decision velocity; led 0 to 1 delivery of Scenario & Trend Readiness Assessment Tool, enabling simultaneous evaluation of revenue and emissions outcomes across 12 scenario combinations and driving forces within a $20B global portfolio, preventing $770K in outsourcing spend; all roadmap and build decisions presented directly to executive leadership.</li>
-                        <li><strong>Award:</strong> Youngest recipient of Carrier Leadership Award (Top 1%) for excellence in product delivery.</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <h3 class="timeline-title">Product Engineer</h3>
-                            <div class="timeline-company">Carrier</div>
-                        </div>
-                        <span class="timeline-date">Aug 2024 – Mar 2025</span>
-                    </div>
-                    <ul class="timeline-highlights">
-                        <li>Mapped regulatory reporting workflows, identified 4 critical bottlenecks, and built the business case for the Product Data Management Tool; owned the backlog through delivery, compressing sustainability compliance reporting from 11 weeks to 4 weeks.</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <h3 class="timeline-title">Management Trainee</h3>
-                            <div class="timeline-company">Carrier | Engineering Leadership Program</div>
-                        </div>
-                        <span class="timeline-date">Aug 2022 – Jul 2024</span>
-                    </div>
-                    <ul class="timeline-highlights">
-                        <li><strong>ML-Based Home Energy Management System:</strong> Engineered load forecasting models with occupancy pattern encoding and weather signal ingestion, achieving 11% accuracy gain through iterative retraining and A/B evaluation; scaled from 50-device pilot to 9,000.</li>
-                        <li><strong>Data Center Operations Analytics:</strong> Built a Python ETL pipeline across Cisco enterprise data centers monitoring real-time power draw and cooling load; implemented statistical anomaly detection and threshold-based alerting adopted by operations within 60 days, surfacing $1.8M in at-risk assets and identifying a 10% energy efficiency pathway.</li>
-                    </ul>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-header">
-                        <div>
-                            <h3 class="timeline-title">Project Intern</h3>
-                            <div class="timeline-company">Apple</div>
-                        </div>
-                        <span class="timeline-date">Sep 2021 – Jun 2022</span>
-                    </div>
-                    <ul class="timeline-highlights">
-                        <li>Conducted 17 user interviews, synthesized findings into a prioritized backlog and shipped the Local Vendor Connect platform serving 100+ vendors; proposed Apple Maps integration validated through technical feasibility analysis.</li>
-                    </ul>
-                    <a href="./apple-certificate.pdf" target="_blank" class="cert-link">📄 View Certificate</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="certifications">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Professional Certifications</h2>
-                <p class="section-subtitle">Continuous learning and skill development</p>
-            </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-header-row">
-                        <img src="./cspo-badge.png" alt="CSPO Badge" class="card-badge">
-                        <div>
-                            <div class="card-title">Certified Scrum Product Owner® (CSPO)</div>
-                            <div class="card-org">Scrum Alliance</div>
-                        </div>
-                    </div>
-                    <div class="card-date">Issued: October 2025 | Expires: October 2027</div>
-                    <div class="card-description">
-                        Trained by Amit Kulkarni, CST®. Certified to lead product development in Agile environments, manage product backlogs, and drive value delivery.
-                    </div>
-                    <a href="./cspo-certificate.pdf" target="_blank" class="cert-link">📄 View Certificate</a>
-                    <div class="card-tags">
-                        <span class="card-tag">Product Management</span>
-                        <span class="card-tag">Agile</span>
-                        <span class="card-tag">Scrum</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header-row">
-                        <img src="./mckinsey-badge.png" alt="McKinsey Forward" class="card-badge">
-                        <div>
-                            <div class="card-title">McKinsey.org Forward Program</div>
-                            <div class="card-org">McKinsey & Company</div>
-                        </div>
-                    </div>
-                    <div class="card-date">Issued: December 2025</div>
-                    <div class="card-description">
-                        Completed comprehensive program on problem-solving, communication, and adaptable mindsets for the future of work.
-                    </div>
-                    <a href="./mckinsey-certificate.png" target="_blank" class="cert-link">📄 View Certificate</a>
-                    <div class="card-tags">
-                        <span class="card-tag">Problem Solving</span>
-                        <span class="card-tag">Communication</span>
-                        <span class="card-tag">Leadership</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">AI for Agile Professionals</div>
-                    <div class="card-org">World of Agile</div>
-                    <div class="card-date">Issued: November 2025 | 6 Contact Hours</div>
-                    <div class="card-description">
-                        Trained by Snehamayee, CST®. Integrating AI with Agile methodologies to enhance team performance.
-                    </div>
-                    <a href="./ai-for-agile-certificate.pdf" target="_blank" class="cert-link">📄 View Certificate</a>
-                    <div class="card-tags">
-                        <span class="card-tag">AI in Scrum</span>
-                        <span class="card-tag">Agile</span>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-title">Data Science Project Analysis</div>
-                    <div class="card-org">INSOFE</div>
-                    <div class="card-date">Issued: November 2018</div>
-                    <div class="card-description">Comprehensive training in data science project execution and analysis techniques.</div>
-                    <a href="#certifications" class="cert-link" title="Certificate link coming soon">📄 View Certificate</a>
-                    <div class="card-tags">
-                        <span class="card-tag">Data Science</span>
-                        <span class="card-tag">Analytics</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="publications">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Research & Publications</h2>
-                <p class="section-subtitle">Contributing to academic research and industry knowledge</p>
-            </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <h3 class="card-title">Air and Sound Pollution Tracking Using IoT and Machine Learning</h3>
-                    <div class="card-org">Published by CRC Press / Taylor & Francis</div>
-                    <div class="card-date">2024</div>
-                    <div class="card-description">
-                        Spearheaded research project developing an IoT and machine learning-based system for real-time monitoring of air and noise pollution. Led ML model training, data analysis, and integration with mobile app interfaces. Co-authors: K. Aishwarya, R. Christina, Y. Priya Amrutha.
-                    </div>
-                    <a href="https://www.taylorfrancis.com/" target="_blank" rel="noopener noreferrer" class="cert-link">📖 View Publication</a>
-                    <div class="card-tags">
-                        <span class="card-tag">IoT</span>
-                        <span class="card-tag">Machine Learning</span>
-                        <span class="card-tag">Environmental Science</span>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
 
-    <section id="projects">
+
+    <section id="experience-work" class="section-alt">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Projects</h2>
-                <p class="section-subtitle">Selected product and side projects</p>
+                <div class="experience-col" id="experience">
+                    <div class="section-header">
+                        <h2 class="section-title">Professional Experience</h2>
+                        <p class="section-subtitle">A roadmap of where I've studied and worked. Tap a stop for the full story.</p>
+                    </div>
+            <div class="roadmap">
+                <div class="roadmap-stop top">
+                    <div class="roadmap-card">
+                        <div class="roadmap-icon">🎓</div>
+                        <div class="roadmap-role">B.Tech, Computer Science</div>
+                        <div class="roadmap-org">JNTU Hyderabad</div>
+                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-details">
+                            <div class="roadmap-detail-date">Jul 2018 – Jul 2022 · GPA 3.9/4.0</div>
+                            <p class="roadmap-detail-text">G. Narayanamma Institute of Technology &amp; Science (GNITS). Student Coordinator at Indian Society of Technical Education. Software Developer Intern at Intrinsic Science Labs.</p>
+                        </div>
+                    </div>
+                    <div class="roadmap-date">2018–22</div>
+                </div>
+
+                <div class="roadmap-stop bottom">
+                    <div class="roadmap-date">2021–22</div>
+                    <div class="roadmap-card">
+                        <div class="roadmap-icon"><img src="./logo-apple.png" alt="Apple"></div>
+                        <div class="roadmap-role">Project Intern</div>
+                        <div class="roadmap-org">Apple</div>
+                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-details">
+                            <div class="roadmap-detail-date">Sep 2021 – Jun 2022 · Hyderabad, India</div>
+                            <ul class="roadmap-highlights">
+                                <li>Conducted 17 customer interviews to surface unmet vendor needs, synthesizing insights into a prioritized backlog that shipped Local Vendor Connect, serving 100+ vendors.</li>
+                                <li>Proposed Apple Maps integration with a technical feasibility analysis, partnering with engineering to validate scope and usability.</li>
+                            </ul>
+                            <a href="./apple-certificate.pdf" target="_blank" class="cert-link">📄 View Certificate</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roadmap-stop top">
+                    <div class="roadmap-card">
+                        <div class="roadmap-icon"><img src="./logo-carrier.png" alt="Carrier"></div>
+                        <div class="roadmap-role">Product Owner</div>
+                        <div class="roadmap-org">Carrier</div>
+                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-details">
+                            <div class="roadmap-detail-date">Aug 2022 – Dec 2025 · Hyderabad, India</div>
+                            <ul class="roadmap-highlights">
+                                <li>Owned end to end SDLC of STRAT, an AWS platform modeling financial and regulatory scenarios from SAP ERP and Snowflake, aligning sales, engineering, and design by mapping stakeholder workflows, saving $770K and driving 12x throughput on a $20B portfolio.</li>
+                                <li>Defined requirements and acceptance criteria for AWS ETL pipelines (EC2, S3, Lambda, Docker) preserving data integrity and lineage across Snowflake and other sources, eliminating 4 critical bottlenecks and cutting processing time from 11 weeks to 4.</li>
+                                <li><strong>Engineering Leadership Program (ELP) Associate: Three global 8-month rotations</strong></li>
+                                <li>Scaled a residential ML pipeline (training and inference) from 50 to 9,000 networked ESP32 IoT edge devices by re-platforming .NET to Python with concurrent processing on AWS EC2/S3, driving an 11% forecasting accuracy gain and a 23% energy cost savings target.</li>
+                                <li>Quantified $1.8M in at-risk assets and a 10% efficiency pathway by partnering with data scientists to profile over 6 months of 5-minute DCIM telemetry across 16 rooms in 4 data centers via a cloud-deployed Plotly Dash dashboard.</li>
+                                <li><strong>Award:</strong> Youngest recipient of Carrier's Leadership Award (Top 1%) for excellence in product delivery.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-date">2022–25</div>
+                </div>
+
+                <div class="roadmap-stop bottom">
+                    <div class="roadmap-date">2026–27</div>
+                    <div class="roadmap-card">
+                        <div class="roadmap-icon"><img src="./logo-purdue.png" alt="Purdue University"></div>
+                        <div class="roadmap-role">Master of Engineering Management</div>
+                        <div class="roadmap-org">Purdue University</div>
+                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-details">
+                            <div class="roadmap-detail-date">Jan 2026 – May 2027 · GPA 4.0/4.0</div>
+                            <p class="roadmap-detail-text">Specialized coursework in Product Management, Agile Project Management, Business Analytics, Strategic Management, and Brand Management. Active member of American Society for Engineering Management (ASEM).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roadmap-stop top">
+                    <div class="roadmap-card">
+                        <div class="roadmap-icon"><img src="./logo-bayer.png" alt="Bayer"></div>
+                        <div class="roadmap-role">Go-to-Market Strategist</div>
+                        <div class="roadmap-org">Bayer</div>
+                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-details">
+                            <div class="roadmap-detail-date">Jan 2026 – May 2026 · LoriComunica (AAC App)</div>
+                            <img src="./loricomunica-bayer-team.jpeg" alt="The LoriComunica team presenting the final strategy report at Bayer" class="note-detail-photo">
+                            <ul class="roadmap-highlights">
+                                <li>Led competitor analysis, A/B testing, and pricing strategy for LoriComunica, driving a B2B/B2G go-to-market shift.</li>
+                                <li>The new prototype was adopted by 6 clinics, with 95% of users preferring it over the existing app.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-date">Jan '26</div>
+                </div>
+
+                <div class="roadmap-stop bottom">
+                    <div class="roadmap-date">Jan '26</div>
+                    <div class="roadmap-card">
+                        <div class="roadmap-icon"><img src="./logo-ise.png" alt="ISE"></div>
+                        <div class="roadmap-role">AI Program &amp; Data Associate</div>
+                        <div class="roadmap-org">ISE</div>
+                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-details">
+                            <div class="roadmap-detail-date">Jan 2026 – May 2026 · West Lafayette, IN</div>
+                            <ul class="roadmap-highlights">
+                                <li>Reached 100% fault detection and 75% expert agreement across 200+ industrial assets by directing the ML lifecycle (labeling, training, statistical evaluation) of a fault classification system combining CNN, digital twin, and signal processing.</li>
+                                <li>Compressed inspection time 95% (5 hours to 15 minutes) across 3 live production deployments and presented a $76K annual savings ROI business case to C-suite leadership.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="roadmap-stop top">
+                    <div class="roadmap-card">
+                        <div class="roadmap-icon"><img src="./logo-trane.png" alt="Trane Technologies"></div>
+                        <div class="roadmap-role">AI Product Intern</div>
+                        <div class="roadmap-org">Trane Technologies</div>
+                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-details">
+                            <div class="roadmap-detail-date">May 2026 – Aug 2026 · Davidson, NC</div>
+                            <ul class="roadmap-highlights">
+                                <li>Prioritized and roadmapped 21 GenAI use cases via value stream mapping across 6 sustainability workstreams, orchestrating delivery for 7 implementation plans including retrieval architecture, eval criteria, and AI guardrails, cutting manual effort 86% (2,000+ hours a year).</li>
+                                <li>Partnered with marketing to translate stakeholder and investor feedback into an LLM powered competitor tracking system spanning 23 peers and 12 raters, collapsing a month long benchmarking process into 1 hour, including SWOT and gap analysis for competitive positioning.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="roadmap-date">May '26</div>
+                </div>
+
+                <div class="roadmap-stop bottom">
+                    <div class="roadmap-date">Aug '26</div>
+                    <div class="roadmap-card">
+                        <div class="roadmap-icon"><img src="./logo-cummins.png" alt="Cummins"></div>
+                        <div class="roadmap-role">Technical Program Manager</div>
+                        <div class="roadmap-org">Cummins</div>
+                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-details">
+                            <div class="roadmap-detail-date">Aug 2026 – Dec 2026 · West Lafayette, IN</div>
+                            <ul class="roadmap-highlights">
+                                <li>Leading a 16 member cross functional team across 3 AI use cases, running sprints, demos, and research updates, and automating data dictionaries and schema impact analysis on Snowflake Cortex across 350+ dbt ELT pipelines, targeting 80 to 90% cost savings.</li>
+                                <li>Driving delivery of a persistent memory framework (session, episodic, semantic) for a supply chain chatbot on LangGraph and Mosaic AI Vector Search, tracking eval milestones and compute risks in leadership reports, projected to deliver 30 to 40% faster agent development.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <h3 class="card-title">Lodge — 1st Place, MEMPC Hackathon 2026</h3>
-                    <div class="card-org">Purdue University | Inter-College Hackathon</div>
-                    <div class="card-date">April 2026</div>
-                    <div class="project-images">
-                        <img src="./lodge-app.jpeg" alt="Lodge App - Social infrastructure platform">
-                        <img src="./lodge-hackathon-win.jpeg" alt="Lodge winning 1st place at MEMPC Hackathon">
-                    </div>
-                    <div class="card-description">
-                        Won 1st place at the inaugural MEMPC Inter-College Hackathon, beating teams from Cornell, Duke, and five other top programs. Lodge is a social infrastructure platform for people who have relocated and feel like rebuilding a social life takes too much deliberate effort. The core insight is that organic friendships form through repeated low-stakes overlap, not intentional scheduling. Lodge matches users on behavioral proximity — the same coffee shop Tuesday mornings or the same 6am gym — rather than profiles or posts. The product includes a behavioral intelligence engine that clusters geolocation patterns, detects routine entropy (when someone's social rhythm is quietly atrophying), and generates contextual match invitations using GPT-4.1-mini. The AI layer notices when someone is drifting and nudges them back into connection before they fully withdraw. Shipped as a fully functional React and Node.js MVP in 24 hours using Claude Code and Cursor, recognized for bridging product strategy with production-ready execution.
-                    </div>
-                    <div class="card-tags">
-                        <a href="https://lodge-project-hackathon-kf92hl9ep.vercel.app" target="_blank" rel="noopener noreferrer" class="card-tag">Live Demo</a>
-                        <a href="https://www.canva.com/design/DAHF7Lphm2k/j19o7zKBtvUGOqqTY5xwUA/edit" target="_blank" rel="noopener noreferrer" class="card-tag">Pitch Deck</a>
-                        <span class="card-tag">React</span>
-                        <span class="card-tag">Node.js</span>
-                        <span class="card-tag">GPT-4.1-mini</span>
-                        <span class="card-tag">Claude Code</span>
-                    </div>
                 </div>
 
-                <div class="card">
-                    <h3 class="card-title">Claro | Johns Hopkins Product Hackathon 2026</h3>
-                    <div class="card-org">Johns Hopkins University | AI-Powered Learning Platform</div>
-                    <div class="card-date">2026</div>
-                    <div class="card-description">
-                        Most students don't fail because they're not trying — they fail because no one showed them how the pieces connect. Claro is an AI-powered learning platform that maps the full concept dependency graph of a student's degree pathway so they can see not just what they're learning but how it connects to everything before and after it. When a concept isn't landing, Claro surfaces exactly which prerequisite is the missing link. Resources are matched to preferred language, study mode (video, reading, podcast, interactive), and learning context. For professors, Claro flips the lens: instead of seeing that a cohort scored 58% on a quiz, they see which concept node broke down, which prerequisite it traces back to, and whether the course material itself created the barrier through jargon, cultural assumptions, or language inaccessible to an international student body. The USP: Claro does not report outcomes — it diagnoses root causes and hands students the exact resource, in their language, in their format, to fix it. Knowledge graph rendered with force-directed 2D for cohort view and Three.js 3D for the student personal view.
+                <div class="board-col">
+                    <div class="section-header">
+                        <div class="section-eyebrow">Pinned Up</div>
+                        <h2 class="section-title">The Board</h2>
+                        <p class="section-subtitle">Projects I've built and things I've written, pinned up. Click any note for the story behind it.</p>
                     </div>
-                    <div class="card-tags">
-                        <span class="card-tag">React 18</span>
-                        <span class="card-tag">Firebase</span>
-                        <span class="card-tag">OpenAI API</span>
-                        <span class="card-tag">Three.js</span>
-                        <span class="card-tag">Vercel</span>
-                    </div>
-                </div>
+            <div class="board-row-2">
+                <div class="notes-board">
+                <div class="board-zone">
+                    <div class="board-category" id="projects">Projects <span class="count">(6)</span></div>
+                    <div class="board-zone-notes notes-wide">
+                        <div class="sticky-note">
+                            <span class="note-pin"></span>
+                            <div class="note-icon">🤖</div>
+                            <h3 class="note-title">Sentinel</h3>
+                            <div class="note-meta">AI Market Intelligence Platform</div>
+                            <p class="sticky-note-hint">Tap for details</p>
+                            <div class="sticky-note-details">
+                                <div class="note-date">Personal Project · Jul 2026 – Present</div>
+                                <p class="note-description">Engineering a market intelligence engine (n8n, Claude API, multi-agent via MCP) automating competitive intelligence and secondary market research, replacing manual company research with ranked, RAG-verified ICP matching to inform strategic planning.</p>
+                                <div class="note-tags">
+                                    <span class="note-tag">Multi-Agent Systems</span>
+                                    <span class="note-tag">MCP</span>
+                                    <span class="note-tag">RAG</span>
+                                    <span class="note-tag">Agentic AI</span>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="card">
-                    <h3 class="card-title">Agentic Briefing Pipeline</h3>
-                    <div class="card-org">Personal Project</div>
-                    <div class="card-date">Feb 2026 - Apr 2026</div>
-                    <div class="card-description">
-                        Built a personal AI pipeline that automates synthesis of meeting transcripts and academic PDFs using Claude LLM and calendar APIs; reduced manual retrieval time by 80% with sub-second latency.
-                    </div>
-                    <div class="card-tags">
-                        <a href="https://github.com/Aishwarya-Koppula/meeting-intelligence-engine" target="_blank" rel="noopener noreferrer" class="card-tag">GitHub</a>
-                        <span class="card-tag">Python</span>
-                        <span class="card-tag">Claude LLM</span>
-                        <span class="card-tag">Agentic AI</span>
-                    </div>
-                </div>
+                        <div class="sticky-note">
+                            <span class="note-pin"></span>
+                            <div class="note-icon">👵</div>
+                            <h3 class="note-title">Grandmode</h3>
+                            <div class="note-meta">Consumer Practice App for Older Adults</div>
+                            <p class="sticky-note-hint">Tap for details</p>
+                            <div class="sticky-note-details">
+                                <div class="note-date">Sep 2026 – Present</div>
+                                <p class="note-description">Conducted 10 user interviews with older adults (ages 69 to 75) on everyday consumer app use, synthesizing insights via affinity and customer journey mapping into 2 core jobs-to-be-done, then ideated 60+ solution concepts across UX, fraud prevention, and authentication.</p>
+                                <div class="note-tags">
+                                    <span class="note-tag">User Research</span>
+                                    <span class="note-tag">JTBD</span>
+                                    <span class="note-tag">Customer-Facing Apps</span>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="card">
-                    <h3 class="card-title">WattWise | Carrier Innovation Competition</h3>
-                    <div class="card-org">Carrier - 1st Place Locally, 4th Place Globally (84 Teams)</div>
-                    <div class="card-date">April 2023 - June 2023</div>
-                    <div class="card-description">
-                        Shaped product concept and led business case development; placed 1st locally and 4th globally across 84 teams, earning Innovation Labs approval.
-                    </div>
-                    <div class="card-tags">
-                        <span class="card-tag">Product Innovation</span>
-                        <span class="card-tag">Team Leadership</span>
-                        <span class="card-tag">Go-to-Market</span>
-                    </div>
-                </div>
+                        <div class="sticky-note">
+                            <span class="note-pin"></span>
+                            <div class="note-icon">🏠</div>
+                            <h3 class="note-title">Lodge</h3>
+                            <div class="note-meta">1st Place, MEMPC Hackathon 2026</div>
+                            <p class="sticky-note-hint">Tap for details</p>
+                            <div class="sticky-note-details">
+                                <div class="note-date">Purdue University | Inter-College Hackathon · April 2026</div>
+                                <div class="note-images">
+                                    <img src="./lodge-app.jpeg" alt="Lodge App - Social infrastructure platform">
+                                    <img src="./lodge-hackathon-win.jpeg" alt="Lodge winning 1st place at MEMPC Hackathon">
+                                </div>
+                                <p class="note-description">Shipped a production-ready behavioral matching engine from ideation to launch in 48 hours using Claude Code and Cursor, pairing 50+ live users on routine proximity and using the GPT-4.1 mini API to flag disengagement.</p>
+                                <a href="https://lodge-project-hackathon-kf92hl9ep.vercel.app" target="_blank" rel="noopener noreferrer" class="note-link">Live Demo</a>
+                                <a href="https://www.canva.com/design/DAHF7Lphm2k/j19o7zKBtvUGOqqTY5xwUA/edit" target="_blank" rel="noopener noreferrer" class="note-link">Pitch Deck</a>
+                                <div class="note-tags">
+                                    <span class="note-tag">React</span>
+                                    <span class="note-tag">Node.js</span>
+                                    <span class="note-tag">GPT-4.1-mini</span>
+                                    <span class="note-tag">Claude Code</span>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="card">
-                    <h3 class="card-title">Local Vendor Connect</h3>
-                    <div class="card-org">Academic / Capstone Project</div>
-                    <div class="card-date">September 2021 - June 2022</div>
-                    <div class="card-description">
-                        Built a location-based platform connecting mobile vendors with customers (Django + React). Implemented vendor registration, product management, and fast location search; conducted 17 user interviews and prototyped Maps integration.
-                    </div>
-                    <div class="card-tags">
-                        <span class="card-tag">React.js</span>
-                        <span class="card-tag">Django</span>
-                        <span class="card-tag">User Research</span>
-                    </div>
-                </div>
+                        <div class="sticky-note">
+                            <span class="note-pin"></span>
+                            <div class="note-icon">📚</div>
+                            <h3 class="note-title">Claro</h3>
+                            <div class="note-meta">Johns Hopkins Product Hackathon</div>
+                            <p class="sticky-note-hint">Tap for details</p>
+                            <div class="sticky-note-details">
+                                <div class="note-date">AI-Powered Learning Platform · April 2026</div>
+                                <p class="note-description">Reduced irrelevant outputs 45% across 200+ syllabi through systematic LLM evaluation, building an agentic RAG powered knowledge graph with dual 2D/3D rendering to map concept dependencies and surface root cause.</p>
+                                <div class="note-tags">
+                                    <span class="note-tag">React 18</span>
+                                    <span class="note-tag">Firebase</span>
+                                    <span class="note-tag">OpenAI API</span>
+                                    <span class="note-tag">Three.js</span>
+                                    <span class="note-tag">Vercel</span>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="card">
-                    <h3 class="card-title">Air & Sound Pollution Tracking</h3>
-                    <div class="card-org">Academic Research</div>
-                    <div class="card-date">January 2021 - August 2021</div>
-                    <div class="card-description">
-                        Spearheaded an IoT and machine learning system for real-time monitoring of air and noise pollution; led ML model training, data analysis, and integration with mobile interfaces. Published via CRC Press / Taylor & Francis.
-                    </div>
-                    <div class="card-tags">
-                        <span class="card-tag">IoT</span>
-                        <span class="card-tag">Machine Learning</span>
-                        <span class="card-tag">Data Science</span>
+                        <div class="sticky-note">
+                            <span class="note-pin"></span>
+                            <div class="note-icon">🔗</div>
+                            <h3 class="note-title">Agentic Briefing Pipeline</h3>
+                            <div class="note-meta">Personal Project</div>
+                            <p class="sticky-note-hint">Tap for details</p>
+                            <div class="sticky-note-details">
+                                <div class="note-date">Feb 2026 - Mar 2026</div>
+                                <p class="note-description">Engineered a low code, no code n8n workflow with calendar and meeting tool integrations, using Claude API prompt engineering to centralize meeting notes, cutting retrieval time 80% with sub second latency.</p>
+                                <a href="https://github.com/Aishwarya-Koppula/meeting-intelligence-engine" target="_blank" rel="noopener noreferrer" class="note-link">GitHub</a>
+                                <div class="note-tags">
+                                    <span class="note-tag">n8n</span>
+                                    <span class="note-tag">Claude API</span>
+                                    <span class="note-tag">Agentic AI</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="sticky-note">
+                            <span class="note-pin"></span>
+                            <div class="note-icon">⚡</div>
+                            <h3 class="note-title">WattWise</h3>
+                            <div class="note-meta">Real-time Smart Energy Decision Engine</div>
+                            <p class="sticky-note-hint">Tap for details</p>
+                            <div class="sticky-note-details">
+                                <div class="note-date">Carrier Innovation Competition - 4th Place Globally (84 Teams) · Apr 2023 - Jun 2023</div>
+                                <p class="note-description">Led a 4-person team to build an integrated HVAC optimization, renewable integration, and load management solution, winning 4th and pitching a $4.7B market opportunity to the VP of Innovation.</p>
+                                <div class="note-tags">
+                                    <span class="note-tag">Product Innovation</span>
+                                    <span class="note-tag">Team Leadership</span>
+                                    <span class="note-tag">Go-to-Market</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+            </div>
+
+                <div class="notes-board">
+                    <div class="board-zone">
+                        <div class="board-category" id="publications">Writing &amp; Research <span class="count">(2)</span></div>
+                        <div class="board-zone-notes">
+                            <div class="sticky-note">
+                                <span class="note-pin"></span>
+                                <div class="note-icon">📖</div>
+                                <h3 class="note-title">Air and Sound Pollution Tracking Using IoT and Machine Learning</h3>
+                                <div class="note-meta">Published by CRC Press / Taylor &amp; Francis</div>
+                                <p class="sticky-note-hint">Tap for details</p>
+                                <div class="sticky-note-details">
+                                    <div class="note-date">2024</div>
+                                    <p class="note-description">Spearheaded research project developing an IoT and machine learning-based system for real-time monitoring of air and noise pollution. Led ML model training, data analysis, and integration with mobile app interfaces. Co-authors: K. Aishwarya, R. Christina, Y. Priya Amrutha.</p>
+                                    <a href="https://www.taylorfrancis.com/" target="_blank" rel="noopener noreferrer" class="note-link">📖 View Publication</a>
+                                    <div class="note-tags">
+                                        <span class="note-tag">IoT</span>
+                                        <span class="note-tag">Machine Learning</span>
+                                        <span class="note-tag">Environmental Science</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sticky-note">
+                                <span class="note-pin"></span>
+                                <div class="note-icon">✍️</div>
+                                <h3 class="note-title">How Plotly Dash Became My Go-To for Data Visualization</h3>
+                                <div class="note-meta">Medium</div>
+                                <p class="sticky-note-hint">Tap for details</p>
+                                <div class="sticky-note-details">
+                                    <div class="note-date">February 2026</div>
+                                    <p class="note-description">A deep dive into why Plotly Dash stands out as a powerful framework for building interactive data visualizations and dashboards with Python.</p>
+                                    <a href="https://medium.com/@aishkoppula01/how-plotly-dash-became-my-go-to-for-data-visualization-and-why-it-should-be-yours-6348d8e2f0a1" target="_blank" rel="noopener noreferrer" class="note-link">📖 Read on Medium</a>
+                                    <div class="note-tags">
+                                        <span class="note-tag">Data Visualization</span>
+                                        <span class="note-tag">Plotly Dash</span>
+                                        <span class="note-tag">Python</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+                </div>
+    </section>
+
+    <section id="credentials" class="section-alt">
+        <div class="container">
+            <div class="credentials-skills-layout">
+            <div class="credentials-col">
+            <div class="section-header">
+                <div class="section-eyebrow">Beyond The Board</div>
+                <h2 class="section-title">Credentials &amp; Recognition</h2>
+                <p class="section-subtitle">Certifications, awards, and the communities I'm part of. Tap any badge for the story.</p>
+            </div>
+
+            <div class="credential-group">
+                <div class="credential-group-title" id="certifications">Certifications <span class="count">(4)</span></div>
+                <div class="cert-badges">
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon"><img src="./cspo-badge.png" alt="CSPO Badge"></div>
+                            <div class="cert-badge-name">Certified Scrum Product Owner® (CSPO)</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">Scrum Alliance &middot; Issued Oct 2025 &middot; Expires Oct 2027</div>
+                            <p class="cert-badge-desc">Trained by Amit Kulkarni, CST&reg;. Certified to lead product development in Agile environments, manage product backlogs, and drive value delivery.</p>
+                            <a href="./cspo-certificate.pdf" target="_blank" class="note-link">📄 View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon"><img src="./mckinsey-badge.png" alt="McKinsey Forward"></div>
+                            <div class="cert-badge-name">McKinsey.org Forward Program</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">McKinsey &amp; Company &middot; Issued Dec 2025</div>
+                            <p class="cert-badge-desc">Completed comprehensive program on problem-solving, communication, and adaptable mindsets for the future of work.</p>
+                            <a href="./mckinsey-certificate.png" target="_blank" class="note-link">📄 View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon">🤖</div>
+                            <div class="cert-badge-name">AI for Agile Professionals</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">World of Agile &middot; Issued Nov 2025 &middot; 6 Contact Hours</div>
+                            <p class="cert-badge-desc">Trained by Snehamayee, CST&reg;. Integrating AI with Agile methodologies to enhance team performance.</p>
+                            <a href="./ai-for-agile-certificate.pdf" target="_blank" class="note-link">📄 View Certificate</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon">📊</div>
+                            <div class="cert-badge-name">Data Science Project Analysis</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">INSOFE &middot; Issued Nov 2018</div>
+                            <p class="cert-badge-desc">Comprehensive training in data science project execution and analysis techniques.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="credential-group">
+                <div class="credential-group-title" id="awards">Awards &amp; Recognition <span class="count">(5)</span></div>
+                <div class="cert-badges">
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon"><img src="./lodge-hackathon-win.jpeg" alt="Lodge 1st Place"></div>
+                            <div class="cert-badge-name">1st Place, MEMPC Inter-College Hackathon</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">Purdue University &middot; April 2026</div>
+                            <img src="./lodge-team.jpeg" alt="The Lodge team at Purdue after winning the MEMPC hackathon" class="note-detail-photo">
+                            <p class="cert-badge-desc">Won first place with Lodge, a social infrastructure platform, beating teams from Cornell, Duke, and five other top programs. Led product strategy and shipped a production-ready MVP pairing 50+ live users in 48 hours using Claude Code and Cursor.</p>
+                            <a href="https://lodge-project-hackathon-kf92hl9ep.vercel.app" target="_blank" rel="noopener noreferrer" class="note-link">🔗 Live Demo</a>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon"><img src="./carrier-leadership-award.png" alt="Leadership Award"></div>
+                            <div class="cert-badge-name">Carrier Leadership Award</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">Carrier Technologies India &middot; Youngest Recipient (Top 1%)</div>
+                            <img src="./carrier-leadership-award.png" alt="Receiving the Carrier Leadership Award" class="note-detail-photo">
+                            <p class="cert-badge-desc">Youngest recipient of Carrier's Leadership Award, typically awarded to Senior Product Managers. Recognized for exceptional leadership and driving product innovation.</p>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon"><img src="./carrier-bryant-award.png" alt="Bryant Award"></div>
+                            <div class="cert-badge-name">Bryant Award</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">Carrier Technologies India &middot; 2025</div>
+                            <img src="./carrier-bryant-award.png" alt="Receiving the Bryant Award" class="note-detail-photo">
+                            <p class="cert-badge-desc">Recognized for outstanding performance and making significant impact through exceptional contributions to engineering excellence.</p>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon">🏅</div>
+                            <div class="cert-badge-name">Titan Award &amp; 3x Spot Awards</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">Carrier Technologies India &middot; 2022-2025</div>
+                            <p class="cert-badge-desc">Multiple recognitions for exceptional performance, innovation, and contributions to product development and team success.</p>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon"><img src="./toastmasters-trophies.png" alt="Toastmasters"></div>
+                            <div class="cert-badge-name">Toastmasters Speech Contests</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">Toastmasters International &middot; 2024-2025</div>
+                            <img src="./toastmasters-trophies.png" alt="Toastmasters speech contest trophies" class="note-detail-photo">
+                            <p class="cert-badge-desc">Third place in Evaluation Speech Contest and Humorous Speech Contest at Carrier Hyderabad Toastmasters Club, Area G3, District 126.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="credential-group">
+                <div class="credential-group-title" id="affiliations">Affiliations <span class="count">(5)</span></div>
+                <div class="cert-badges">
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon logo-icon"><img src="./logo-asem.png" alt="ASEM"></div>
+                            <div class="cert-badge-name">American Society for Engineering Management</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">Student Member &middot; Active Member</div>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon logo-icon"><img src="./logo-toastmasters.png" alt="Toastmasters International"></div>
+                            <div class="cert-badge-name">Toastmasters International</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">VP Public Relations &middot; Sep 2024 - Sep 2025</div>
+                            <p class="cert-badge-desc">Carrier Hyderabad Toastmasters Club.</p>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon logo-icon"><img src="./logo-iste.png" alt="ISTE"></div>
+                            <div class="cert-badge-name">Indian Society for Technical Education</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">Student Coordinator &middot; Jul 2019 - Jun 2022</div>
+                            <p class="cert-badge-desc">Led coordination between student committees and faculty advisors. Organized IGNIUM2K20, a 500+ participant inter-college technical fest.</p>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon logo-icon"><img src="./logo-purdue-hackers.png" alt="Purdue Hackers"></div>
+                            <div class="cert-badge-name">Purdue Hackers</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">Purdue University &middot; Member</div>
+                        </div>
+                    </div>
+
+                    <div class="cert-badge">
+                        <div class="cert-badge-top">
+                            <div class="cert-badge-icon">💼</div>
+                            <div class="cert-badge-name">Women in Consulting</div>
+                        </div>
+                        <div class="cert-badge-details">
+                            <div class="cert-badge-meta">Purdue University &middot; Member</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="skills-col" id="skills">
+                <div class="section-header">
+                    <h2 class="section-title">Skills &amp; Expertise</h2>
+                    <p class="section-subtitle">A comprehensive toolkit for product development and engineering</p>
+                </div>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Product Management</h3>
+                        <p class="skill-list">0-to-1 Product Development <span class="sep">&middot;</span> User Research <span class="sep">&middot;</span> PRD/BRD <span class="sep">&middot;</span> Roadmap Prioritization <span class="sep">&middot;</span> Feature Prioritization <span class="sep">&middot;</span> Go-to-Market Strategy <span class="sep">&middot;</span> A/B Testing <span class="sep">&middot;</span> Product Analytics <span class="sep">&middot;</span> Backlog Management <span class="sep">&middot;</span> Stakeholder Management <span class="sep">&middot;</span> Competitive Analysis <span class="sep">&middot;</span> KPI Development</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Technical</h3>
+                        <p class="skill-list">Python <span class="sep">&middot;</span> SQL <span class="sep">&middot;</span> REST APIs <span class="sep">&middot;</span> GenAI &amp; LLMs <span class="sep">&middot;</span> Agentic AI <span class="sep">&middot;</span> AWS <span class="sep">&middot;</span> React.js <span class="sep">&middot;</span> Node.js <span class="sep">&middot;</span> PowerBI <span class="sep">&middot;</span> Tableau <span class="sep">&middot;</span> Figma <span class="sep">&middot;</span> Jira <span class="sep">&middot;</span> Confluence <span class="sep">&middot;</span> Git <span class="sep">&middot;</span> Snowflake <span class="sep">&middot;</span> Docker</p>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Domain</h3>
+                        <p class="skill-list">B2B SaaS <span class="sep">&middot;</span> AI/ML Products <span class="sep">&middot;</span> IoT and Sensor Systems <span class="sep">&middot;</span> Data Products <span class="sep">&middot;</span> Industrial Systems <span class="sep">&middot;</span> Agile</p>
+                    </div>
+                </div>
+            </div>
             </div>
         </div>
     </section>
 
-
-    <section id="articles">
+    <section id="values" class="section-dark">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Medium Articles</h2>
-                <p class="section-subtitle">Sharing insights on technology, strategy, and everything in between</p>
+                <div class="section-eyebrow">How I Work</div>
+                <h2 class="section-title">What I Bring to Every Team</h2>
             </div>
-            <div class="cards-grid">
-                <div class="card">
-                    <div class="card-title">How Plotly Dash Became My Go-To for Data Visualization — And Why It Should Be Yours</div>
-                    <div class="card-org">Medium</div>
-                    <div class="card-date">February 2026</div>
-                    <div class="card-description">
-                        A deep dive into why Plotly Dash stands out as a powerful framework for building interactive data visualizations and dashboards with Python.
-                    </div>
-                    <a href="https://medium.com/@aishkoppula01/how-plotly-dash-became-my-go-to-for-data-visualization-and-why-it-should-be-yours-6348d8e2f0a1" target="_blank" rel="noopener noreferrer" class="cert-link">📖 Read on Medium</a>
-                    <div class="card-tags">
-                        <span class="card-tag">Data Visualization</span>
-                        <span class="card-tag">Plotly Dash</span>
-                        <span class="card-tag">Python</span>
-                    </div>
-                </div>
+            <div class="values-grid">
+                <div class="value-card"><strong>Own it.</strong> If it's mine, I see it through, from the first question to the final result.</div>
+                <div class="value-card"><strong>Work hard, show up.</strong> I put in the effort, keep my commitments, and stay steady when things get busy.</div>
+                <div class="value-card"><strong>Thrive under pressure.</strong> High stakes and big responsibilities bring out my best work.</div>
+                <div class="value-card"><strong>Love a hard problem.</strong> The unusual, messy problems are the ones I want to solve.</div>
+                <div class="value-card"><strong>Customers first.</strong> I listen to the people I'm building for before deciding what to build.</div>
+                <div class="value-card"><strong>Be honest.</strong> I give real feedback, ask for it in return, and say so when something isn't working.</div>
             </div>
         </div>
     </section>
 
-    <section id="education">
+    <section id="gallery">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Education</h2>
-                <p class="section-subtitle">Academic excellence and continuous learning</p>
+                <div class="section-eyebrow">Along The Way</div>
+                <h2 class="section-title">A Few Moments</h2>
+                <p class="section-subtitle">Some faces and places behind the resume.</p>
             </div>
-            
-            <div class="education-grid">
-                <div class="education-card">
-                    <div class="education-header">
-                        <div>
-                            <h3 class="education-title">Master of Engineering Management</h3>
-                            <div class="education-school">Purdue University</div>
-                            <p style="color: var(--text-secondary); margin-top: 0.5rem;">January 2026 - May 2027</p>
-                        </div>
-                        <div class="gpa">GPA: 4.0/4.0</div>
-                    </div>
-                    <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem; display:none;">
-                        Specialized coursework in Product Management, Agile Project Management, Business Analytics, Strategic Management, and Brand Management. Active member of American Society for Engineering Management (ASEM).
-                    </p>
-                </div>
-
-                <div class="education-card">
-                    <div class="education-header">
-                        <div>
-                            <h3 class="education-title">Bachelor of Technology in Computer Science</h3>
-                            <div class="education-school">JNTU Hyderabad</div>
-                            <p style="color: var(--text-secondary); margin-top: 0.5rem;">July 2018 - July 2022</p>
-                        </div>
-                        <div class="gpa">GPA: 3.9/4.0</div>
-                    </div>
-                    <p style="color: var(--text-secondary); line-height: 1.7; margin-top: 1rem; display:none;">
-                        G. Narayanamma Institute of Technology & Science (GNITS). Student Coordinator at Indian Society of Technical Education. Software Developer Intern at Intrinsic Science Labs.
-                    </p>
-                </div>
+            <div class="gallery-grid">
+                <img src="./aishwarya-office.jpeg" alt="Aishwarya at the office">
+                <img src="./lodge-team.jpeg" alt="The Lodge team after winning the MEMPC hackathon">
+                <img src="./lodge-hackathon-win.jpeg" alt="Lodge taking 1st place at the MEMPC hackathon">
+                <img src="./aishwarya-purdue-gate.jpeg" alt="Aishwarya at the Purdue University gateway">
+                <img src="./loricomunica-bayer-team.jpeg" alt="The LoriComunica team presenting at Bayer">
+                <img src="./carrier-leadership-award.png" alt="Receiving the Carrier Leadership Award">
+                <img src="./carrier-bryant-award.png" alt="Receiving the Bryant Award">
+                <img src="./toastmasters-trophies.png" alt="Toastmasters speech contest trophies">
+                <img src="./aishwarya-portrait-1.jpeg" alt="Aishwarya outdoors">
             </div>
         </div>
     </section>
 
-    <section id="affiliations">
+    <section id="contact" class="section-blush">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Professional Affiliations</h2>
-                <p class="section-subtitle">Active participation in professional organizations</p>
-            </div>
-            <div class="affiliations-grid">
-                <div class="affiliation-card">
-                    <div class="affiliation-logo">🏛️</div>
-                    <h3 class="affiliation-name">American Society for Engineering Management</h3>
-                    <div class="affiliation-role">Student Member</div>
-                    <div class="affiliation-date">Active Member</div>
-                </div>
-
-                <div class="affiliation-card">
-                    <div class="affiliation-logo">🎤</div>
-                    <h3 class="affiliation-name">Toastmasters International</h3>
-                    <div class="affiliation-role">Vice President Public Relations</div>
-                    <div class="affiliation-date">Carrier Hyderabad Toastmasters Club | Jul - Sep 2025</div>
-                </div>
-
-                <div class="affiliation-card">
-                    <div class="affiliation-logo">📚</div>
-                    <h3 class="affiliation-name">Indian Society for Technical Education</h3>
-                    <div class="affiliation-role">Student Coordinator</div>
-                    <div class="affiliation-date">Jul 2019 - Jun 2022</div>
-                    <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.75rem; text-align: left; line-height: 1.6; display:none;">
-                        Led coordination between student committees and faculty advisors. Organized IGNIUM2K20, a 500+ participant inter-college technical fest.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="awards">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Awards & Recognition</h2>
-                <p class="section-subtitle">Celebrating achievements and milestones</p>
-            </div>
-            <div class="awards-grid">
-                <div class="award-card">
-                    <div class="award-content">
-                        <img src="./lodge-hackathon-win.jpeg" alt="Lodge 1st Place" class="award-thumbnail">
-                        <div>
-                            <h3 class="award-title">1st Place — MEMPC Inter-College Hackathon</h3>
-                            <div class="award-org">Purdue University | MEMPC New Age AI PMs Hackathon</div>
-                            <div class="award-date">April 2026</div>
-                            <p class="award-description">
-                                Won first place with Lodge, a social infrastructure platform, beating teams from Cornell, Duke, and five other top programs. Led product strategy and shipped a full React + Node.js MVP in 24 hours using Claude Code and Cursor.
-                            </p>
-                            <a href="https://lodge-project-hackathon-kf92hl9ep.vercel.app" target="_blank" rel="noopener noreferrer" class="cert-link">🔗 Live Demo</a>
-                        </div>
+            <div class="contact-layout">
+                <div>
+                    <div class="section-header">
+                        <div class="section-eyebrow">Get In Touch</div>
+                        <h2 class="section-title">Let's Connect</h2>
+                        <p class="section-subtitle">I'm always open to discussing product management opportunities, engineering leadership, research collaborations, or just connecting with fellow professionals.</p>
+                    </div>
+                    <p class="intent-label">What brings you here? Any of these opens an email to me.</p>
+                    <div class="intent-chips">
+                        <a href="mailto:aishkoppula01@gmail.com" class="intent-chip">💼 Opportunities</a>
+                        <a href="mailto:aishkoppula01@gmail.com" class="intent-chip">🤝 Collaboration</a>
+                        <a href="mailto:aishkoppula01@gmail.com" class="intent-chip">👋 Just say hi</a>
                     </div>
                 </div>
-
-                <div class="award-card">
-                    <div class="award-content">
-                        <img src="./carrier-leadership-award.png" alt="Leadership Award" class="award-thumbnail">
-                        <div>
-                            <h3 class="award-title">Carrier Leadership Award</h3>
-                            <div class="award-org">Carrier Technologies India Limited</div>
-                            <div class="award-date">Youngest Recipient (Top 1%)</div>
-                            <p class="award-description">
-                                Youngest recipient of Carrier's Leadership Award, typically awarded to Senior Product Managers. Recognized for exceptional leadership and driving product innovation.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="award-card">
-                    <div class="award-content">
-                        <img src="./carrier-bryant-award.png" alt="Bryant Award" class="award-thumbnail">
-                        <div>
-                            <h3 class="award-title">Bryant Award</h3>
-                            <div class="award-org">Carrier Technologies India Limited</div>
-                            <div class="award-date">2025</div>
-                            <p class="award-description">
-                                Recognized for outstanding performance and making significant impact through exceptional contributions to engineering excellence.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="award-card">
-                    <h3 class="award-title">Titan Award & 3x Spot Awards</h3>
-                    <div class="award-org">Carrier Technologies India Limited</div>
-                    <div class="award-date">2022-2025</div>
-                    <p class="award-description">
-                        Multiple recognitions for exceptional performance, innovation, and contributions to product development and team success.
-                    </p>
-                </div>
-
-                <div class="award-card">
-                    <div class="award-content">
-                        <img src="./toastmasters-trophies.png" alt="Toastmasters" class="award-thumbnail">
-                        <div>
-                            <h3 class="award-title">Toastmasters Speech Contests</h3>
-                            <div class="award-org">Toastmasters International</div>
-                            <div class="award-date">2024-2025</div>
-                            <p class="award-description">
-                                Third place in Evaluation Speech Contest and Humorous Speech Contest at Carrier Hyderabad Toastmasters Club, Area G3, District 126.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Let's Connect</h2>
-                <p class="section-subtitle">I'm always open to discussing product management opportunities, engineering leadership, research collaborations, or just connecting with fellow professionals.</p>
-            </div>
-            <div class="contact-grid">
-                <div class="contact-card">
-                    <div class="contact-icon">📧</div>
-                    <div class="contact-label">Email</div>
-                    <div class="contact-value">
-                        <a href="mailto:aishkoppula01@gmail.com">aishkoppula01@gmail.com</a>
-                    </div>
-                </div>
-
-                <div class="contact-card">
-                    <div class="contact-icon">💼</div>
-                    <div class="contact-label">LinkedIn</div>
-                    <div class="contact-value">
-                        <a href="https://www.linkedin.com/in/aishwarya-koppula-02a1361b7" target="_blank" rel="noopener noreferrer">Connect on LinkedIn</a>
-                    </div>
-                </div>
-
-                <div class="contact-card">
-                    <div class="contact-icon">💻</div>
-                    <div class="contact-label">GitHub</div>
-                    <div class="contact-value">
-                        <a href="https://github.com/Aishwarya-Koppula" target="_blank" rel="noopener noreferrer">View Projects</a>
-                    </div>
+                <div class="contact-stamp">
+                    <div class="contact-stamp-mark">✉</div>
+                    <div class="contact-stamp-label-top">Find Me At</div>
+                    <a class="contact-stamp-row" href="mailto:aishkoppula01@gmail.com">
+                        <span class="contact-stamp-icon">📧</span>
+                        <span class="contact-stamp-text">
+                            <span class="contact-stamp-label">Email</span>
+                            <span class="contact-stamp-value">aishkoppula01@gmail.com</span>
+                        </span>
+                    </a>
+                    <a class="contact-stamp-row" href="https://www.linkedin.com/in/aishwarya-koppula-02a1361b7" target="_blank" rel="noopener noreferrer">
+                        <span class="contact-stamp-icon">💼</span>
+                        <span class="contact-stamp-text">
+                            <span class="contact-stamp-label">LinkedIn</span>
+                            <span class="contact-stamp-value">Connect on LinkedIn</span>
+                        </span>
+                    </a>
+                    <a class="contact-stamp-row" href="https://github.com/Aishwarya-Koppula" target="_blank" rel="noopener noreferrer">
+                        <span class="contact-stamp-icon">💻</span>
+                        <span class="contact-stamp-text">
+                            <span class="contact-stamp-label">GitHub</span>
+                            <span class="contact-stamp-value">View Projects</span>
+                        </span>
+                    </a>
                 </div>
             </div>
         </div>
@@ -1738,22 +1301,6 @@
     </footer>
 
     <script>
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-        document.querySelectorAll('section').forEach(section => {
-            section.style.opacity = '0';
-            section.style.transform = 'translateY(30px)';
-            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-            observer.observe(section);
-        });
-
         // Mobile menu toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const navLinks = document.querySelector('.nav-links');
@@ -1761,14 +1308,100 @@
             menuToggle.addEventListener('click', () => navLinks.classList.toggle('show'));
         }
 
-        // Compact summaries and read-more behavior for cards and timeline items
-        function makeCompact(el) {
-            // Descriptions now always visible with scrollbars - no processing needed
-            return;
-        }
 
-        document.querySelectorAll('.card').forEach(makeCompact);
-        document.querySelectorAll('.timeline-item').forEach(makeCompact);
+        // Scrolling back through a section resets any expanded notes/roadmap stops
+        let scrollResetTimer;
+        function scheduleScrollReset() {
+            clearTimeout(scrollResetTimer);
+            scrollResetTimer = setTimeout(() => {
+                document.querySelectorAll('.sticky-note.expanded, .roadmap-card.expanded, .cert-badge.expanded').forEach(el => el.classList.remove('expanded'));
+            }, 500);
+        }
+        window.addEventListener('scroll', scheduleScrollReset, { passive: true });
+
+        // Sticky notes: click to reveal full details
+        document.querySelectorAll('.sticky-note').forEach(note => {
+            note.addEventListener('click', () => {
+                clearTimeout(scrollResetTimer);
+                const wasExpanded = note.classList.contains('expanded');
+                document.querySelectorAll('.sticky-note.expanded').forEach(n => n.classList.remove('expanded'));
+                if (!wasExpanded) note.classList.add('expanded');
+            });
+        });
+
+        // Certification badges: tap to reveal full details
+        document.querySelectorAll('.cert-badge').forEach(badge => {
+            badge.addEventListener('click', () => {
+                clearTimeout(scrollResetTimer);
+                const wasExpanded = badge.classList.contains('expanded');
+                document.querySelectorAll('.cert-badge.expanded').forEach(b => b.classList.remove('expanded'));
+                if (!wasExpanded) badge.classList.add('expanded');
+            });
+        });
+
+        // Experience/education roadmap: tap a stop to reveal its full story
+        document.querySelectorAll('.roadmap-card').forEach(card => {
+            card.addEventListener('click', () => {
+                clearTimeout(scrollResetTimer);
+                const wasExpanded = card.classList.contains('expanded');
+                document.querySelectorAll('.roadmap-card.expanded').forEach(c => c.classList.remove('expanded'));
+                if (!wasExpanded) card.classList.add('expanded');
+            });
+        });
+
+        // Dot pagination for every horizontal scroller (each board row + the gallery) - only shown when there's actually something to scroll
+        document.querySelectorAll('.board-zone-notes, .gallery-grid').forEach(scroller => {
+            const cards = Array.from(scroller.children);
+            if (cards.length < 2) return;
+
+            const dots = document.createElement('div');
+            dots.className = 'scroll-dots';
+            cards.forEach((card, i) => {
+                const dot = document.createElement('button');
+                dot.className = 'scroll-dot';
+                dot.setAttribute('aria-label', `Go to item ${i + 1}`);
+                dot.addEventListener('click', () => {
+                    card.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+                });
+                dots.appendChild(dot);
+            });
+            scroller.insertAdjacentElement('afterend', dots);
+
+            const dotEls = Array.from(dots.children);
+            const setActive = () => {
+                const scrollerRect = scroller.getBoundingClientRect();
+                let closest = 0;
+                let closestDist = Infinity;
+                cards.forEach((card, i) => {
+                    const dist = Math.abs(card.getBoundingClientRect().left - scrollerRect.left);
+                    if (dist < closestDist) { closestDist = dist; closest = i; }
+                });
+                dotEls.forEach((d, i) => d.classList.toggle('active', i === closest));
+            };
+            const syncScrollable = () => {
+                dots.hidden = scroller.scrollWidth <= scroller.clientWidth + 1;
+                setActive();
+            };
+            syncScrollable();
+            // Images inside the scroller may still be loading when this first runs,
+            // which under-reports scrollWidth and hides dots that should show.
+            scroller.querySelectorAll('img').forEach(img => {
+                if (!img.complete) img.addEventListener('load', syncScrollable, { once: true });
+            });
+            window.addEventListener('load', syncScrollable, { once: true });
+
+            let scrollSyncTimer;
+            scroller.addEventListener('scroll', () => {
+                clearTimeout(scrollSyncTimer);
+                scrollSyncTimer = setTimeout(setActive, 100);
+            }, { passive: true });
+
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(syncScrollable, 150);
+            }, { passive: true });
+        });
     </script>
 </body>
 </html>
