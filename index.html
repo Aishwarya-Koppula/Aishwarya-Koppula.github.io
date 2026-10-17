@@ -52,7 +52,16 @@
             flex-direction: column;
         }
 
-        html { scroll-behavior: smooth; }
+        html.lenis, html.lenis body { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2));
+            z-index: 1002; pointer-events: none;
+            transform-origin: left center;
+        }
 
         .container { max-width: var(--max-width); width: 100%; margin: 0 auto; padding: 0 1.5rem; }
         @media (max-width: 640px) { .container { padding: 0 1.25rem; } }
@@ -80,7 +89,9 @@
             font-size: var(--fs-xs);
             transition: color 0.2s;
         }
-        .nav-links a:hover { color: var(--accent); }
+        .nav-links a:hover,
+        .nav-links a.active { color: var(--accent); }
+        .nav-links a.active { font-weight: 600; }
 
         .menu-toggle { display: none; background: transparent; border: none; font-size: var(--fs-lg); color: var(--text-primary); cursor: pointer; }
 
@@ -190,6 +201,16 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-in { animation: fadeIn 0.7s ease-out; }
+        .js-motion .animate-in { animation: none; }
+        .js-motion .hero-line-accent path {
+            stroke-dasharray: 1200;
+            stroke-dashoffset: 1200;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .scroll-progress { display: none; }
+            html { scroll-behavior: smooth; }
+        }
 
         /* Sections */
         section { padding: 3.5rem 0; }
@@ -612,9 +633,15 @@
 
         footer { order: 13; }
         .hero { order: 0; }
+
+        .btn, .sticky-note, .cert-badge, .roadmap-card, .contact-stamp-row {
+            will-change: transform;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
 </head>
 <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <nav>
         <div class="container">
             <div class="logo">AK<span class="accent">.</span></div>
@@ -1300,108 +1327,237 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
     <script>
-        // Mobile menu toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const navLinks = document.querySelector('.nav-links');
-        if (menuToggle && navLinks) {
-            menuToggle.addEventListener('click', () => navLinks.classList.toggle('show'));
-        }
+        (function () {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            const progressEl = document.querySelector('.scroll-progress');
+            const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
 
+            if (menuToggle && navLinks) {
+                menuToggle.addEventListener('click', () => navLinks.classList.toggle('show'));
+                navAnchors.forEach(a => a.addEventListener('click', () => navLinks.classList.remove('show')));
+            }
 
-        // Scrolling back through a section resets any expanded notes/roadmap stops
-        let scrollResetTimer;
-        function scheduleScrollReset() {
-            clearTimeout(scrollResetTimer);
-            scrollResetTimer = setTimeout(() => {
-                document.querySelectorAll('.sticky-note.expanded, .roadmap-card.expanded, .cert-badge.expanded').forEach(el => el.classList.remove('expanded'));
-            }, 500);
-        }
-        window.addEventListener('scroll', scheduleScrollReset, { passive: true });
-
-        // Sticky notes: click to reveal full details
-        document.querySelectorAll('.sticky-note').forEach(note => {
-            note.addEventListener('click', () => {
+            // Expand / collapse interactions (unchanged behavior)
+            let scrollResetTimer;
+            function scheduleScrollReset() {
                 clearTimeout(scrollResetTimer);
-                const wasExpanded = note.classList.contains('expanded');
-                document.querySelectorAll('.sticky-note.expanded').forEach(n => n.classList.remove('expanded'));
-                if (!wasExpanded) note.classList.add('expanded');
-            });
-        });
+                scrollResetTimer = setTimeout(() => {
+                    document.querySelectorAll('.sticky-note.expanded, .roadmap-card.expanded, .cert-badge.expanded')
+                        .forEach(el => el.classList.remove('expanded'));
+                }, 500);
+            }
 
-        // Certification badges: tap to reveal full details
-        document.querySelectorAll('.cert-badge').forEach(badge => {
-            badge.addEventListener('click', () => {
-                clearTimeout(scrollResetTimer);
-                const wasExpanded = badge.classList.contains('expanded');
-                document.querySelectorAll('.cert-badge.expanded').forEach(b => b.classList.remove('expanded'));
-                if (!wasExpanded) badge.classList.add('expanded');
-            });
-        });
-
-        // Experience/education roadmap: tap a stop to reveal its full story
-        document.querySelectorAll('.roadmap-card').forEach(card => {
-            card.addEventListener('click', () => {
-                clearTimeout(scrollResetTimer);
-                const wasExpanded = card.classList.contains('expanded');
-                document.querySelectorAll('.roadmap-card.expanded').forEach(c => c.classList.remove('expanded'));
-                if (!wasExpanded) card.classList.add('expanded');
-            });
-        });
-
-        // Dot pagination for every horizontal scroller (each board row + the gallery) - only shown when there's actually something to scroll
-        document.querySelectorAll('.board-zone-notes, .gallery-grid').forEach(scroller => {
-            const cards = Array.from(scroller.children);
-            if (cards.length < 2) return;
-
-            const dots = document.createElement('div');
-            dots.className = 'scroll-dots';
-            cards.forEach((card, i) => {
-                const dot = document.createElement('button');
-                dot.className = 'scroll-dot';
-                dot.setAttribute('aria-label', `Go to item ${i + 1}`);
-                dot.addEventListener('click', () => {
-                    card.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+            document.querySelectorAll('.sticky-note').forEach(note => {
+                note.addEventListener('click', () => {
+                    clearTimeout(scrollResetTimer);
+                    const wasExpanded = note.classList.contains('expanded');
+                    document.querySelectorAll('.sticky-note.expanded').forEach(n => n.classList.remove('expanded'));
+                    if (!wasExpanded) note.classList.add('expanded');
                 });
-                dots.appendChild(dot);
             });
-            scroller.insertAdjacentElement('afterend', dots);
 
-            const dotEls = Array.from(dots.children);
-            const setActive = () => {
-                const scrollerRect = scroller.getBoundingClientRect();
-                let closest = 0;
-                let closestDist = Infinity;
+            document.querySelectorAll('.cert-badge').forEach(badge => {
+                badge.addEventListener('click', () => {
+                    clearTimeout(scrollResetTimer);
+                    const wasExpanded = badge.classList.contains('expanded');
+                    document.querySelectorAll('.cert-badge.expanded').forEach(b => b.classList.remove('expanded'));
+                    if (!wasExpanded) badge.classList.add('expanded');
+                });
+            });
+
+            document.querySelectorAll('.roadmap-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    clearTimeout(scrollResetTimer);
+                    const wasExpanded = card.classList.contains('expanded');
+                    document.querySelectorAll('.roadmap-card.expanded').forEach(c => c.classList.remove('expanded'));
+                    if (!wasExpanded) card.classList.add('expanded');
+                });
+            });
+
+            // Dot pagination for horizontal scrollers
+            document.querySelectorAll('.board-zone-notes, .gallery-grid').forEach(scroller => {
+                const cards = Array.from(scroller.children);
+                if (cards.length < 2) return;
+
+                const dots = document.createElement('div');
+                dots.className = 'scroll-dots';
                 cards.forEach((card, i) => {
-                    const dist = Math.abs(card.getBoundingClientRect().left - scrollerRect.left);
-                    if (dist < closestDist) { closestDist = dist; closest = i; }
+                    const dot = document.createElement('button');
+                    dot.className = 'scroll-dot';
+                    dot.setAttribute('aria-label', `Go to item ${i + 1}`);
+                    dot.addEventListener('click', () => {
+                        card.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', inline: 'start', block: 'nearest' });
+                    });
+                    dots.appendChild(dot);
                 });
-                dotEls.forEach((d, i) => d.classList.toggle('active', i === closest));
-            };
-            const syncScrollable = () => {
-                dots.hidden = scroller.scrollWidth <= scroller.clientWidth + 1;
-                setActive();
-            };
-            syncScrollable();
-            // Images inside the scroller may still be loading when this first runs,
-            // which under-reports scrollWidth and hides dots that should show.
-            scroller.querySelectorAll('img').forEach(img => {
-                if (!img.complete) img.addEventListener('load', syncScrollable, { once: true });
+                scroller.insertAdjacentElement('afterend', dots);
+
+                const dotEls = Array.from(dots.children);
+                const setActive = () => {
+                    const scrollerRect = scroller.getBoundingClientRect();
+                    let closest = 0;
+                    let closestDist = Infinity;
+                    cards.forEach((card, i) => {
+                        const dist = Math.abs(card.getBoundingClientRect().left - scrollerRect.left);
+                        if (dist < closestDist) { closestDist = dist; closest = i; }
+                    });
+                    dotEls.forEach((d, i) => d.classList.toggle('active', i === closest));
+                };
+                const syncScrollable = () => {
+                    dots.hidden = scroller.scrollWidth <= scroller.clientWidth + 1;
+                    setActive();
+                };
+                syncScrollable();
+                scroller.querySelectorAll('img').forEach(img => {
+                    if (!img.complete) img.addEventListener('load', syncScrollable, { once: true });
+                });
+                window.addEventListener('load', syncScrollable, { once: true });
+
+                let scrollSyncTimer;
+                scroller.addEventListener('scroll', () => {
+                    clearTimeout(scrollSyncTimer);
+                    scrollSyncTimer = setTimeout(setActive, 100);
+                }, { passive: true });
+
+                let resizeTimer;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTimer);
+                    resizeTimer = setTimeout(syncScrollable, 150);
+                }, { passive: true });
             });
-            window.addEventListener('load', syncScrollable, { once: true });
 
-            let scrollSyncTimer;
-            scroller.addEventListener('scroll', () => {
-                clearTimeout(scrollSyncTimer);
-                scrollSyncTimer = setTimeout(setActive, 100);
-            }, { passive: true });
+            // --- Smooth motion layer (Lenis + GSAP). Skipped when user prefers reduced motion. ---
+            if (reduceMotion || typeof Lenis === 'undefined' || typeof gsap === 'undefined') {
+                window.addEventListener('scroll', scheduleScrollReset, { passive: true });
+                return;
+            }
 
-            let resizeTimer;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimer);
-                resizeTimer = setTimeout(syncScrollable, 150);
-            }, { passive: true });
-        });
+            document.documentElement.classList.add('js-motion');
+            gsap.registerPlugin(ScrollTrigger);
+
+            const lenis = new Lenis({
+                autoRaf: false,
+                lerp: 0.1,
+                smoothWheel: true,
+                anchors: true,
+                allowNestedScroll: true,
+                prevent: (node) =>
+                    node.classList?.contains('board-zone-notes') ||
+                    node.classList?.contains('gallery-grid') ||
+                    node.closest?.('.board-zone-notes, .gallery-grid, .roadmap-details'),
+            });
+
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => lenis.raf(time * 1000));
+            gsap.ticker.lagSmoothing(0);
+
+            lenis.on('scroll', ({ progress }) => {
+                if (progressEl) progressEl.style.width = `${Math.min(100, Math.max(0, progress * 100))}%`;
+                scheduleScrollReset();
+                updateActiveNav();
+            });
+
+            const sectionMap = navAnchors.map(a => {
+                const id = a.getAttribute('href').slice(1);
+                return { link: a, el: document.getElementById(id) };
+            }).filter(s => s.el);
+
+            function updateActiveNav() {
+                const y = window.scrollY + window.innerHeight * 0.28;
+                let current = sectionMap[0];
+                sectionMap.forEach(s => {
+                    if (s.el.offsetTop <= y) current = s;
+                });
+                navAnchors.forEach(a => a.classList.toggle('active', current && a === current.link));
+            }
+
+            navAnchors.forEach(a => {
+                a.addEventListener('click', (e) => {
+                    const target = document.querySelector(a.getAttribute('href'));
+                    if (!target) return;
+                    e.preventDefault();
+                    lenis.scrollTo(target, { offset: -80, duration: 1.2 });
+                });
+            });
+
+            // Hero entrance — same content, smoother timing
+            gsap.timeline({ defaults: { ease: 'power3.out' } })
+                .to('.hero-line-accent path', { strokeDashoffset: 0, duration: 1.4, stagger: 0.15 }, 0)
+                .from('.hero-badge', { y: 16, opacity: 0, duration: 0.55 }, 0.15)
+                .from('.hero-name', { y: 36, opacity: 0, duration: 0.75 }, 0.25)
+                .from('.hero-tagline', { y: 20, opacity: 0, duration: 0.6 }, 0.4)
+                .from('.hero-summary', { y: 18, opacity: 0, duration: 0.6 }, 0.5)
+                .from('.hero-photo', { y: 28, opacity: 0, scale: 0.97, duration: 0.8 }, 0.3)
+                .from('.hero-photo-caption, .hero-divider, .stats-grid .stat, .cta-buttons .btn', {
+                    y: 16, opacity: 0, duration: 0.5, stagger: 0.06,
+                }, 0.55);
+
+            // Soft parallax on hero photo (desktop)
+            if (window.matchMedia('(min-width: 900px)').matches) {
+                gsap.to('.hero-photo', {
+                    yPercent: 8,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '.hero',
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: true,
+                    },
+                });
+            }
+
+            function reveal(selector, vars = {}) {
+                const els = gsap.utils.toArray(selector);
+                if (!els.length) return;
+                // opacityOnly preserves CSS transforms (sticky-note / gallery rotates)
+                const from = vars.opacityOnly
+                    ? { opacity: 0 }
+                    : { opacity: 0, y: vars.y ?? 28 };
+                const to = vars.opacityOnly
+                    ? { opacity: 1, duration: vars.duration ?? 0.7, stagger: vars.stagger ?? 0.08, ease: 'power2.out', overwrite: 'auto' }
+                    : { opacity: 1, y: 0, duration: vars.duration ?? 0.7, stagger: vars.stagger ?? 0.08, ease: 'power2.out', overwrite: 'auto' };
+                gsap.set(els, from);
+                ScrollTrigger.batch(els, {
+                    start: 'top 88%',
+                    once: true,
+                    onEnter: (batch) => gsap.to(batch, to),
+                });
+            }
+
+            reveal('.section-header');
+            reveal('.roadmap-stop', { y: 22, stagger: 0.1 });
+            reveal('.board-category', { y: 16, stagger: 0.06 });
+            reveal('.sticky-note', { opacityOnly: true, stagger: 0.05 });
+            reveal('.credential-group-title, .cert-badge', { y: 18, stagger: 0.05 });
+            reveal('.skills-col .skill-category', { y: 20, stagger: 0.1 });
+            reveal('#values .section-header', { y: 20 });
+            reveal('#values .value-card', { y: 24, stagger: 0.08 });
+            reveal('.gallery-grid img', { opacityOnly: true, stagger: 0.06 });
+            reveal('.contact-layout > *', { y: 22, stagger: 0.12 });
+
+            // Soft lift on cert badges only (sticky notes keep CSS rotate transforms)
+            document.querySelectorAll('.cert-badge').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    if (el.classList.contains('expanded')) return;
+                    gsap.to(el, { y: -4, duration: 0.25, ease: 'power2.out', overwrite: 'auto' });
+                });
+                el.addEventListener('mouseleave', () => {
+                    gsap.to(el, { y: 0, duration: 0.3, ease: 'power2.out', overwrite: 'auto' });
+                });
+            });
+
+            window.addEventListener('load', () => {
+                ScrollTrigger.refresh();
+                updateActiveNav();
+            });
+            updateActiveNav();
+        })();
     </script>
 </body>
 </html>
