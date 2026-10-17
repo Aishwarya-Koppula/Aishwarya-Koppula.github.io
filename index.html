@@ -1486,31 +1486,40 @@
                 });
             });
 
-            // Hero entrance — same content, smoother timing
-            gsap.timeline({ defaults: { ease: 'power3.out' } })
+            // Hero entrance — fromTo + clearProps so CTAs never get stuck invisible
+            const heroMotionEls = '.hero-badge, .hero-name, .hero-tagline, .hero-summary, .hero-photo, .hero-photo-caption, .hero-divider, .stats-grid .stat, .cta-buttons .btn';
+            const heroTl = gsap.timeline({
+                defaults: { ease: 'power3.out' },
+                onComplete: () => {
+                    gsap.set(heroMotionEls, { clearProps: 'opacity,transform,translate,rotate,scale' });
+                    // Soft parallax after intro so it doesn't fight the entrance tween
+                    if (window.matchMedia('(min-width: 900px)').matches) {
+                        gsap.to('.hero-photo', {
+                            yPercent: 8,
+                            ease: 'none',
+                            scrollTrigger: {
+                                trigger: '.hero',
+                                start: 'top top',
+                                end: 'bottom top',
+                                scrub: true,
+                            },
+                        });
+                    }
+                },
+            });
+            heroTl
                 .to('.hero-line-accent path', { strokeDashoffset: 0, duration: 1.4, stagger: 0.15 }, 0)
-                .from('.hero-badge', { y: 16, opacity: 0, duration: 0.55 }, 0.15)
-                .from('.hero-name', { y: 36, opacity: 0, duration: 0.75 }, 0.25)
-                .from('.hero-tagline', { y: 20, opacity: 0, duration: 0.6 }, 0.4)
-                .from('.hero-summary', { y: 18, opacity: 0, duration: 0.6 }, 0.5)
-                .from('.hero-photo', { y: 28, opacity: 0, scale: 0.97, duration: 0.8 }, 0.3)
-                .from('.hero-photo-caption, .hero-divider, .stats-grid .stat, .cta-buttons .btn', {
-                    y: 16, opacity: 0, duration: 0.5, stagger: 0.06,
-                }, 0.55);
-
-            // Soft parallax on hero photo (desktop)
-            if (window.matchMedia('(min-width: 900px)').matches) {
-                gsap.to('.hero-photo', {
-                    yPercent: 8,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '.hero',
-                        start: 'top top',
-                        end: 'bottom top',
-                        scrub: true,
-                    },
-                });
-            }
+                .fromTo('.hero-badge', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, 0.15)
+                .fromTo('.hero-name', { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75 }, 0.25)
+                .fromTo('.hero-tagline', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.4)
+                .fromTo('.hero-summary', { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.5)
+                .fromTo('.hero-photo', { y: 28, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.8 }, 0.3)
+                .fromTo('.hero-photo-caption, .hero-divider, .stats-grid .stat', { y: 16, opacity: 0 }, {
+                    y: 0, opacity: 1, duration: 0.5, stagger: 0.06,
+                }, 0.55)
+                .fromTo('.cta-buttons .btn', { y: 12, opacity: 0 }, {
+                    y: 0, opacity: 1, duration: 0.45, stagger: 0.08,
+                }, 0.7);
 
             function reveal(selector, vars = {}) {
                 const els = gsap.utils.toArray(selector);
