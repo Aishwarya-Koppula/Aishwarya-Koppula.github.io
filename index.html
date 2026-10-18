@@ -8,6 +8,8 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html { background: var(--bg); }
+
         :root {
             --bg: #f7f3ec;
             --surface: #ffffff;
@@ -45,11 +47,21 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg);
+            background: transparent;
             color: var(--text-primary);
             line-height: 1.6;
             display: flex;
             flex-direction: column;
+        }
+
+        /* Soft 3D fog behind the whole page — never on top of content */
+        .page-3d {
+            position: fixed; inset: 0; z-index: -1;
+            pointer-events: none; opacity: 0.42;
+            mix-blend-mode: multiply;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .page-3d { display: none; }
         }
 
         html.lenis, html.lenis body { height: auto; }
@@ -170,9 +182,162 @@
         }
         .hero-tagline .accent { color: var(--accent-2); }
 
-        .hero-summary { color: var(--text-secondary); font-size: var(--fs-sm); max-width: 600px; margin-bottom: 1.25rem; }
+        .hero-summary { color: var(--text-secondary); font-size: var(--fs-sm); max-width: 560px; margin-bottom: 0.85rem; }
+        .hero-more {
+            display: inline-block; font-size: var(--fs-xs); font-weight: 600;
+            color: var(--accent); text-decoration: none; margin-bottom: 0.25rem;
+            border-bottom: 1px solid transparent; transition: border-color 0.2s;
+        }
+        .hero-more:hover { border-bottom-color: var(--accent); }
 
         .cta-buttons { display: flex; gap: 0.65rem; flex-wrap: wrap; justify-content: flex-start; }
+
+        /* About — me beyond the résumé */
+        #about .about-layout {
+            display: grid; grid-template-columns: 1.35fr 1fr; gap: 2.5rem; align-items: start;
+        }
+        @media (max-width: 860px) { #about .about-layout { grid-template-columns: 1fr; gap: 1.75rem; } }
+        .about-lead {
+            font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-title);
+            color: var(--text-primary); margin-bottom: 1rem; line-height: 1.25;
+        }
+        .about-copy p {
+            color: var(--text-secondary); font-size: var(--fs-sm); line-height: 1.7;
+            margin-bottom: 0.9rem; max-width: 38rem;
+        }
+        /* Margin notes — real marginalia: all four visible, no tabs, almost no cards */
+        .about-side { position: relative; }
+        .margin-notes {
+            position: relative;
+            background:
+                repeating-linear-gradient(
+                    transparent,
+                    transparent 27px,
+                    rgba(44, 42, 37, 0.045) 27px,
+                    rgba(44, 42, 37, 0.045) 28px
+                ),
+                #f6f0e2;
+            border: 1px solid rgba(44, 42, 37, 0.12);
+            border-radius: 3px 14px 14px 3px;
+            box-shadow: 0 14px 34px rgba(44, 42, 37, 0.1);
+            padding: 1.15rem 1.15rem 1.35rem 1.35rem;
+            transform: rotate(0.5deg);
+        }
+        .margin-notes::before {
+            content: '';
+            position: absolute; top: 0.85rem; bottom: 0.85rem; left: 0.85rem;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-2), var(--accent));
+            border-radius: 999px;
+            opacity: 0.85;
+        }
+        .margin-notes-head {
+            display: flex; align-items: baseline; justify-content: space-between;
+            gap: 0.75rem; margin: 0 0 1.1rem 0.35rem;
+            padding-bottom: 0.55rem;
+            border-bottom: 1px solid rgba(44, 42, 37, 0.12);
+        }
+        .margin-kicker {
+            font-family: 'Fraunces', serif; font-style: italic; font-weight: 600;
+            font-size: var(--fs-sm); color: var(--accent-2); margin: 0;
+        }
+        .margin-page {
+            font-size: var(--fs-2xs); font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--text-tertiary);
+        }
+        .margin-annot {
+            position: relative;
+            margin: 0 0 1.15rem 0.35rem;
+            padding-left: 0;
+        }
+        .margin-annot:last-child { margin-bottom: 0; }
+        .margin-annot + .margin-annot {
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(44, 42, 37, 0.16);
+        }
+        .margin-label {
+            display: block;
+            font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+            text-transform: uppercase; color: var(--text-tertiary);
+            margin-bottom: 0.45rem;
+        }
+        .margin-label .mark {
+            display: inline-block; margin-right: 0.35rem;
+            font-family: 'Fraunces', serif; font-style: italic; font-weight: 700;
+            color: var(--accent); letter-spacing: 0; text-transform: none; font-size: 0.85rem;
+        }
+
+        /* 1. How I show up — dense two-col type, no boxes */
+        .about-showup {
+            list-style: none;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem 0.85rem;
+            margin: 0;
+        }
+        @media (max-width: 420px) { .about-showup { grid-template-columns: 1fr; } }
+        .about-showup li {
+            font-family: 'Fraunces', serif; font-weight: 600;
+            font-size: var(--fs-xs); color: var(--text-primary); line-height: 1.35;
+            padding: 0;
+        }
+        .about-showup li::before {
+            content: '† ';
+            color: var(--accent); font-weight: 700; font-style: normal;
+        }
+
+        /* 2. Currently into — one scribbled italic aside */
+        .about-holes {
+            font-family: 'Fraunces', serif; font-style: italic; font-weight: 600;
+            font-size: var(--fs-sm); color: var(--text-primary); line-height: 1.45;
+            margin: 0;
+            transform: rotate(-0.6deg);
+        }
+        .about-holes .sep {
+            color: var(--accent-2); font-style: normal; margin: 0 0.35rem; font-weight: 700;
+        }
+
+        /* 3. Where & what — inline meta, no cards */
+        .about-meta {
+            display: flex; flex-direction: column; gap: 0.35rem;
+            margin: 0; font-size: var(--fs-xs);
+        }
+        .about-meta div {
+            display: grid; grid-template-columns: 4.2rem 1fr; gap: 0.5rem; align-items: baseline;
+        }
+        .about-meta dt {
+            margin: 0; font-weight: 700; color: var(--accent);
+            text-transform: uppercase; letter-spacing: 0.06em; font-size: var(--fs-2xs);
+        }
+        .about-meta dd {
+            margin: 0; color: var(--text-primary); font-weight: 600; line-height: 1.4;
+        }
+
+        /* 4. Toolkit — compact labeled lines, no card chrome */
+        .about-toolkit {
+            display: flex; flex-direction: column; gap: 0.65rem; margin: 0;
+        }
+        .about-toolkit-row {
+            display: grid; grid-template-columns: 4.6rem 1fr; gap: 0.55rem; align-items: start;
+        }
+        @media (max-width: 420px) {
+            .about-toolkit-row { grid-template-columns: 1fr; gap: 0.15rem; }
+        }
+        .about-toolkit-row dt {
+            margin: 0;
+            font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-xs);
+            color: var(--text-primary); line-height: 1.35;
+        }
+        .about-toolkit-row dd {
+            margin: 0; color: var(--text-secondary); font-size: var(--fs-2xs); line-height: 1.55;
+        }
+        .about-toolkit-row.ai dt { color: var(--accent-2); }
+        .about-toolkit-row.ai dd {
+            color: var(--text-primary);
+            border-bottom: 1px solid rgba(198, 136, 92, 0.35);
+            padding-bottom: 0.15rem;
+        }
+
+        .hero > .container { position: relative; z-index: 1; }
+        .hero-line-accent { opacity: 0.22; }
 
         .hero-divider { width: 100%; max-width: 480px; height: 1px; background: var(--border); margin: 2.25rem 0; }
 
@@ -216,8 +381,9 @@
         section { padding: 3.5rem 0; }
         #contact { padding: 2.5rem 0 3rem; }
         section:not(.hero) { border-top: 1px solid var(--border); }
-        .section-alt { background: var(--surface-alt); }
-        .section-blush { background: var(--accent-2-soft); }
+        /* Translucent washes so the page fog reads through */
+        .section-alt { background: color-mix(in srgb, var(--surface-alt) 72%, transparent); }
+        .section-blush { background: color-mix(in srgb, var(--accent-2-soft) 70%, transparent); }
         .section-dark { background: var(--ink); color: var(--ink-text); border-top-color: rgba(242, 237, 225, 0.12) !important; }
         .section-dark .section-title { color: var(--ink-text); }
         .section-dark .section-subtitle { color: var(--ink-text-secondary); }
@@ -519,11 +685,12 @@
 
 
         /* Section reordering (kept from prior layout decisions) */
-        section#experience-work { order: 0; }
-        section#credentials { order: 1; }
-        section#values { order: 10; }
-        section#gallery { order: 11; }
-        section#contact { order: 12; }
+        section#about { order: 0; }
+        section#experience-work { order: 1; }
+        section#credentials { order: 2; }
+        section#gallery { order: 10; }
+        section#contact { order: 11; }
+        footer { order: 12; }
 
         /* Scroll-dot pagination for horizontal scrollers (timeline + each board zone) */
         .scroll-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 0.9rem; }
@@ -552,65 +719,161 @@
             background: var(--accent); padding: 0.15rem 0.55rem; border-radius: 999px;
         }
 
-        /* Certifications/awards/affiliations as compact, colorful badges instead of big cards */
-        .cert-badges { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-        .cert-badge {
-            position: relative; cursor: pointer; display: inline-block; vertical-align: top;
-            border-radius: 999px;
-            padding: 0.5rem 1rem 0.5rem 0.5rem; width: 175px;
-            box-shadow: 0 3px 8px rgba(44, 42, 37, 0.1);
-            transition: box-shadow 0.25s ease, border-radius 0.25s ease, padding 0.25s ease, width 0.2s ease, transform 0.2s ease;
-        }
-        .cert-badge:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(44, 42, 37, 0.16); }
-        .cert-badge:nth-child(3n+1) { background: var(--accent-soft); border: 1px solid var(--accent-soft-border); }
-        .cert-badge:nth-child(3n+2) { background: var(--accent-2-soft); border: 1px solid var(--accent-2-soft-border); }
-        .cert-badge:nth-child(3n) { background: var(--surface); border: 1px solid var(--border); }
-        .cert-badge-top { display: flex; align-items: center; gap: 0.5rem; }
-        .cert-badge-icon {
-            width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
-            background: rgba(44, 42, 37, 0.06); display: flex; align-items: center; justify-content: center;
-            font-size: var(--fs-sm); overflow: hidden;
-        }
-        .cert-badge-icon img { width: 100%; height: 100%; object-fit: cover; }
-        .cert-badge-icon.logo-icon img { object-fit: contain; padding: 3px; box-sizing: border-box; }
-        .cert-badge-name { font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-2xs); color: var(--text-primary); line-height: 1.25; }
-        .cert-badge-details {
-            max-height: 0; opacity: 0; overflow: hidden; width: 100%; text-align: left;
-            transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease, padding-top 0.3s ease;
-            font-size: var(--fs-2xs); color: var(--text-secondary); line-height: 1.55;
-        }
-        .cert-badge.expanded {
-            border-radius: var(--radius); padding: 0.9rem 1.1rem; box-shadow: var(--shadow-hover); width: 250px;
-        }
-        .cert-badge.expanded .cert-badge-details {
-            max-height: 400px; opacity: 1; margin-top: 0.6rem; padding-top: 0.6rem;
-            border-top: 1px dashed rgba(44, 42, 37, 0.15);
-        }
-        .cert-badge-meta { color: var(--text-primary); font-weight: 600; font-size: var(--fs-2xs); margin-bottom: 0.35rem; }
-        .cert-badge-desc { margin-bottom: 0.4rem; }
-
-        /* Credentials & Recognition: groups of badges, lighter than The Board */
-        .credential-group { margin-bottom: 2rem; }
+        /* Credentials rails — plaque tiles + <> arrows (not pills) */
+        .credential-group { margin-bottom: 2.25rem; }
         .credential-group:last-child { margin-bottom: 0; }
+        .credential-group-head {
+            display: flex; align-items: center; justify-content: space-between;
+            gap: 1rem; margin-bottom: 0.85rem;
+        }
         .credential-group-title {
-            display: flex; align-items: center; gap: 0.6rem;
+            display: flex; align-items: center; gap: 0.6rem; margin: 0;
             font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-lg); color: var(--text-primary);
-            margin-bottom: 1rem;
         }
         .credential-group-title .count {
             font-family: 'Inter', sans-serif; font-weight: 700; font-size: var(--fs-2xs); color: var(--ink-text);
             background: var(--accent); padding: 0.15rem 0.55rem; border-radius: 999px;
         }
         .credential-group:nth-child(even) .credential-group-title .count { background: var(--accent-2); }
+        .cred-nav {
+            display: inline-flex; align-items: center; gap: 0.35rem; flex-shrink: 0;
+        }
+        .cred-arrow {
+            appearance: none; width: 36px; height: 36px; border-radius: 999px;
+            border: 1px solid var(--border); background: var(--surface);
+            color: var(--text-primary); font-size: 1.05rem; line-height: 1;
+            cursor: pointer; display: grid; place-items: center;
+            box-shadow: var(--shadow);
+            transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+        }
+        .cred-arrow:hover:not(:disabled) {
+            background: var(--ink); color: var(--ink-text); border-color: var(--ink);
+            transform: translateY(-1px);
+        }
+        .cred-arrow:disabled { opacity: 0.32; cursor: default; box-shadow: none; }
 
-        /* Credentials + Skills side by side to save vertical space */
-        .credentials-skills-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: start; }
-        @media (max-width: 900px) { .credentials-skills-layout { grid-template-columns: 1fr; gap: 2.5rem; } }
-        .skills-col .skills-grid { grid-template-columns: 1fr; gap: 1rem; }
-        .skills-col .skill-category { padding: 1.1rem 1.25rem; }
-        .skills-col .skill-list { font-size: var(--fs-xs); line-height: 1.7; }
-        .credentials-col .cert-badge { width: 155px; }
-        .credentials-col .cert-badge.expanded { width: 230px; }
+        .cert-badges {
+            /* Peek ~2.4 plaques so ‹ › stay useful after the one-pass autoplay */
+            max-width: min(100%, 26.75rem);
+            overflow: hidden;
+            padding: 0.35rem 0 0.75rem;
+            mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 1.4rem), transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 1.4rem), transparent 100%);
+        }
+        .credential-group[data-kind="affiliations"] .cert-badges {
+            max-width: min(100%, 30.5rem);
+        }
+        .cert-badges-track {
+            display: flex; flex-wrap: nowrap; gap: 0.85rem; align-items: stretch;
+            width: max-content; will-change: transform;
+        }
+        .cert-badges.is-manual {
+            overflow-x: auto; overflow-y: visible;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+        }
+        .cert-badges.is-manual::-webkit-scrollbar { display: none; }
+        .cert-badges.is-manual .cert-badges-track { transform: none !important; }
+
+        /* Vertical certificate plaques (not pills) */
+        .cert-badge {
+            position: relative; cursor: pointer;
+            flex: 0 0 auto; scroll-snap-align: start;
+            width: 172px; min-height: 168px;
+            display: flex; flex-direction: column; gap: 0.6rem;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.72) 0%, transparent 42%),
+                var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 4px 4px 14px 14px;
+            padding: 1.05rem 0.9rem 0.9rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, width 0.25s ease, min-height 0.25s ease;
+        }
+        .cert-badge::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            border-radius: 4px 4px 0 0; background: var(--accent);
+        }
+        .cert-badge::after {
+            content: ''; position: absolute; top: 0.55rem; right: 0.65rem;
+            width: 7px; height: 7px; border-radius: 50%;
+            background: var(--accent); opacity: 0.55;
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+        }
+        .cert-badge[aria-hidden="true"] { pointer-events: none; }
+        .cert-badge:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
+        .cert-badge-top {
+            display: flex; flex-direction: column; align-items: flex-start; gap: 0.65rem;
+        }
+        .cert-badge-icon {
+            width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
+            background: var(--accent-soft); border: 1.5px solid var(--accent-soft-border);
+            display: flex; align-items: center; justify-content: center;
+            font-size: var(--fs-md); overflow: hidden;
+            box-shadow: inset 0 0 0 3px rgba(255,255,255,0.55);
+        }
+        .cert-badge-icon img { width: 100%; height: 100%; object-fit: cover; }
+        .cert-badge-icon.logo-icon img { object-fit: contain; padding: 6px; box-sizing: border-box; }
+        .cert-badge-name {
+            font-family: 'Fraunces', serif; font-weight: 700;
+            font-size: var(--fs-xs); color: var(--text-primary); line-height: 1.3;
+        }
+        .cert-badge-details {
+            max-height: 0; opacity: 0; overflow: hidden; width: 100%; text-align: left;
+            transition: max-height 0.4s ease, opacity 0.3s ease, margin-top 0.3s ease, padding-top 0.3s ease;
+            font-size: var(--fs-2xs); color: var(--text-secondary); line-height: 1.55;
+        }
+        .cert-badge.expanded {
+            width: 268px; min-height: 0;
+            box-shadow: var(--shadow-hover);
+        }
+        .cert-badge.expanded .cert-badge-details {
+            max-height: 420px; opacity: 1; margin-top: 0.15rem; padding-top: 0.65rem;
+            border-top: 1px dashed rgba(44, 42, 37, 0.15);
+        }
+        .cert-badge-meta { color: var(--text-primary); font-weight: 600; font-size: var(--fs-2xs); margin-bottom: 0.35rem; }
+        .cert-badge-desc { margin-bottom: 0.4rem; }
+
+        /* Awards: warmer plaque, accent-2 seal */
+        .credential-group[data-kind="awards"] .cert-badge::before { background: var(--accent-2); }
+        .credential-group[data-kind="awards"] .cert-badge::after {
+            background: var(--accent-2);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-2) 18%, transparent);
+        }
+        .credential-group[data-kind="awards"] .cert-badge {
+            background:
+                linear-gradient(180deg, #fffaf5 0%, transparent 48%),
+                var(--surface);
+            border-color: var(--accent-2-soft-border);
+        }
+        .credential-group[data-kind="awards"] .cert-badge-icon {
+            background: var(--accent-2-soft); border-color: var(--accent-2-soft-border);
+        }
+
+        /* Affiliations: horizontal membership strips */
+        .credential-group[data-kind="affiliations"] .cert-badge {
+            width: 216px; min-height: 0;
+            flex-direction: row; align-items: center;
+            padding: 0.7rem 0.85rem 0.7rem 1rem;
+            border-radius: 12px;
+            background: var(--surface);
+        }
+        .credential-group[data-kind="affiliations"] .cert-badge::before {
+            top: 0.65rem; bottom: 0.65rem; left: 0; right: auto;
+            width: 3px; height: auto; border-radius: 0 4px 4px 0;
+            background: var(--ink);
+        }
+        .credential-group[data-kind="affiliations"] .cert-badge::after { display: none; }
+        .credential-group[data-kind="affiliations"] .cert-badge-top {
+            flex-direction: row; align-items: center; gap: 0.7rem; width: 100%;
+        }
+        .credential-group[data-kind="affiliations"] .cert-badge-icon {
+            width: 40px; height: 40px; border-radius: 10px;
+        }
+        .credential-group[data-kind="affiliations"] .cert-badge.expanded { width: 288px; }
+
+        .credentials-col { max-width: none; }
 
         /* Gallery: a light mix of personal and team photos, scrolls sideways */
         .gallery-grid {
@@ -631,12 +894,108 @@
         .gallery-grid img:hover { transform: rotate(0deg) scale(1.05); box-shadow: 0 10px 20px rgba(44, 42, 37, 0.25); z-index: 2; position: relative; }
         @media (max-width: 600px) { .gallery-grid img { height: 150px; } }
 
-        footer { order: 13; }
         .hero { order: 0; }
 
         .btn, .sticky-note, .cert-badge, .roadmap-card, .contact-stamp-row {
             will-change: transform;
         }
+
+        /* Case study modal (Harsha-inspired storytelling, same brand) */
+        .case-modal {
+            position: fixed; inset: 0; z-index: 2000;
+            display: flex; align-items: center; justify-content: center;
+            padding: 1.25rem;
+            opacity: 0; visibility: hidden; pointer-events: none;
+            transition: opacity 0.28s ease, visibility 0.28s ease;
+        }
+        .case-modal.is-open {
+            opacity: 1; visibility: visible; pointer-events: auto;
+        }
+        .case-modal-backdrop {
+            position: absolute; inset: 0;
+            background: rgba(44, 42, 37, 0.45);
+            backdrop-filter: blur(4px);
+        }
+        .case-modal-panel {
+            position: relative; z-index: 1;
+            width: min(720px, 100%);
+            max-height: min(88vh, 860px);
+            overflow-y: auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            box-shadow: 0 24px 60px rgba(44, 42, 37, 0.28);
+            padding: 1.75rem 1.75rem 1.5rem;
+            transform: translateY(18px) scale(0.98);
+            transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .case-modal.is-open .case-modal-panel { transform: translateY(0) scale(1); }
+        .case-modal-close {
+            position: absolute; top: 0.85rem; right: 0.85rem;
+            width: 36px; height: 36px; border-radius: 50%;
+            border: 1px solid var(--border); background: var(--surface-alt);
+            color: var(--text-primary); font-size: 1.25rem; line-height: 1;
+            cursor: pointer; display: grid; place-items: center;
+        }
+        .case-modal-close:hover { background: var(--accent-soft); }
+        .case-modal-kicker {
+            font-size: var(--fs-2xs); font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; color: var(--accent); margin-bottom: 0.45rem;
+        }
+        .case-modal-title {
+            font-family: 'Fraunces', serif; font-weight: 700;
+            font-size: var(--fs-title); color: var(--text-primary);
+            margin-bottom: 0.35rem; padding-right: 2rem; line-height: 1.2;
+        }
+        .case-modal-meta {
+            color: var(--text-secondary); font-size: var(--fs-xs); font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .case-modal-badge {
+            display: inline-block; margin: 0 0 0.85rem;
+            background: var(--ink); color: var(--ink-text);
+            font-size: var(--fs-2xs); font-weight: 700;
+            padding: 0.3rem 0.7rem; border-radius: 999px;
+        }
+        .case-modal-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.25rem; }
+        .case-modal-tags .note-tag { background: var(--accent-soft); border: 1px solid var(--accent-soft-border); }
+        .case-block { margin-bottom: 1.15rem; }
+        .case-block h4 {
+            font-family: 'Fraunces', serif; font-size: var(--fs-sm); font-weight: 700;
+            color: var(--text-primary); margin-bottom: 0.4rem;
+        }
+        .case-block p, .case-block li {
+            color: var(--text-secondary); font-size: var(--fs-sm); line-height: 1.65;
+        }
+        .case-block ul { list-style: none; }
+        .case-block li {
+            position: relative; padding-left: 1rem; margin-bottom: 0.45rem;
+        }
+        .case-block li::before {
+            content: '•'; position: absolute; left: 0; color: var(--accent); font-weight: 700;
+        }
+        .case-modal-images {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 0.65rem; margin-bottom: 1.15rem;
+        }
+        .case-modal-images img {
+            width: 100%; border-radius: 10px; object-fit: cover; aspect-ratio: 16/10;
+            border: 1px solid var(--border);
+        }
+        @media (max-width: 560px) { .case-modal-images { grid-template-columns: 1fr; } }
+        .case-modal-links { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 0.5rem; }
+        .case-modal-links a {
+            display: inline-flex; align-items: center;
+            padding: 0.5rem 0.95rem; border-radius: 999px;
+            font-size: var(--fs-xs); font-weight: 600; text-decoration: none;
+            border: 1px solid var(--border); color: var(--text-primary); background: var(--surface-alt);
+        }
+        .case-modal-links a.primary {
+            background: var(--ink); color: var(--ink-text); border-color: var(--ink);
+        }
+        .case-modal-links a:hover { border-color: var(--accent); color: var(--accent); }
+        .case-modal-links a.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+        body.case-modal-open { overflow: hidden; }
+        .sticky-note[data-case] .sticky-note-hint::after { content: ' →'; }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
 </head>
@@ -647,16 +1006,16 @@
             <div class="logo">AK<span class="accent">.</span></div>
             <button class="menu-toggle" aria-label="Menu">☰</button>
             <ul class="nav-links">
-                <li><a href="#experience">Experience</a></li>
+                <li><a href="#about">About</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#certifications">Certifications</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#values">Values</a></li>
+                <li><a href="#experience">Experience</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <a href="./Aishwarya_Koppula_resume.pdf" download class="btn btn-primary resume-btn" title="Download resume PDF">Resume</a>
         </div>
     </nav>
+
+    <div class="page-3d" id="page-3d" aria-hidden="true"></div>
 
     <section class="hero">
         <svg class="hero-line-accent" viewBox="0 0 900 300" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -669,7 +1028,8 @@
                     <div class="hero-badge"><span class="dot"></span>West Lafayette, IN · Open to Relocation</div>
                     <h1 class="hero-name">Aishwarya<br>Koppula<span class="accent">.</span></h1>
                     <p class="hero-tagline">Product manager turning complex B2B and AI problems into products people rely on.</p>
-                    <p class="hero-summary">I'm Aishwarya, a Master of Engineering Management student at Purdue with four years of product experience across B2B platforms and AI. At Carrier, I owned a financial and regulatory planning platform end to end and became the youngest recipient of the company's Leadership Award. Since then, I've built AI products and use cases at Trane, Cummins, and ISE, from competitor intelligence tools to enterprise data pipelines to industrial fault detection. I start with what users really need, work closely with engineers to build it, and make sure it delivers. Outside of work, I build my own AI workflows and simple tools to learn new technologies, and I enjoy shipping MVPs that get the job done. I'm looking for product roles where AI meets real business problems.</p>
+                    <p class="hero-summary">Purdue MEM student with four years shipping B2B and AI products — from Carrier's financial planning platform to GenAI systems at Trane, Cummins, and ISE. I start with users, partner with engineers, and make sure it delivers.</p>
+                    <a href="#about" class="hero-more">More about me →</a>
                 </div>
                 <div class="hero-photo-col">
                     <div class="hero-photo">
@@ -705,7 +1065,84 @@
         </div>
     </section>
 
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Beyond the résumé</div>
+                <h2 class="section-title">I'm Aishwarya.</h2>
+                <p class="section-subtitle">Curious builder, clarity-obsessed collaborator, happiest when fuzzy problems turn into products people use.</p>
+            </div>
+            <div class="about-layout">
+                <div class="about-copy">
+                    <p class="about-lead">A builder at heart. A curious learner always.</p>
+                    <p>I'm a Master of Engineering Management student at Purdue with four years of product experience across B2B platforms and AI. At Carrier, I owned a financial and regulatory planning platform end to end and became the youngest recipient of the company's Leadership Award. Since then, I've built AI products and use cases at Trane, Cummins, and ISE — from competitor intelligence tools to enterprise data pipelines to industrial fault detection.</p>
+                    <p>I start with what users really need, work closely with engineers to build it, and make sure it delivers. Outside of work, I build my own AI workflows and ship small tools to learn new technologies. I'm looking for product roles where AI meets real business problems.</p>
+                    <p>I'm happiest around people who care about what they're creating — swapping perspectives, making sense of ideas together, and watching something go from “what if?” to “this actually works.”</p>
+                </div>
+                <aside class="about-side">
+                    <div class="margin-notes">
+                        <div class="margin-notes-head">
+                            <p class="margin-kicker">Margin notes</p>
+                            <span class="margin-page">pg. 01</span>
+                        </div>
 
+                        <div class="margin-annot">
+                            <span class="margin-label"><span class="mark">i.</span> How I show up</span>
+                            <ul class="about-showup">
+                                <li>Own it end to end</li>
+                                <li>Customers first</li>
+                                <li>Love a hard problem</li>
+                                <li>Thrive under pressure</li>
+                                <li>Honest feedback</li>
+                                <li>Show up and follow through</li>
+                            </ul>
+                        </div>
+
+                        <div class="margin-annot">
+                            <span class="margin-label"><span class="mark">ii.</span> Currently into</span>
+                            <p class="about-holes">Weird history facts <span class="sep">/</span> corners of the internet <span class="sep">/</span> design toolkit</p>
+                        </div>
+
+                        <div class="margin-annot">
+                            <span class="margin-label"><span class="mark">iii.</span> Where &amp; what</span>
+                            <dl class="about-meta">
+                                <div>
+                                    <dt>Based</dt>
+                                    <dd>West Lafayette, IN · open to relocate</dd>
+                                </div>
+                                <div>
+                                    <dt>Seeking</dt>
+                                    <dd>Product roles where AI meets real business problems</dd>
+                                </div>
+                            </dl>
+                        </div>
+
+                        <div class="margin-annot" id="skills">
+                            <span class="margin-label"><span class="mark">iv.</span> Toolkit</span>
+                            <dl class="about-toolkit">
+                                <div class="about-toolkit-row">
+                                    <dt>Product</dt>
+                                    <dd>0-to-1 · User research · PRD/BRD · Roadmaps · GTM · A/B testing · Product analytics · Stakeholder management</dd>
+                                </div>
+                                <div class="about-toolkit-row">
+                                    <dt>Technical</dt>
+                                    <dd>Python · SQL · GenAI &amp; LLMs · Agentic AI · AWS · React · Node.js · Snowflake · Figma · Git</dd>
+                                </div>
+                                <div class="about-toolkit-row">
+                                    <dt>Domain</dt>
+                                    <dd>B2B SaaS · AI/ML products · IoT &amp; industrial systems · Data products · Agile</dd>
+                                </div>
+                                <div class="about-toolkit-row ai">
+                                    <dt>AI tools</dt>
+                                    <dd>Muse AI · Claude Code / Cowork · OpenAI · Nemotron (NVIDIA) · Tavily · Apify · Connectors &amp; Skills · Stitch · Gemini Gravity · Lovable · Gamma</dd>
+                                </div>
+                            </dl>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </section>
 
     <section id="experience-work" class="section-alt">
         <div class="container">
@@ -857,19 +1294,19 @@
                     <div class="section-header">
                         <div class="section-eyebrow">Pinned Up</div>
                         <h2 class="section-title">The Board</h2>
-                        <p class="section-subtitle">Projects I've built and things I've written, pinned up. Click any note for the story behind it.</p>
+                        <p class="section-subtitle">Projects I've built and things I've written, pinned up. Tap any project for the full case study.</p>
                     </div>
             <div class="board-row-2">
                 <div class="notes-board">
                 <div class="board-zone">
                     <div class="board-category" id="projects">Projects <span class="count">(6)</span></div>
                     <div class="board-zone-notes notes-wide">
-                        <div class="sticky-note">
+                        <div class="sticky-note" data-case="sentinel" role="button" tabindex="0" aria-label="Open Sentinel case study">
                             <span class="note-pin"></span>
                             <div class="note-icon">🤖</div>
                             <h3 class="note-title">Sentinel</h3>
                             <div class="note-meta">AI Market Intelligence Platform</div>
-                            <p class="sticky-note-hint">Tap for details</p>
+                            <p class="sticky-note-hint">Tap for full story</p>
                             <div class="sticky-note-details">
                                 <div class="note-date">Personal Project · Jul 2026 – Present</div>
                                 <p class="note-description">Engineering a market intelligence engine (n8n, Claude API, multi-agent via MCP) automating competitive intelligence and secondary market research, replacing manual company research with ranked, RAG-verified ICP matching to inform strategic planning.</p>
@@ -882,12 +1319,12 @@
                             </div>
                         </div>
 
-                        <div class="sticky-note">
+                        <div class="sticky-note" data-case="grandmode" role="button" tabindex="0" aria-label="Open Grandmode case study">
                             <span class="note-pin"></span>
                             <div class="note-icon">👵</div>
                             <h3 class="note-title">Grandmode</h3>
                             <div class="note-meta">Consumer Practice App for Older Adults</div>
-                            <p class="sticky-note-hint">Tap for details</p>
+                            <p class="sticky-note-hint">Tap for full story</p>
                             <div class="sticky-note-details">
                                 <div class="note-date">Sep 2026 – Present</div>
                                 <p class="note-description">Conducted 10 user interviews with older adults (ages 69 to 75) on everyday consumer app use, synthesizing insights via affinity and customer journey mapping into 2 core jobs-to-be-done, then ideated 60+ solution concepts across UX, fraud prevention, and authentication.</p>
@@ -899,12 +1336,12 @@
                             </div>
                         </div>
 
-                        <div class="sticky-note">
+                        <div class="sticky-note" data-case="lodge" role="button" tabindex="0" aria-label="Open Lodge case study">
                             <span class="note-pin"></span>
                             <div class="note-icon">🏠</div>
                             <h3 class="note-title">Lodge</h3>
                             <div class="note-meta">1st Place, MEMPC Hackathon 2026</div>
-                            <p class="sticky-note-hint">Tap for details</p>
+                            <p class="sticky-note-hint">Tap for full story</p>
                             <div class="sticky-note-details">
                                 <div class="note-date">Purdue University | Inter-College Hackathon · April 2026</div>
                                 <div class="note-images">
@@ -923,12 +1360,12 @@
                             </div>
                         </div>
 
-                        <div class="sticky-note">
+                        <div class="sticky-note" data-case="claro" role="button" tabindex="0" aria-label="Open Claro case study">
                             <span class="note-pin"></span>
                             <div class="note-icon">📚</div>
                             <h3 class="note-title">Claro</h3>
                             <div class="note-meta">Johns Hopkins Product Hackathon</div>
-                            <p class="sticky-note-hint">Tap for details</p>
+                            <p class="sticky-note-hint">Tap for full story</p>
                             <div class="sticky-note-details">
                                 <div class="note-date">AI-Powered Learning Platform · April 2026</div>
                                 <p class="note-description">Reduced irrelevant outputs 45% across 200+ syllabi through systematic LLM evaluation, building an agentic RAG powered knowledge graph with dual 2D/3D rendering to map concept dependencies and surface root cause.</p>
@@ -942,12 +1379,12 @@
                             </div>
                         </div>
 
-                        <div class="sticky-note">
+                        <div class="sticky-note" data-case="briefing" role="button" tabindex="0" aria-label="Open Agentic Briefing Pipeline case study">
                             <span class="note-pin"></span>
                             <div class="note-icon">🔗</div>
                             <h3 class="note-title">Agentic Briefing Pipeline</h3>
                             <div class="note-meta">Personal Project</div>
-                            <p class="sticky-note-hint">Tap for details</p>
+                            <p class="sticky-note-hint">Tap for full story</p>
                             <div class="sticky-note-details">
                                 <div class="note-date">Feb 2026 - Mar 2026</div>
                                 <p class="note-description">Engineered a low code, no code n8n workflow with calendar and meeting tool integrations, using Claude API prompt engineering to centralize meeting notes, cutting retrieval time 80% with sub second latency.</p>
@@ -960,12 +1397,12 @@
                             </div>
                         </div>
 
-                        <div class="sticky-note">
+                        <div class="sticky-note" data-case="wattwise" role="button" tabindex="0" aria-label="Open WattWise case study">
                             <span class="note-pin"></span>
                             <div class="note-icon">⚡</div>
                             <h3 class="note-title">WattWise</h3>
                             <div class="note-meta">Real-time Smart Energy Decision Engine</div>
-                            <p class="sticky-note-hint">Tap for details</p>
+                            <p class="sticky-note-hint">Tap for full story</p>
                             <div class="sticky-note-details">
                                 <div class="note-date">Carrier Innovation Competition - 4th Place Globally (84 Teams) · Apr 2023 - Jun 2023</div>
                                 <p class="note-description">Led a 4-person team to build an integrated HVAC optimization, renewable integration, and load management solution, winning 4th and pitching a $4.7B market opportunity to the VP of Innovation.</p>
@@ -1031,15 +1468,14 @@
 
     <section id="credentials" class="section-alt">
         <div class="container">
-            <div class="credentials-skills-layout">
-            <div class="credentials-col">
             <div class="section-header">
                 <div class="section-eyebrow">Beyond The Board</div>
                 <h2 class="section-title">Credentials &amp; Recognition</h2>
-                <p class="section-subtitle">Certifications, awards, and the communities I'm part of. Tap any badge for the story.</p>
+                <p class="section-subtitle">Certifications, awards, and communities. Use ‹ › to browse — tap a plaque for the story.</p>
             </div>
+            <div class="credentials-col">
 
-            <div class="credential-group">
+            <div class="credential-group" data-kind="certs">
                 <div class="credential-group-title" id="certifications">Certifications <span class="count">(4)</span></div>
                 <div class="cert-badges">
                     <div class="cert-badge">
@@ -1091,7 +1527,7 @@
                 </div>
             </div>
 
-            <div class="credential-group">
+            <div class="credential-group" data-kind="awards">
                 <div class="credential-group-title" id="awards">Awards &amp; Recognition <span class="count">(5)</span></div>
                 <div class="cert-badges">
                     <div class="cert-badge">
@@ -1156,7 +1592,7 @@
                 </div>
             </div>
 
-            <div class="credential-group">
+            <div class="credential-group" data-kind="affiliations">
                 <div class="credential-group-title" id="affiliations">Affiliations <span class="count">(5)</span></div>
                 <div class="cert-badges">
                     <div class="cert-badge">
@@ -1212,45 +1648,6 @@
                     </div>
                 </div>
             </div>
-            </div>
-
-            <div class="skills-col" id="skills">
-                <div class="section-header">
-                    <h2 class="section-title">Skills &amp; Expertise</h2>
-                    <p class="section-subtitle">A comprehensive toolkit for product development and engineering</p>
-                </div>
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h3>Product Management</h3>
-                        <p class="skill-list">0-to-1 Product Development <span class="sep">&middot;</span> User Research <span class="sep">&middot;</span> PRD/BRD <span class="sep">&middot;</span> Roadmap Prioritization <span class="sep">&middot;</span> Feature Prioritization <span class="sep">&middot;</span> Go-to-Market Strategy <span class="sep">&middot;</span> A/B Testing <span class="sep">&middot;</span> Product Analytics <span class="sep">&middot;</span> Backlog Management <span class="sep">&middot;</span> Stakeholder Management <span class="sep">&middot;</span> Competitive Analysis <span class="sep">&middot;</span> KPI Development</p>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Technical</h3>
-                        <p class="skill-list">Python <span class="sep">&middot;</span> SQL <span class="sep">&middot;</span> REST APIs <span class="sep">&middot;</span> GenAI &amp; LLMs <span class="sep">&middot;</span> Agentic AI <span class="sep">&middot;</span> AWS <span class="sep">&middot;</span> React.js <span class="sep">&middot;</span> Node.js <span class="sep">&middot;</span> PowerBI <span class="sep">&middot;</span> Tableau <span class="sep">&middot;</span> Figma <span class="sep">&middot;</span> Jira <span class="sep">&middot;</span> Confluence <span class="sep">&middot;</span> Git <span class="sep">&middot;</span> Snowflake <span class="sep">&middot;</span> Docker</p>
-                    </div>
-                    <div class="skill-category">
-                        <h3>Domain</h3>
-                        <p class="skill-list">B2B SaaS <span class="sep">&middot;</span> AI/ML Products <span class="sep">&middot;</span> IoT and Sensor Systems <span class="sep">&middot;</span> Data Products <span class="sep">&middot;</span> Industrial Systems <span class="sep">&middot;</span> Agile</p>
-                    </div>
-                </div>
-            </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="values" class="section-dark">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-eyebrow">How I Work</div>
-                <h2 class="section-title">What I Bring to Every Team</h2>
-            </div>
-            <div class="values-grid">
-                <div class="value-card"><strong>Own it.</strong> If it's mine, I see it through, from the first question to the final result.</div>
-                <div class="value-card"><strong>Work hard, show up.</strong> I put in the effort, keep my commitments, and stay steady when things get busy.</div>
-                <div class="value-card"><strong>Thrive under pressure.</strong> High stakes and big responsibilities bring out my best work.</div>
-                <div class="value-card"><strong>Love a hard problem.</strong> The unusual, messy problems are the ones I want to solve.</div>
-                <div class="value-card"><strong>Customers first.</strong> I listen to the people I'm building for before deciding what to build.</div>
-                <div class="value-card"><strong>Be honest.</strong> I give real feedback, ask for it in return, and say so when something isn't working.</div>
             </div>
         </div>
     </section>
@@ -1321,12 +1718,44 @@
         </div>
     </section>
 
+    <div class="case-modal" id="case-modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="case-modal-title">
+        <div class="case-modal-backdrop" data-case-close></div>
+        <div class="case-modal-panel" role="document">
+            <button type="button" class="case-modal-close" data-case-close aria-label="Close case study">&times;</button>
+            <div class="case-modal-kicker" id="case-modal-kicker"></div>
+            <div class="case-modal-badge" id="case-modal-badge" hidden></div>
+            <h3 class="case-modal-title" id="case-modal-title"></h3>
+            <p class="case-modal-meta" id="case-modal-meta"></p>
+            <div class="case-modal-tags" id="case-modal-tags"></div>
+            <div class="case-modal-images" id="case-modal-images" hidden></div>
+            <div class="case-block">
+                <h4>The problem</h4>
+                <p id="case-modal-problem"></p>
+            </div>
+            <div class="case-block">
+                <h4>What I did</h4>
+                <div id="case-modal-did"></div>
+            </div>
+            <div class="case-block">
+                <h4>Outcome</h4>
+                <p id="case-modal-outcome"></p>
+            </div>
+            <div class="case-block">
+                <h4>Built with</h4>
+                <div class="case-modal-tags" id="case-modal-stack"></div>
+            </div>
+            <div class="case-modal-links" id="case-modal-links"></div>
+        </div>
+    </div>
+
     <footer>
         <div class="container">
             <p>&copy; 2026 Aishwarya Koppula. All rights reserved.</p>
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
@@ -1334,16 +1763,232 @@
         (function () {
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const menuToggle = document.querySelector('.menu-toggle');
+
+            // Quiet 3D fog behind the whole page (skipped when reduced motion)
+            let vantaEffect = null;
+            if (!reduceMotion && window.VANTA && typeof VANTA.FOG === 'function' && document.getElementById('page-3d')) {
+                vantaEffect = VANTA.FOG({
+                    el: '#page-3d',
+                    THREE: window.THREE,
+                    mouseControls: false,
+                    touchControls: false,
+                    gyroControls: false,
+                    highlightColor: 0x9aab8d,
+                    midtoneColor: 0xd4a57a,
+                    lowlightColor: 0xe8dfcf,
+                    baseColor: 0xf7f3ec,
+                    blurFactor: 0.72,
+                    speed: 0.28,
+                    zoom: 0.9,
+                });
+                window.addEventListener('beforeunload', () => { if (vantaEffect) vantaEffect.destroy(); });
+            }
+
             const navLinks = document.querySelector('.nav-links');
             const progressEl = document.querySelector('.scroll-progress');
             const navAnchors = Array.from(document.querySelectorAll('.nav-links a[href^="#"]'));
+            let lenis = null;
 
             if (menuToggle && navLinks) {
                 menuToggle.addEventListener('click', () => navLinks.classList.toggle('show'));
                 navAnchors.forEach(a => a.addEventListener('click', () => navLinks.classList.remove('show')));
             }
 
-            // Expand / collapse interactions (unchanged behavior)
+            // --- Case study modals for board projects ---
+            const CASE_STUDIES = {
+                sentinel: {
+                    kicker: '01 · Personal build',
+                    title: 'Sentinel',
+                    meta: 'AI Market Intelligence Platform · Jul 2026 – Present',
+                    badge: '',
+                    tags: ['Multi-Agent Systems', 'MCP', 'RAG', 'Agentic AI'],
+                    problem: 'Competitive and secondary market research is still mostly manual: analysts open dozens of tabs, paste into docs, and hope the ICP match is right. That slows strategic planning and makes every new company a cold start.',
+                    did: [
+                        'Designing a market intelligence engine that automates competitive intel and secondary research with n8n, Claude API, and multi-agent workflows over MCP.',
+                        'Replacing one-off company research with ranked, RAG-verified ICP matching so planning starts from signal, not a blank page.',
+                    ],
+                    outcome: 'In progress: a reusable research loop that turns raw company signals into ranked ICP matches for strategic planning.',
+                    stack: ['n8n', 'Claude API', 'MCP', 'RAG'],
+                    links: [],
+                },
+                grandmode: {
+                    kicker: '02 · Discovery',
+                    title: 'Grandmode',
+                    meta: 'Consumer Practice App for Older Adults · Sep 2026 – Present',
+                    badge: '',
+                    tags: ['User Research', 'JTBD', 'Customer-Facing Apps'],
+                    problem: 'Everyday consumer apps assume digital fluency. Older adults often struggle with fraud risk, authentication friction, and UX that was never designed around how they actually move through a phone.',
+                    did: [
+                        'Ran 10 user interviews with adults ages 69–75 on everyday app use.',
+                        'Synthesized insights with affinity and customer journey mapping into 2 core jobs-to-be-done.',
+                        'Ideated 60+ solution concepts across UX, fraud prevention, and authentication before locking a direction.',
+                    ],
+                    outcome: 'A research-backed problem framing and concept set grounded in real JTBD — not assumptions about “simpler UI.”',
+                    stack: ['User interviews', 'Affinity mapping', 'JTBD', 'Journey mapping'],
+                    links: [],
+                },
+                lodge: {
+                    kicker: '03 · Hackathon win',
+                    title: 'Lodge',
+                    meta: 'Purdue University · Inter-College Hackathon · April 2026',
+                    badge: '🥇 1st Place · MEMPC Hackathon 2026',
+                    tags: ['React', 'Node.js', 'GPT-4.1-mini', 'Claude Code'],
+                    images: ['./lodge-app.jpeg', './lodge-hackathon-win.jpeg'],
+                    problem: 'People want real-world connection, but most social apps match on interests alone. Routines, proximity, and whether someone is actually showing up get ignored — so matches stay theoretical.',
+                    did: [
+                        'Shipped a production-ready behavioral matching engine from ideation to launch in 48 hours with Claude Code and Cursor.',
+                        'Paired users on routine proximity, not just shared interests, and used GPT-4.1 mini to flag disengagement before connections went cold.',
+                        'Led product strategy while the team beat programs from Cornell, Duke, and five other schools.',
+                    ],
+                    outcome: '1st place. Live MVP pairing 50+ users during the event — social infrastructure you can actually try.',
+                    stack: ['React', 'Node.js', 'GPT-4.1-mini', 'Claude Code', 'Cursor'],
+                    links: [
+                        { label: 'Live Demo', href: 'https://lodge-project-hackathon-kf92hl9ep.vercel.app', primary: true },
+                        { label: 'Pitch Deck', href: 'https://www.canva.com/design/DAHF7Lphm2k/j19o7zKBtvUGOqqTY5xwUA/edit' },
+                    ],
+                },
+                claro: {
+                    kicker: '04 · Product hackathon',
+                    title: 'Claro',
+                    meta: 'Johns Hopkins Product Hackathon · AI-Powered Learning · April 2026',
+                    badge: '',
+                    tags: ['React 18', 'Firebase', 'OpenAI API', 'Three.js'],
+                    problem: 'Syllabus and course materials bury how concepts depend on each other. Learners get answers that are technically related but miss the root prerequisite — so studying feels noisy and unfocused.',
+                    did: [
+                        'Built an agentic RAG knowledge graph with dual 2D/3D rendering to map concept dependencies and surface root cause.',
+                        'Ran systematic LLM evaluation across 200+ syllabi to cut irrelevant outputs instead of shipping a pretty demo.',
+                    ],
+                    outcome: '45% fewer irrelevant outputs across 200+ syllabi — clearer concept maps learners can actually navigate.',
+                    stack: ['React 18', 'Firebase', 'OpenAI API', 'Three.js', 'Vercel'],
+                    links: [],
+                },
+                briefing: {
+                    kicker: '05 · Personal workflow',
+                    title: 'Agentic Briefing Pipeline',
+                    meta: 'Personal Project · Feb 2026 – Mar 2026',
+                    badge: '',
+                    tags: ['n8n', 'Claude API', 'Agentic AI'],
+                    problem: 'Meeting notes scatter across calendars, docs, and tools. Finding “what did we decide?” before the next call eats time and breaks focus.',
+                    did: [
+                        'Built a low-code / no-code n8n workflow wired into calendar and meeting tools.',
+                        'Used Claude API prompt engineering to centralize notes into one retrieval path with sub-second responses.',
+                    ],
+                    outcome: 'Cut note retrieval time ~80% with a pipeline I still use to stay briefing-ready.',
+                    stack: ['n8n', 'Claude API', 'Calendar integrations'],
+                    links: [
+                        { label: 'GitHub', href: 'https://github.com/Aishwarya-Koppula/meeting-intelligence-engine', primary: true },
+                    ],
+                },
+                wattwise: {
+                    kicker: '06 · Innovation competition',
+                    title: 'WattWise',
+                    meta: 'Carrier Innovation Competition · Apr 2023 – Jun 2023',
+                    badge: '4th Place Globally · 84 Teams',
+                    tags: ['Product Innovation', 'Team Leadership', 'Go-to-Market'],
+                    problem: 'Buildings waste energy when HVAC, renewables, and load decisions stay siloed. Operators lack a single real-time view that turns data into action.',
+                    did: [
+                        'Led a 4-person team to design an integrated HVAC optimization, renewable integration, and load management solution.',
+                        'Built the business case and pitched a $4.7B market opportunity to Carrier’s VP of Innovation.',
+                    ],
+                    outcome: '4th place globally out of 84 teams — a clear product story from technical system to GTM narrative.',
+                    stack: ['Product strategy', 'Energy systems', 'Executive pitching'],
+                    links: [],
+                },
+            };
+
+            const caseModal = document.getElementById('case-modal');
+            const caseEls = {
+                kicker: document.getElementById('case-modal-kicker'),
+                badge: document.getElementById('case-modal-badge'),
+                title: document.getElementById('case-modal-title'),
+                meta: document.getElementById('case-modal-meta'),
+                tags: document.getElementById('case-modal-tags'),
+                images: document.getElementById('case-modal-images'),
+                problem: document.getElementById('case-modal-problem'),
+                did: document.getElementById('case-modal-did'),
+                outcome: document.getElementById('case-modal-outcome'),
+                stack: document.getElementById('case-modal-stack'),
+                links: document.getElementById('case-modal-links'),
+            };
+
+            function renderTags(container, tags) {
+                container.innerHTML = (tags || []).map(t => `<span class="note-tag">${t}</span>`).join('');
+            }
+
+            function openCaseStudy(id) {
+                const study = CASE_STUDIES[id];
+                if (!study || !caseModal) return;
+
+                caseEls.kicker.textContent = study.kicker;
+                caseEls.title.textContent = study.title;
+                caseEls.meta.textContent = study.meta;
+                caseEls.problem.textContent = study.problem;
+                caseEls.outcome.textContent = study.outcome;
+                renderTags(caseEls.tags, study.tags);
+                renderTags(caseEls.stack, study.stack);
+
+                if (study.badge) {
+                    caseEls.badge.hidden = false;
+                    caseEls.badge.textContent = study.badge;
+                } else {
+                    caseEls.badge.hidden = true;
+                }
+
+                if (study.images?.length) {
+                    caseEls.images.hidden = false;
+                    caseEls.images.innerHTML = study.images.map(src => `<img src="${src}" alt="">`).join('');
+                } else {
+                    caseEls.images.hidden = true;
+                    caseEls.images.innerHTML = '';
+                }
+
+                if (Array.isArray(study.did)) {
+                    caseEls.did.innerHTML = `<ul>${study.did.map(item => `<li>${item}</li>`).join('')}</ul>`;
+                } else {
+                    caseEls.did.innerHTML = `<p>${study.did || ''}</p>`;
+                }
+
+                caseEls.links.innerHTML = (study.links || []).map(link =>
+                    `<a href="${link.href}" target="_blank" rel="noopener noreferrer" class="${link.primary ? 'primary' : ''}">${link.label}</a>`
+                ).join('');
+
+                caseModal.classList.add('is-open');
+                caseModal.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('case-modal-open');
+                if (lenis) lenis.stop();
+                caseModal.querySelector('.case-modal-close')?.focus();
+            }
+
+            function closeCaseStudy() {
+                if (!caseModal?.classList.contains('is-open')) return;
+                caseModal.classList.remove('is-open');
+                caseModal.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('case-modal-open');
+                if (lenis) lenis.start();
+            }
+
+            document.querySelectorAll('.sticky-note[data-case]').forEach(note => {
+                const open = () => openCaseStudy(note.getAttribute('data-case'));
+                note.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    open();
+                });
+                note.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        open();
+                    }
+                });
+            });
+
+            caseModal?.querySelectorAll('[data-case-close]').forEach(el => {
+                el.addEventListener('click', closeCaseStudy);
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') closeCaseStudy();
+            });
+
+            // Expand / collapse for writing notes, roadmap, certs (projects use modals)
             let scrollResetTimer;
             function scheduleScrollReset() {
                 clearTimeout(scrollResetTimer);
@@ -1353,7 +1998,7 @@
                 }, 500);
             }
 
-            document.querySelectorAll('.sticky-note').forEach(note => {
+            document.querySelectorAll('.sticky-note:not([data-case])').forEach(note => {
                 note.addEventListener('click', () => {
                     clearTimeout(scrollResetTimer);
                     const wasExpanded = note.classList.contains('expanded');
@@ -1432,6 +2077,166 @@
                 }, { passive: true });
             });
 
+            // Credentials / awards / affiliations: plaque rails, auto-scroll once, <> arrows after
+            (function initCredRails() {
+                const groups = Array.from(document.querySelectorAll('#credentials .credential-group'));
+                if (!groups.length) return;
+
+                groups.forEach((group) => {
+                    const title = group.querySelector('.credential-group-title');
+                    const scroller = group.querySelector('.cert-badges');
+                    if (!title || !scroller) return;
+
+                    // Wrap title + arrows
+                    if (!group.querySelector('.credential-group-head')) {
+                        const head = document.createElement('div');
+                        head.className = 'credential-group-head';
+                        title.replaceWith(head);
+                        head.appendChild(title);
+                        const nav = document.createElement('div');
+                        nav.className = 'cred-nav';
+                        nav.innerHTML = `
+                            <button type="button" class="cred-arrow" data-dir="-1" aria-label="Previous">‹</button>
+                            <button type="button" class="cred-arrow" data-dir="1" aria-label="Next">›</button>
+                        `;
+                        head.appendChild(nav);
+                    }
+
+                    const originals = Array.from(scroller.children).filter((el) => el.classList.contains('cert-badge'));
+                    if (originals.length < 2) return;
+
+                    let track = scroller.querySelector('.cert-badges-track');
+                    if (!track) {
+                        track = document.createElement('div');
+                        track.className = 'cert-badges-track';
+                        originals.forEach((el) => track.appendChild(el));
+                        // Duplicate for intro marquee only
+                        originals.forEach((el) => {
+                            const clone = el.cloneNode(true);
+                            clone.setAttribute('aria-hidden', 'true');
+                            clone.style.pointerEvents = 'none';
+                            clone.querySelectorAll('a').forEach((a) => {
+                                a.removeAttribute('href');
+                                a.setAttribute('tabindex', '-1');
+                            });
+                            track.appendChild(clone);
+                        });
+                        scroller.appendChild(track);
+                    }
+
+                    const prevBtn = group.querySelector('.cred-arrow[data-dir="-1"]');
+                    const nextBtn = group.querySelector('.cred-arrow[data-dir="1"]');
+
+                    function realBadges() {
+                        return Array.from(track.children).filter((el) => !el.hasAttribute('aria-hidden'));
+                    }
+
+                    function updateArrows() {
+                        if (!scroller.classList.contains('is-manual')) {
+                            prevBtn.disabled = true;
+                            nextBtn.disabled = true;
+                            return;
+                        }
+                        const max = scroller.scrollWidth - scroller.clientWidth;
+                        prevBtn.disabled = scroller.scrollLeft <= 4;
+                        nextBtn.disabled = scroller.scrollLeft >= max - 4;
+                    }
+
+                    function scrollByDir(dir) {
+                        // If still autoplaying, settle to manual at start, then step
+                        if (!scroller.classList.contains('is-manual')) finishManual(false);
+                        const badges = realBadges();
+                        if (!badges.length) return;
+                        const step = badges[0].offsetWidth + 14;
+                        scroller.scrollBy({ left: dir * step, behavior: reduceMotion ? 'auto' : 'smooth' });
+                        setTimeout(updateArrows, reduceMotion ? 0 : 320);
+                    }
+
+                    prevBtn.addEventListener('click', () => scrollByDir(-1));
+                    nextBtn.addEventListener('click', () => scrollByDir(1));
+                    scroller.addEventListener('scroll', updateArrows, { passive: true });
+
+                    let finished = false;
+                    function finishManual(keepPosition) {
+                        if (finished && scroller.classList.contains('is-manual')) {
+                            updateArrows();
+                            return;
+                        }
+                        finished = true;
+                        // Only drop marquee clones — never half the real plaques
+                        Array.from(track.querySelectorAll('.cert-badge[aria-hidden="true"]')).forEach((el) => el.remove());
+                        track.style.transform = '';
+                        scroller.classList.add('is-manual');
+                        if (!keepPosition) scroller.scrollLeft = 0;
+                        updateArrows();
+                    }
+
+                    function runOnce() {
+                        if (scroller.dataset.autoDone === '1') return;
+                        scroller.dataset.autoDone = '1';
+
+                        const gap = parseFloat(getComputedStyle(track).gap) || 12;
+                        const kids = Array.from(track.children);
+                        const half = kids.length / 2;
+                        let distance = 0;
+                        for (let i = 0; i < half; i++) {
+                            distance += kids[i].offsetWidth + (i < half - 1 ? gap : 0);
+                        }
+
+                        if (distance < 40 || reduceMotion) {
+                            finishManual(false);
+                            return;
+                        }
+
+                        updateArrows(); // disabled during auto
+                        let paused = false;
+                        const pause = () => { paused = true; };
+                        const resume = () => { paused = false; };
+                        scroller.addEventListener('pointerenter', pause);
+                        scroller.addEventListener('pointerleave', resume);
+
+                        const duration = Math.min(9000, Math.max(4200, distance * 14));
+                        const easeInOut = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+                        let last = performance.now();
+                        let progress = 0;
+
+                        const step = (now) => {
+                            if (finished) return;
+                            if (!paused) progress += (now - last) / duration;
+                            last = now;
+                            const t = Math.min(1, progress);
+                            track.style.transform = `translate3d(${-distance * easeInOut(t)}px, 0, 0)`;
+                            if (t < 1) requestAnimationFrame(step);
+                            else {
+                                scroller.removeEventListener('pointerenter', pause);
+                                scroller.removeEventListener('pointerleave', resume);
+                                finishManual(false);
+                            }
+                        };
+                        requestAnimationFrame(step);
+                    }
+
+                    group._credRunOnce = runOnce;
+                    updateArrows();
+                });
+
+                const rails = groups.map((g) => g.querySelector('.cert-badges')).filter(Boolean);
+                if (!('IntersectionObserver' in window)) {
+                    groups.forEach((g) => g._credRunOnce && g._credRunOnce());
+                    return;
+                }
+                const io = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (!entry.isIntersecting) return;
+                        const group = entry.target.closest('.credential-group');
+                        if (group && group._credRunOnce) group._credRunOnce();
+                        io.unobserve(entry.target);
+                    });
+                }, { threshold: 0.3, rootMargin: '0px 0px -6% 0px' });
+                rails.forEach((rail) => io.observe(rail));
+            })();
+
+
             // --- Smooth motion layer (Lenis + GSAP). Skipped when user prefers reduced motion. ---
             if (reduceMotion || typeof Lenis === 'undefined' || typeof gsap === 'undefined') {
                 window.addEventListener('scroll', scheduleScrollReset, { passive: true });
@@ -1441,7 +2246,7 @@
             document.documentElement.classList.add('js-motion');
             gsap.registerPlugin(ScrollTrigger);
 
-            const lenis = new Lenis({
+            lenis = new Lenis({
                 autoRaf: false,
                 lerp: 0.1,
                 smoothWheel: true,
@@ -1450,7 +2255,8 @@
                 prevent: (node) =>
                     node.classList?.contains('board-zone-notes') ||
                     node.classList?.contains('gallery-grid') ||
-                    node.closest?.('.board-zone-notes, .gallery-grid, .roadmap-details'),
+                    node.classList?.contains('cert-badges') ||
+                    node.closest?.('.board-zone-notes, .gallery-grid, .cert-badges, .roadmap-details, .case-modal-panel'),
             });
 
             lenis.on('scroll', ScrollTrigger.update);
@@ -1487,7 +2293,7 @@
             });
 
             // Hero entrance — fromTo + clearProps so CTAs never get stuck invisible
-            const heroMotionEls = '.hero-badge, .hero-name, .hero-tagline, .hero-summary, .hero-photo, .hero-photo-caption, .hero-divider, .stats-grid .stat, .cta-buttons .btn';
+            const heroMotionEls = '.hero-badge, .hero-name, .hero-tagline, .hero-summary, .hero-more, .hero-photo, .hero-photo-caption, .hero-divider, .stats-grid .stat, .cta-buttons .btn';
             const heroTl = gsap.timeline({
                 defaults: { ease: 'power3.out' },
                 onComplete: () => {
@@ -1512,7 +2318,7 @@
                 .fromTo('.hero-badge', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, 0.15)
                 .fromTo('.hero-name', { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75 }, 0.25)
                 .fromTo('.hero-tagline', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.4)
-                .fromTo('.hero-summary', { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.5)
+                .fromTo('.hero-summary, .hero-more', { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, stagger: 0.08 }, 0.5)
                 .fromTo('.hero-photo', { y: 28, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.8 }, 0.3)
                 .fromTo('.hero-photo-caption, .hero-divider, .stats-grid .stat', { y: 16, opacity: 0 }, {
                     y: 0, opacity: 1, duration: 0.5, stagger: 0.06,
@@ -1540,18 +2346,17 @@
             }
 
             reveal('.section-header');
+            reveal('#about .about-copy > *', { y: 20, stagger: 0.08 });
+            reveal('#about .margin-notes', { y: 18 });
             reveal('.roadmap-stop', { y: 22, stagger: 0.1 });
             reveal('.board-category', { y: 16, stagger: 0.06 });
             reveal('.sticky-note', { opacityOnly: true, stagger: 0.05 });
-            reveal('.credential-group-title, .cert-badge', { y: 18, stagger: 0.05 });
-            reveal('.skills-col .skill-category', { y: 20, stagger: 0.1 });
-            reveal('#values .section-header', { y: 20 });
-            reveal('#values .value-card', { y: 24, stagger: 0.08 });
+            reveal('.credential-group-title, #credentials .cert-badge:not([aria-hidden="true"])', { y: 18, stagger: 0.05 });
             reveal('.gallery-grid img', { opacityOnly: true, stagger: 0.06 });
             reveal('.contact-layout > *', { y: 22, stagger: 0.12 });
 
             // Soft lift on cert badges only (sticky notes keep CSS rotate transforms)
-            document.querySelectorAll('.cert-badge').forEach(el => {
+            document.querySelectorAll('.cert-badge:not([aria-hidden="true"])').forEach(el => {
                 el.addEventListener('mouseenter', () => {
                     if (el.classList.contains('expanded')) return;
                     gsap.to(el, { y: -4, duration: 0.25, ease: 'power2.out', overwrite: 'auto' });
