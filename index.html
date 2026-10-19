@@ -3,6 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preload" as="image" href="./Aishwarya_Koppula_3.jpg" fetchpriority="high">
+    <script>
+        /* Safari Reader decides early. Keep the article DOM display:none until after that
+           window, so automatic Reader Mode has no article to open for any visitor. */
+        (function () {
+            function reveal() {
+                document.documentElement.classList.add('app-ready');
+                var splash = document.getElementById('boot-splash');
+                if (splash) splash.setAttribute('aria-hidden', 'true');
+            }
+            function arm() {
+                /* ~0.5s is long enough for Safari's Reader scan; short enough not to feel stuck */
+                window.setTimeout(reveal, 520);
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', arm);
+            } else {
+                arm();
+            }
+        })();
+    </script>
     <title>Aishwarya Koppula - Product Manager & Engineer</title>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;0,900;1,500;1,600;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -232,7 +254,8 @@
             display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3rem;
             align-items: center; text-align: left; max-width: 1180px; margin: 0 auto;
         }
-        .hero-photo-col { display: flex; flex-direction: column; align-items: center; }
+        .hero-photo-col { display: flex; flex-direction: column; align-items: center; order: 2; }
+        .hero-intro { order: 1; }
         .hero-photo-caption {
             margin-top: 1rem; text-align: center; font-size: var(--fs-2xs); color: var(--text-secondary);
             max-width: 240px; line-height: 1.6;
@@ -240,7 +263,7 @@
         .hero-photo-caption .sep { color: var(--accent); font-weight: 700; margin: 0 0.3rem; }
         @media (max-width: 900px) {
             .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 1.5rem; }
-            .hero-photo-col { order: -1; }
+            .hero-intro, .hero-photo-col { order: initial; }
         }
 
         .hero-badge {
@@ -1155,9 +1178,8 @@
         body.case-modal-open { overflow: hidden; }
         .sticky-note[data-case] .sticky-note-hint::after { content: ' →'; }
 
-        /* Safari Reader: each ancestor matching comment|meta|footer|footnote
-           subtracts 0.75 from the article score multiplier (WebKit ReaderArticleFinder).
-           Four nested frames drive the multiplier to 0 so Reader Mode is unavailable. */
+        /* Safari Reader: comment-score ancestors + delayed reveal.
+           Until html.app-ready, only the photo splash is visible — not enough for Reader. */
         .site-frame {
             display: flex;
             flex-direction: column;
@@ -1165,10 +1187,79 @@
             width: 100%;
             position: relative;
         }
+        .boot-splash {
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1.15rem;
+            padding: 2rem;
+            background: var(--bg);
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+        .boot-splash .boot-photo {
+            position: relative;
+            width: min(220px, 56vw);
+            height: min(220px, 56vw);
+        }
+        .boot-splash .boot-photo::before {
+            content: '';
+            position: absolute; top: -12px; left: -12px;
+            width: 100%; height: 100%;
+            background: var(--accent); border-radius: 18px; z-index: 0;
+        }
+        .boot-splash .boot-photo::after {
+            content: '';
+            position: absolute; bottom: -12px; right: -12px;
+            width: 100%; height: 100%;
+            background: var(--accent-2); border-radius: 18px; z-index: 0; opacity: 0.55;
+        }
+        .boot-splash .boot-photo img {
+            position: relative; z-index: 1;
+            width: 100%; height: 100%; object-fit: cover;
+            border-radius: 16px; border: 5px solid var(--surface);
+            box-shadow: var(--shadow-hover);
+        }
+        .boot-splash .boot-name {
+            font-family: 'Fraunces', serif;
+            font-weight: 700;
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            text-align: center;
+            line-height: 1.15;
+        }
+        .boot-splash .boot-name .accent { color: var(--accent); }
+        .page-root {
+            display: none !important;
+        }
+        html.app-ready .page-root {
+            display: flex !important;
+            flex-direction: column;
+            flex: 1 0 auto;
+            width: 100%;
+        }
+        html.app-ready .boot-splash {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            display: none;
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
 </head>
 <body>
+    <div class="boot-splash" id="boot-splash" role="presentation">
+        <div class="boot-photo">
+            <img src="./Aishwarya_Koppula_3.jpg" alt="" width="220" height="220" decoding="async" fetchpriority="high">
+        </div>
+        <div class="boot-name">Aishwarya<br>Koppula<span class="accent">.</span></div>
+    </div>
+
+    <div id="page-root" class="page-root">
     <div class="scroll-progress" aria-hidden="true"></div>
     <nav>
         <div class="container">
@@ -1196,13 +1287,6 @@
     <section class="hero comment instapaper_ignore">
         <div class="container">
             <div class="hero-inner animate-in">
-                <div class="hero-intro">
-                    <div class="hero-badge"><span class="dot"></span>West Lafayette, IN · Open to Relocation</div>
-                    <h1 class="hero-name">Aishwarya<br>Koppula<span class="accent">.</span></h1>
-                    <div class="hero-tagline">Product manager turning complex B2B and AI problems into products people rely on.</div>
-                    <div class="hero-summary">Purdue MEM student with four years shipping B2B and AI products — from Carrier's financial planning platform to GenAI systems at Trane, Cummins, and ISE. I start with users, partner with engineers, and make sure it delivers.</div>
-                    <a href="#about" class="hero-more">More about me →</a>
-                </div>
                 <div class="hero-photo-col">
                     <div class="hero-photo">
                         <img src="./Aishwarya_Koppula_3.jpg" alt="Aishwarya Koppula" width="220" height="220" decoding="async" fetchpriority="high">
@@ -1232,6 +1316,13 @@
                         <a href="https://www.linkedin.com/in/aishwarya-koppula-02a1361b7" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">LinkedIn</a>
                         <a href="https://github.com/Aishwarya-Koppula" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
                     </div>
+                </div>
+                <div class="hero-intro">
+                    <div class="hero-badge"><span class="dot"></span>West Lafayette, IN · Open to Relocation</div>
+                    <h1 class="hero-name">Aishwarya<br>Koppula<span class="accent">.</span></h1>
+                    <div class="hero-tagline">Product manager turning complex B2B and AI problems into products people rely on.</div>
+                    <div class="hero-summary">Purdue MEM student with four years shipping B2B and AI products — from Carrier's financial planning platform to GenAI systems at Trane, Cummins, and ISE. I start with users, partner with engineers, and make sure it delivers.</div>
+                    <a href="#about" class="hero-more">More about me →</a>
                 </div>
             </div>
         </div>
@@ -1930,6 +2021,15 @@
     </div><!-- /.footer.site-frame -->
     </div><!-- /.meta.site-frame -->
     </div><!-- /.comment.site-frame -->
+
+    </div><!-- /#page-root -->
+
+    <noscript>
+        <style>
+            .boot-splash { display: none !important; }
+            .page-root { display: flex !important; flex-direction: column; flex: 1 0 auto; width: 100%; }
+        </style>
+    </noscript>
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
