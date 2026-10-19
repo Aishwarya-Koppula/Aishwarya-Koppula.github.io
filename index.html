@@ -226,8 +226,7 @@
         nav .resume-btn { padding: 0.45rem 1rem; font-size: var(--fs-xs); }
 
         /* Hero */
-        .hero { padding: 6.5rem 0 3rem; position: relative; overflow: hidden; }
-        .hero-line-accent { position: absolute; top: -40px; left: 50%; transform: translateX(-50%); width: 900px; max-width: 160%; opacity: 0.35; pointer-events: none; z-index: 0; }
+        .hero { padding: 6.5rem 0 3rem; position: relative; overflow: visible; }
         .hero-inner {
             position: relative; z-index: 1;
             display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 3rem;
@@ -429,7 +428,6 @@
         }
 
         .hero > .container { position: relative; z-index: 1; }
-        .hero-line-accent { opacity: 0.22; }
 
         .hero-divider { width: 100%; max-width: 480px; height: 1px; background: var(--border); margin: 2.25rem 0; }
 
@@ -459,10 +457,6 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .animate-in { animation: fadeIn 0.7s ease-out; }
         .js-motion .animate-in { animation: none; }
-        .js-motion .hero-line-accent path {
-            stroke-dasharray: 1200;
-            stroke-dashoffset: 1200;
-        }
 
         @media (prefers-reduced-motion: reduce) {
             .scroll-progress { display: none; }
@@ -1213,10 +1207,6 @@
     </div>
 
     <section class="hero">
-        <svg class="hero-line-accent" viewBox="0 0 900 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 200 C 150 50, 300 250, 450 120 S 750 30, 900 160" stroke="#6e1a2b" stroke-width="2"/>
-            <path d="M50 260 C 200 140, 320 300, 500 220 S 780 120, 870 240" stroke="#c4a484" stroke-width="2" opacity="0.6"/>
-        </svg>
         <div class="container">
             <div class="hero-inner animate-in">
                 <div class="hero-text-col">
@@ -1228,7 +1218,7 @@
                 </div>
                 <div class="hero-photo-col">
                     <div class="hero-photo">
-                        <img src="./Aishwarya_Koppula_3.jpg" alt="Aishwarya Koppula">
+                        <img src="./Aishwarya_Koppula_3.jpg" alt="Aishwarya Koppula" width="220" height="220" decoding="async" fetchpriority="high">
                     </div>
                     <p class="hero-photo-caption">Purdue MEM <span class="sep">&middot;</span> AI Workflows <span class="sep">&middot;</span> Product &amp; Program Management <span class="sep">&middot;</span> Ex-Carrier, Trane</p>
                     <div class="hero-divider"></div>
@@ -2504,35 +2494,16 @@
                 });
             });
 
-            // Hero entrance — motion only (no opacity:0) so first paint never looks blank
-            const heroMotionEls = '.hero-badge, .hero-name, .hero-tagline, .hero-summary, .hero-more, .hero-photo, .hero-photo-caption, .hero-divider, .stats-grid .stat, .cta-buttons .btn';
-            const heroTl = gsap.timeline({
-                defaults: { ease: 'power3.out' },
-                onComplete: () => {
-                    gsap.set(heroMotionEls, { clearProps: 'opacity,transform,translate,rotate,scale' });
-                    if (window.matchMedia('(min-width: 900px)').matches) {
-                        gsap.to('.hero-photo', {
-                            yPercent: 8,
-                            ease: 'none',
-                            scrollTrigger: {
-                                trigger: '.hero',
-                                start: 'top top',
-                                end: 'bottom top',
-                                scrub: true,
-                            },
-                        });
-                    }
-                },
+            // Soft hero lift — photo stays put (no scroll parallax / no draw-in curves)
+            const heroMotionEls = '.hero-badge, .hero-name, .hero-tagline, .hero-summary, .hero-more, .hero-photo-caption, .hero-divider, .stats-grid .stat, .cta-buttons .btn';
+            gsap.from(heroMotionEls, {
+                y: 18,
+                duration: 0.65,
+                stagger: 0.045,
+                ease: 'power3.out',
+                immediateRender: false,
+                clearProps: 'transform',
             });
-            heroTl
-                .to('.hero-line-accent path', { strokeDashoffset: 0, duration: 1.4, stagger: 0.15 }, 0)
-                .from(heroMotionEls, {
-                    y: 22,
-                    duration: 0.7,
-                    stagger: 0.05,
-                    immediateRender: false,
-                    clearProps: 'transform',
-                }, 0.05);
 
             function reveal(selector, vars = {}) {
                 const els = gsap.utils.toArray(selector);
