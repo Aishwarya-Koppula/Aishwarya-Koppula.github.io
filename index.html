@@ -1959,10 +1959,11 @@
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const menuToggle = document.querySelector('.menu-toggle');
 
-            // Quiet 3D fog behind the whole page (skipped when reduced motion)
+            // Fog starts after first paint so the hero never flashes empty while Three/Vanta boot
             let vantaEffect = null;
             const fogEl = document.getElementById('page-3d');
-            if (!reduceMotion && window.VANTA && typeof VANTA.FOG === 'function' && fogEl) {
+            function startFog() {
+                if (reduceMotion || !fogEl || !window.VANTA || typeof VANTA.FOG !== 'function') return;
                 const syncFogSize = () => {
                     fogEl.style.width = window.innerWidth + 'px';
                     fogEl.style.height = window.innerHeight + 'px';
@@ -1987,6 +1988,11 @@
                 requestAnimationFrame(syncFogSize);
                 window.addEventListener('resize', syncFogSize);
                 window.addEventListener('beforeunload', () => { if (vantaEffect) vantaEffect.destroy(); });
+            }
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(startFog, { timeout: 600 });
+            } else {
+                setTimeout(startFog, 50);
             }
 
             const navLinks = document.querySelector('.nav-links');
@@ -2498,13 +2504,12 @@
                 });
             });
 
-            // Hero entrance — fromTo + clearProps so CTAs never get stuck invisible
+            // Hero entrance — motion only (no opacity:0) so first paint never looks blank
             const heroMotionEls = '.hero-badge, .hero-name, .hero-tagline, .hero-summary, .hero-more, .hero-photo, .hero-photo-caption, .hero-divider, .stats-grid .stat, .cta-buttons .btn';
             const heroTl = gsap.timeline({
                 defaults: { ease: 'power3.out' },
                 onComplete: () => {
                     gsap.set(heroMotionEls, { clearProps: 'opacity,transform,translate,rotate,scale' });
-                    // Soft parallax after intro so it doesn't fight the entrance tween
                     if (window.matchMedia('(min-width: 900px)').matches) {
                         gsap.to('.hero-photo', {
                             yPercent: 8,
@@ -2521,17 +2526,13 @@
             });
             heroTl
                 .to('.hero-line-accent path', { strokeDashoffset: 0, duration: 1.4, stagger: 0.15 }, 0)
-                .fromTo('.hero-badge', { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55 }, 0.15)
-                .fromTo('.hero-name', { y: 36, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75 }, 0.25)
-                .fromTo('.hero-tagline', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 0.4)
-                .fromTo('.hero-summary, .hero-more', { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.55, stagger: 0.08 }, 0.5)
-                .fromTo('.hero-photo', { y: 28, opacity: 0, scale: 0.97 }, { y: 0, opacity: 1, scale: 1, duration: 0.8 }, 0.3)
-                .fromTo('.hero-photo-caption, .hero-divider, .stats-grid .stat', { y: 16, opacity: 0 }, {
-                    y: 0, opacity: 1, duration: 0.5, stagger: 0.06,
-                }, 0.55)
-                .fromTo('.cta-buttons .btn', { y: 12, opacity: 0 }, {
-                    y: 0, opacity: 1, duration: 0.45, stagger: 0.08,
-                }, 0.7);
+                .from(heroMotionEls, {
+                    y: 22,
+                    duration: 0.7,
+                    stagger: 0.05,
+                    immediateRender: false,
+                    clearProps: 'transform',
+                }, 0.05);
 
             function reveal(selector, vars = {}) {
                 const els = gsap.utils.toArray(selector);
