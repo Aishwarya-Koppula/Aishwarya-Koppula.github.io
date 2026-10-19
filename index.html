@@ -646,17 +646,25 @@
             content: '•'; position: absolute; left: 0; color: var(--accent); font-weight: 700;
         }
         @media (max-width: 560px) {
-            .roadmap { flex-direction: column; gap: 0; padding: 1.25rem 0; }
+            /* Latest experience first when stacked; desktop timeline stays chronological L→R */
+            .roadmap {
+                flex-direction: column-reverse;
+                gap: 0;
+                padding: 1.25rem 0;
+                min-height: 0;
+            }
             .roadmap::before { display: none; }
             .roadmap-stop {
                 flex: none; max-width: none; min-width: 0;
-                display: flex; align-items: center; gap: 0.75rem;
-                padding: 0.85rem 0.25rem; border-bottom: 1px dashed var(--border);
+                display: flex; align-items: flex-start; gap: 0.75rem;
+                padding: 1rem 0.25rem; border-bottom: 1px dashed var(--border);
             }
-            .roadmap-stop:last-child { border-bottom: none; }
+            /* column-reverse: DOM first-child sits at the visual bottom */
+            .roadmap-stop:first-child { border-bottom: none; }
             .roadmap-icon { margin: 0; flex-shrink: 0; }
             .roadmap-date {
                 position: static; transform: none; flex-shrink: 0; order: -1;
+                margin-top: 0.35rem;
             }
             .roadmap-card {
                 position: static; transform: none; width: auto !important; text-align: left; flex: 1;
@@ -664,6 +672,21 @@
             }
             .roadmap-card::after { display: none; }
             .roadmap-card:hover, .roadmap-card.expanded { background: none; border: none; box-shadow: none; padding: 0; }
+            /* Details always open on mobile — no tap required */
+            .roadmap-hint { display: none; }
+            .roadmap-details {
+                max-height: none;
+                opacity: 1;
+                overflow: visible;
+                margin-top: 0.6rem;
+                padding-top: 0.6rem;
+                border-top: 1px dashed var(--border);
+            }
+            .roadmap-card:hover .roadmap-details,
+            .roadmap-card.expanded .roadmap-details {
+                max-height: none;
+                overflow: visible;
+            }
         }
         .cert-link {
             display: inline-flex; align-items: center; gap: 0.3rem;
@@ -1412,7 +1435,7 @@
                 <div class="experience-col" id="experience">
                     <div class="section-header">
                         <h2 class="section-title">Professional Experience</h2>
-                        <div class="section-subtitle">A roadmap of where I've studied and worked. Tap a stop for the full story.</div>
+                        <div class="section-subtitle">A roadmap of where I've studied and worked — hover a stop for the full story.</div>
                     </div>
             <div class="roadmap">
                 <div class="roadmap-stop top">
