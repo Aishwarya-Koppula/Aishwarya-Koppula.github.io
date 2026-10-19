@@ -1155,9 +1155,16 @@
         body.case-modal-open { overflow: hidden; }
         .sticky-note[data-case] .sticky-note-hint::after { content: ' →'; }
 
-        /* Layout-neutral wrappers: Safari Reader zeros article score when ancestors match
-           comment|meta (WebKit ReaderArticleFinder). display:contents keeps the visual tree intact. */
-        .reader-optout { display: contents; }
+        /* Safari Reader: each ancestor matching comment|meta|footer|footnote
+           subtracts 0.75 from the article score multiplier (WebKit ReaderArticleFinder).
+           Four nested frames drive the multiplier to 0 so Reader Mode is unavailable. */
+        .site-frame {
+            display: flex;
+            flex-direction: column;
+            flex: 1 0 auto;
+            width: 100%;
+            position: relative;
+        }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
 </head>
@@ -1177,44 +1184,16 @@
         </div>
     </nav>
 
-    <!-- Two CommentRegEx ancestors (comment + meta) collapse Safari Reader's article score to 0 -->
-    <div class="comment reader-optout">
-    <div class="meta reader-optout">
+    <!-- Four CommentRegEx ancestors zero Safari Reader's article score (Reader Mode unavailable). -->
+    <div class="comment site-frame">
+    <div class="meta site-frame">
+    <div class="footer site-frame">
+    <div class="footnote site-frame">
 
     <div class="page-3d" id="page-3d" aria-hidden="true"></div>
-    <div class="page-flora instapaper_ignore" aria-hidden="true" role="presentation">
-        <!-- Fall tree — left edge (maple-ish autumn canopy) -->
-        <svg class="fall-tree tree-left" viewBox="0 0 220 360" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path class="trunk" d="M102 358 C 98 280, 96 220, 104 160 C 106 185, 118 195, 122 158 C 128 210, 124 280, 122 358 Z"/>
-            <path class="trunk" d="M108 210 C 70 190, 48 170, 36 150" stroke="#3d1219" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
-            <path class="trunk" d="M114 200 C 150 180, 168 155, 178 130" stroke="#3d1219" stroke-width="4.5" stroke-linecap="round" opacity="0.65"/>
-            <path class="canopy-mocha" d="M110 175 C 40 165, 18 110, 45 70 C 20 50, 40 20, 75 28 C 85 5, 120 0, 140 22 C 165 8, 195 25, 190 55 C 215 70, 210 110, 180 125 C 195 155, 160 180, 110 175 Z" opacity="0.9"/>
-            <path class="canopy-burgundy" d="M95 150 C 50 145, 35 105, 55 78 C 42 60, 58 38, 82 42 C 90 22, 118 20, 130 40 C 150 30, 172 45, 168 68 C 188 80, 180 110, 155 122 C 165 145, 130 158, 95 150 Z" opacity="0.78"/>
-            <path class="canopy-rust" d="M130 145 C 100 140, 95 105, 112 85 C 100 70, 115 50, 135 55 C 142 38, 165 40, 172 58 C 190 65, 192 90, 172 102 C 182 122, 155 148, 130 145 Z" opacity="0.72"/>
-            <path class="canopy-amber" d="M70 130 C 48 125, 42 100, 58 85 C 48 72, 60 55, 78 60 C 84 45, 105 48, 108 65 C 122 70, 120 95, 100 105 C 108 120, 88 135, 70 130 Z" opacity="0.7"/>
-        </svg>
-        <!-- Fall tree — right edge -->
-        <svg class="fall-tree tree-right" viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path class="trunk" d="M92 338 C 88 265, 86 210, 94 155 C 96 178, 108 186, 112 152 C 118 200, 114 265, 112 338 Z"/>
-            <path class="trunk" d="M98 200 C 60 180, 42 155, 32 130" stroke="#3d1219" stroke-width="4.5" stroke-linecap="round" opacity="0.65"/>
-            <path class="trunk" d="M104 190 C 140 172, 158 148, 168 120" stroke="#3d1219" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
-            <path class="canopy-rust" d="M100 165 C 38 155, 20 105, 42 68 C 22 48, 42 18, 72 26 C 82 4, 115 0, 132 20 C 155 8, 182 24, 178 52 C 200 65, 195 105, 168 118 C 182 145, 145 170, 100 165 Z" opacity="0.88"/>
-            <path class="canopy-burgundy" d="M85 140 C 48 135, 35 98, 52 75 C 40 58, 55 38, 76 42 C 84 24, 108 22, 118 40 C 136 32, 155 46, 152 66 C 170 76, 164 105, 142 115 C 150 135, 115 148, 85 140 Z" opacity="0.75"/>
-            <path class="canopy-mocha" d="M120 135 C 95 130, 90 100, 105 82 C 95 68, 110 50, 128 54 C 134 38, 155 40, 160 56 C 176 62, 178 85, 160 96 C 168 114, 142 138, 120 135 Z" opacity="0.8"/>
-            <path class="canopy-amber" d="M65 125 C 48 120, 42 98, 55 85 C 46 74, 58 58, 72 62 C 78 48, 96 50, 98 66 C 110 70, 108 92, 90 100 C 96 114, 80 128, 65 125 Z" opacity="0.68"/>
-        </svg>
-        <!-- Drifting autumn leaves -->
-        <svg class="fall-leaf l1" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 10 14, 4 10, 3 4 C 9 6, 12 12, 12 22 Z M12 22 C 14 14, 20 10, 21 4 C 15 6, 12 12, 12 22 Z"/><path d="M12 22 V 5" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.5"/></svg>
-        <svg class="fall-leaf l2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 8 16, 5 8, 12 2 C 19 8, 16 16, 12 22 Z"/><path d="M12 22 V 4" stroke="#3d1219" stroke-width="0.7" fill="none" opacity="0.35"/></svg>
-        <svg class="fall-leaf l3" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18 C 6 10, 12 6, 20 4 C 16 10, 12 14, 10 18 Z"/></svg>
-        <svg class="fall-leaf l4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 10 14, 4 10, 3 4 C 9 6, 12 12, 12 22 Z M12 22 C 14 14, 20 10, 21 4 C 15 6, 12 12, 12 22 Z"/></svg>
-        <svg class="fall-leaf l5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 8 16, 5 8, 12 2 C 19 8, 16 16, 12 22 Z"/></svg>
-        <svg class="fall-leaf l6" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18 C 6 10, 12 6, 20 4 C 16 10, 12 14, 10 18 Z"/></svg>
-        <svg class="fall-leaf l7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 10 14, 4 10, 3 4 C 9 6, 12 12, 12 22 Z M12 22 C 14 14, 20 10, 21 4 C 15 6, 12 12, 12 22 Z"/></svg>
-        <svg class="fall-leaf l8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 8 16, 5 8, 12 2 C 19 8, 16 16, 12 22 Z"/></svg>
-    </div>
+    <div class="page-flora instapaper_ignore" id="page-flora" aria-hidden="true" role="presentation"></div>
 
-    <section class="hero">
+    <section class="hero comment instapaper_ignore">
         <div class="container">
             <div class="hero-inner animate-in">
                 <div class="hero-intro">
@@ -1258,7 +1237,7 @@
         </div>
     </section>
 
-    <section id="about">
+    <section id="about" class="comment instapaper_ignore">
         <div class="container">
             <div class="section-header">
                 <div class="section-eyebrow">Beyond the résumé</div>
@@ -1337,7 +1316,7 @@
         </div>
     </section>
 
-    <section id="experience-work" class="section-alt">
+    <section id="experience-work" class="section-alt comment instapaper_ignore">
         <div class="container">
                 <div class="experience-col" id="experience">
                     <div class="section-header">
@@ -1659,7 +1638,7 @@
                 </div>
     </section>
 
-    <section id="credentials" class="section-alt">
+    <section id="credentials" class="section-alt comment instapaper_ignore">
         <div class="container">
             <div class="section-header">
                 <div class="section-eyebrow">Beyond The Board</div>
@@ -1845,7 +1824,7 @@
         </div>
     </section>
 
-    <section id="gallery">
+    <section id="gallery" class="comment instapaper_ignore">
         <div class="container">
             <div class="section-header">
                 <div class="section-eyebrow">Along The Way</div>
@@ -1866,7 +1845,7 @@
         </div>
     </section>
 
-    <section id="contact" class="section-blush">
+    <section id="contact" class="section-blush comment instapaper_ignore">
         <div class="container">
             <div class="contact-layout">
                 <div>
@@ -1918,12 +1897,12 @@
             <div class="case-modal-kicker" id="case-modal-kicker"></div>
             <div class="case-modal-badge" id="case-modal-badge" hidden></div>
             <h3 class="case-modal-title" id="case-modal-title"></h3>
-            <p class="case-modal-meta" id="case-modal-meta"></div>
+            <div class="case-modal-meta" id="case-modal-meta"></div>
             <div class="case-modal-tags" id="case-modal-tags"></div>
             <div class="case-modal-images" id="case-modal-images" hidden></div>
             <div class="case-block">
                 <h4>The problem</h4>
-                <p id="case-modal-problem"></p>
+                <div id="case-modal-problem"></div>
             </div>
             <div class="case-block">
                 <h4>What I did</h4>
@@ -1931,7 +1910,7 @@
             </div>
             <div class="case-block">
                 <h4>Outcome</h4>
-                <p id="case-modal-outcome"></p>
+                <div id="case-modal-outcome"></div>
             </div>
             <div class="case-block">
                 <h4>Built with</h4>
@@ -1943,12 +1922,14 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2026 Aishwarya Koppula. All rights reserved.</p>
+            <div>&copy; 2026 Aishwarya Koppula. All rights reserved.</div>
         </div>
     </footer>
 
-    </div><!-- /.meta.reader-optout -->
-    </div><!-- /.comment.reader-optout -->
+    </div><!-- /.footnote.site-frame -->
+    </div><!-- /.footer.site-frame -->
+    </div><!-- /.meta.site-frame -->
+    </div><!-- /.comment.site-frame -->
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
@@ -1959,6 +1940,44 @@
         (function () {
             const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const menuToggle = document.querySelector('.menu-toggle');
+
+
+            // Decorative flora is injected after first paint so Safari Reader's initial
+            // article scan never sees the SVG paths (and curves never appear in Reader Mode).
+            const floraEl = document.getElementById('page-flora');
+            function mountFlora() {
+                if (!floraEl || floraEl.dataset.mounted) return;
+                floraEl.dataset.mounted = '1';
+                floraEl.innerHTML = `<!-- Fall tree — left edge (maple-ish autumn canopy) -->
+        <svg class="fall-tree tree-left" viewBox="0 0 220 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="trunk" d="M102 358 C 98 280, 96 220, 104 160 C 106 185, 118 195, 122 158 C 128 210, 124 280, 122 358 Z"/>
+            <path class="trunk" d="M108 210 C 70 190, 48 170, 36 150" stroke="#3d1219" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+            <path class="trunk" d="M114 200 C 150 180, 168 155, 178 130" stroke="#3d1219" stroke-width="4.5" stroke-linecap="round" opacity="0.65"/>
+            <path class="canopy-mocha" d="M110 175 C 40 165, 18 110, 45 70 C 20 50, 40 20, 75 28 C 85 5, 120 0, 140 22 C 165 8, 195 25, 190 55 C 215 70, 210 110, 180 125 C 195 155, 160 180, 110 175 Z" opacity="0.9"/>
+            <path class="canopy-burgundy" d="M95 150 C 50 145, 35 105, 55 78 C 42 60, 58 38, 82 42 C 90 22, 118 20, 130 40 C 150 30, 172 45, 168 68 C 188 80, 180 110, 155 122 C 165 145, 130 158, 95 150 Z" opacity="0.78"/>
+            <path class="canopy-rust" d="M130 145 C 100 140, 95 105, 112 85 C 100 70, 115 50, 135 55 C 142 38, 165 40, 172 58 C 190 65, 192 90, 172 102 C 182 122, 155 148, 130 145 Z" opacity="0.72"/>
+            <path class="canopy-amber" d="M70 130 C 48 125, 42 100, 58 85 C 48 72, 60 55, 78 60 C 84 45, 105 48, 108 65 C 122 70, 120 95, 100 105 C 108 120, 88 135, 70 130 Z" opacity="0.7"/>
+        </svg>
+        <!-- Fall tree — right edge -->
+        <svg class="fall-tree tree-right" viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="trunk" d="M92 338 C 88 265, 86 210, 94 155 C 96 178, 108 186, 112 152 C 118 200, 114 265, 112 338 Z"/>
+            <path class="trunk" d="M98 200 C 60 180, 42 155, 32 130" stroke="#3d1219" stroke-width="4.5" stroke-linecap="round" opacity="0.65"/>
+            <path class="trunk" d="M104 190 C 140 172, 158 148, 168 120" stroke="#3d1219" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+            <path class="canopy-rust" d="M100 165 C 38 155, 20 105, 42 68 C 22 48, 42 18, 72 26 C 82 4, 115 0, 132 20 C 155 8, 182 24, 178 52 C 200 65, 195 105, 168 118 C 182 145, 145 170, 100 165 Z" opacity="0.88"/>
+            <path class="canopy-burgundy" d="M85 140 C 48 135, 35 98, 52 75 C 40 58, 55 38, 76 42 C 84 24, 108 22, 118 40 C 136 32, 155 46, 152 66 C 170 76, 164 105, 142 115 C 150 135, 115 148, 85 140 Z" opacity="0.75"/>
+            <path class="canopy-mocha" d="M120 135 C 95 130, 90 100, 105 82 C 95 68, 110 50, 128 54 C 134 38, 155 40, 160 56 C 176 62, 178 85, 160 96 C 168 114, 142 138, 120 135 Z" opacity="0.8"/>
+            <path class="canopy-amber" d="M65 125 C 48 120, 42 98, 55 85 C 46 74, 58 58, 72 62 C 78 48, 96 50, 98 66 C 110 70, 108 92, 90 100 C 96 114, 80 128, 65 125 Z" opacity="0.68"/>
+        </svg>
+        <!-- Drifting autumn leaves -->
+        <svg class="fall-leaf l1" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 10 14, 4 10, 3 4 C 9 6, 12 12, 12 22 Z M12 22 C 14 14, 20 10, 21 4 C 15 6, 12 12, 12 22 Z"/><path d="M12 22 V 5" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.5"/></svg>
+        <svg class="fall-leaf l2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 8 16, 5 8, 12 2 C 19 8, 16 16, 12 22 Z"/><path d="M12 22 V 4" stroke="#3d1219" stroke-width="0.7" fill="none" opacity="0.35"/></svg>
+        <svg class="fall-leaf l3" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18 C 6 10, 12 6, 20 4 C 16 10, 12 14, 10 18 Z"/></svg>
+        <svg class="fall-leaf l4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 10 14, 4 10, 3 4 C 9 6, 12 12, 12 22 Z M12 22 C 14 14, 20 10, 21 4 C 15 6, 12 12, 12 22 Z"/></svg>
+        <svg class="fall-leaf l5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 8 16, 5 8, 12 2 C 19 8, 16 16, 12 22 Z"/></svg>
+        <svg class="fall-leaf l6" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18 C 6 10, 12 6, 20 4 C 16 10, 12 14, 10 18 Z"/></svg>
+        <svg class="fall-leaf l7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 10 14, 4 10, 3 4 C 9 6, 12 12, 12 22 Z M12 22 C 14 14, 20 10, 21 4 C 15 6, 12 12, 12 22 Z"/></svg>
+        <svg class="fall-leaf l8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 8 16, 5 8, 12 2 C 19 8, 16 16, 12 22 Z"/></svg>`;
+            }
 
             // Fog starts after first paint so the hero never flashes empty while Three/Vanta boot
             let vantaEffect = null;
@@ -1991,9 +2010,9 @@
                 window.addEventListener('beforeunload', () => { if (vantaEffect) vantaEffect.destroy(); });
             }
             if ('requestIdleCallback' in window) {
-                requestIdleCallback(startFog, { timeout: 600 });
+                requestIdleCallback(() => { mountFlora(); startFog(); }, { timeout: 600 });
             } else {
-                setTimeout(startFog, 50);
+                setTimeout(() => { mountFlora(); startFog(); }, 50);
             }
 
             const navLinks = document.querySelector('.nav-links');
