@@ -753,15 +753,13 @@
         .cred-arrow:disabled { opacity: 0.32; cursor: default; box-shadow: none; }
 
         .cert-badges {
-            /* Peek ~2.4 plaques so ‹ › stay useful after the one-pass autoplay */
-            max-width: min(100%, 26.75rem);
+            width: 100%;
             overflow: hidden;
             padding: 0.35rem 0 0.75rem;
+        }
+        .cert-badges.has-overflow {
             mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 1.4rem), transparent 100%);
             -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 1.4rem), transparent 100%);
-        }
-        .credential-group[data-kind="affiliations"] .cert-badges {
-            max-width: min(100%, 30.5rem);
         }
         .cert-badges-track {
             display: flex; flex-wrap: nowrap; gap: 0.85rem; align-items: stretch;
@@ -2132,12 +2130,13 @@
                     }
 
                     function updateArrows() {
+                        const max = scroller.scrollWidth - scroller.clientWidth;
+                        scroller.classList.toggle('has-overflow', max > 8);
                         if (!scroller.classList.contains('is-manual')) {
                             prevBtn.disabled = true;
                             nextBtn.disabled = true;
                             return;
                         }
-                        const max = scroller.scrollWidth - scroller.clientWidth;
                         prevBtn.disabled = scroller.scrollLeft <= 4;
                         nextBtn.disabled = scroller.scrollLeft >= max - 4;
                     }
