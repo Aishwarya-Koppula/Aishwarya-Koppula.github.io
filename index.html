@@ -8,8 +8,6 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        html { background: var(--bg); }
-
         :root {
             /* Cosmic latte · mocha cream · deep burgundy */
             --bg: #fff8e7;
@@ -46,23 +44,115 @@
             --fs-display: clamp(2.5rem, 7vw, 3.75rem);
         }
 
+        html, body {
+            background: var(--bg);
+        }
         body {
             font-family: 'Inter', sans-serif;
-            background: transparent;
             color: var(--text-primary);
             line-height: 1.6;
             display: flex;
             flex-direction: column;
         }
 
-        /* Soft 3D fog behind the whole page — never on top of content */
+        /* Soft 3D fog — the richer atmosphere you liked */
         .page-3d {
-            position: fixed; inset: 0; z-index: -1;
-            pointer-events: none; opacity: 0.42;
+            position: fixed !important;
+            inset: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.72 !important;
             mix-blend-mode: multiply;
         }
+        .page-3d canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+        /* Fall trees + drifting autumn leaves sitting with the fog */
+        .page-flora {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .page-flora .fall-tree {
+            position: absolute;
+            bottom: -1%;
+            width: min(340px, 34vw);
+            opacity: 0.62;
+            color: var(--ink);
+            transform-origin: 50% 100%;
+            animation: treeSway 14s ease-in-out infinite;
+            filter: drop-shadow(0 8px 18px rgba(43, 13, 20, 0.12));
+        }
+        .page-flora .fall-tree.tree-left { left: -6%; animation-delay: 0s; }
+        .page-flora .fall-tree.tree-right {
+            right: -7%;
+            width: min(300px, 30vw);
+            opacity: 0.55;
+            animation-delay: -4s;
+            animation-direction: reverse;
+        }
+        .page-flora .fall-tree .canopy-burgundy { fill: #6e1a2b; }
+        .page-flora .fall-tree .canopy-mocha { fill: #c4a484; }
+        .page-flora .fall-tree .canopy-rust { fill: #a0453a; }
+        .page-flora .fall-tree .canopy-amber { fill: #c4784a; }
+        .page-flora .fall-tree .trunk { fill: #3d1219; }
+        .page-flora .fall-leaf {
+            position: absolute;
+            width: 34px;
+            height: 34px;
+            opacity: 0.85;
+            will-change: transform, opacity;
+            animation: leafFall linear infinite;
+            z-index: 0;
+            filter: drop-shadow(0 2px 3px rgba(43, 13, 20, 0.15));
+        }
+        .page-flora .fall-leaf.l1 { left: 6%; top: -5%; color: #6e1a2b; animation-duration: 14s; animation-delay: 0s; }
+        .page-flora .fall-leaf.l2 { left: 16%; top: -8%; color: #c4a484; width: 28px; height: 28px; animation-duration: 17s; animation-delay: -3s; }
+        .page-flora .fall-leaf.l3 { left: 74%; top: -6%; color: #a0453a; width: 32px; height: 32px; animation-duration: 15s; animation-delay: -7s; }
+        .page-flora .fall-leaf.l4 { left: 90%; top: -10%; color: #6e1a2b; width: 26px; height: 26px; animation-duration: 19s; animation-delay: -1s; }
+        .page-flora .fall-leaf.l5 { left: 40%; top: -4%; color: #c4784a; width: 22px; height: 22px; animation-duration: 20s; animation-delay: -11s; opacity: 0.55; }
+        .page-flora .fall-leaf.l6 { left: 56%; top: -9%; color: #a0453a; width: 30px; height: 30px; animation-duration: 16s; animation-delay: -5s; }
+        .page-flora .fall-leaf.l7 { left: 26%; top: -7%; color: #8a3a4a; width: 24px; height: 24px; animation-duration: 18s; animation-delay: -14s; opacity: 0.6; }
+        .page-flora .fall-leaf.l8 { left: 96%; top: -3%; color: #c4a484; width: 28px; height: 28px; animation-duration: 13s; animation-delay: -8s; }
+        @keyframes treeSway {
+            0%, 100% { transform: rotate(-1.5deg); }
+            50% { transform: rotate(2deg); }
+        }
+        @keyframes leafFall {
+            0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+            8% { opacity: 0.75; }
+            50% { transform: translate3d(40px, 55vh, 0) rotate(160deg); opacity: 0.65; }
+            100% { transform: translate3d(-20px, 110vh, 0) rotate(320deg); opacity: 0; }
+        }
+        nav, section, footer {
+            position: relative;
+            z-index: 1;
+        }
+        nav {
+            position: fixed;
+            z-index: 1000;
+        }
+        @media (max-width: 900px) {
+            .page-flora .fall-tree { width: min(160px, 36vw); opacity: 0.4; }
+            .page-flora .fall-leaf.l5,
+            .page-flora .fall-leaf.l7 { display: none; }
+        }
         @media (prefers-reduced-motion: reduce) {
-            .page-3d { display: none; }
+            .page-3d { display: none !important; }
+            .page-flora .fall-tree,
+            .page-flora .fall-leaf { animation: none !important; }
+            .page-flora .fall-leaf { opacity: 0.35; top: auto; }
+            .page-flora .fall-leaf.l1 { top: 20%; }
+            .page-flora .fall-leaf.l2 { top: 45%; }
+            .page-flora .fall-leaf.l3 { top: 30%; }
+            .page-flora .fall-leaf.l4 { top: 60%; }
+            .page-flora .fall-leaf.l6 { top: 75%; }
+            .page-flora .fall-leaf.l8 { top: 40%; }
         }
 
         html.lenis, html.lenis body { height: auto; }
@@ -214,15 +304,16 @@
                 repeating-linear-gradient(
                     transparent,
                     transparent 27px,
-                    rgba(44, 42, 37, 0.045) 27px,
-                    rgba(44, 42, 37, 0.045) 28px
+                    rgba(43, 13, 20, 0.05) 27px,
+                    rgba(43, 13, 20, 0.05) 28px
                 ),
-                #f6f0e2;
-            border: 1px solid rgba(44, 42, 37, 0.12);
+                color-mix(in srgb, var(--bg) 78%, transparent);
+            border: 1px solid color-mix(in srgb, var(--border) 85%, var(--accent-2));
             border-radius: 3px 14px 14px 3px;
-            box-shadow: 0 14px 34px rgba(44, 42, 37, 0.1);
+            box-shadow: 0 14px 34px rgba(43, 13, 20, 0.1);
             padding: 1.15rem 1.15rem 1.35rem 1.35rem;
             transform: rotate(0.5deg);
+            backdrop-filter: blur(3px);
         }
         .margin-notes::before {
             content: '';
@@ -382,9 +473,13 @@
         section { padding: 3.5rem 0; }
         #contact { padding: 2.5rem 0 3rem; }
         section:not(.hero) { border-top: 1px solid var(--border); }
-        /* Translucent washes so the page fog reads through */
-        .section-alt { background: color-mix(in srgb, var(--surface-alt) 72%, transparent); }
-        .section-blush { background: color-mix(in srgb, var(--accent-2-soft) 70%, transparent); }
+        /* Soft section washes — fog peeks through like before */
+        .section-alt {
+            background: color-mix(in srgb, var(--surface-alt) 48%, transparent);
+        }
+        .section-blush {
+            background: color-mix(in srgb, var(--accent-2-soft) 50%, transparent);
+        }
         .section-dark { background: var(--ink); color: var(--ink-text); border-top-color: rgba(242, 237, 225, 0.12) !important; }
         .section-dark .section-title { color: var(--ink-text); }
         .section-dark .section-subtitle { color: var(--ink-text-secondary); }
@@ -408,21 +503,50 @@
         .section-resume-link a:hover { border-bottom-color: var(--accent); }
 
         /* Experience + education roadmap: one zigzag line that always fits, no scrolling, no clipping */
+        .experience-col {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 2.75rem;
+        }
+        /* Lift the whole experience column while a popover is open so bottom cards cover The Board */
+        .experience-col:has(.roadmap-card:hover),
+        .experience-col:has(.roadmap-card.expanded),
+        .experience-col:has(.roadmap-stop:hover),
+        .experience-col:has(.roadmap-stop:focus-within) {
+            z-index: 40;
+        }
+        .board-col {
+            position: relative;
+            z-index: 1;
+        }
         .roadmap {
             position: relative;
             display: flex; align-items: stretch; gap: 0.3rem;
             overflow: visible;
-            padding: 160px 0.5rem;
+            /* Explicit height so top/bottom % anchors resolve (children are all absolute) */
+            min-height: 520px;
+            padding: 0 0.5rem;
         }
         .roadmap::before {
             content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 2px;
             background: linear-gradient(90deg, var(--accent), var(--accent-2));
             transform: translateY(-1px);
+            z-index: 0;
         }
-        .roadmap-stop { position: relative; flex: 1 1 0; min-width: 0; max-width: 190px; }
+        .roadmap-stop {
+            position: relative; flex: 1 1 0; min-width: 0; max-width: 190px;
+            min-height: 520px;
+            z-index: 1;
+        }
+        /* Raise the whole stop so the open card covers neighbors + The Board below */
+        .roadmap-stop:hover,
+        .roadmap-stop:focus-within,
+        .roadmap-stop:has(.roadmap-card.expanded) {
+            z-index: 50;
+        }
         .roadmap-icon {
             width: 48px; height: 48px; margin: 0 auto 0.4rem; border-radius: 50%;
-            background: var(--surface); border: 1px solid var(--border);
+            background: #fffdf8; border: 1px solid var(--border);
             display: flex; align-items: center; justify-content: center;
             font-size: var(--fs-lg); box-shadow: 0 2px 6px rgba(44, 42, 37, 0.18); overflow: hidden;
         }
@@ -431,13 +555,19 @@
             position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
             background: var(--ink); color: var(--ink-text); white-space: nowrap;
             font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.01em;
-            padding: 0.3rem 0.65rem; border-radius: 999px; z-index: 2;
+            padding: 0.3rem 0.65rem; border-radius: 999px; z-index: 3;
             box-shadow: 0 2px 6px rgba(44, 42, 37, 0.25);
+        }
+        .roadmap-stop:hover .roadmap-date,
+        .roadmap-stop:focus-within .roadmap-date,
+        .roadmap-stop:has(.roadmap-card.expanded) .roadmap-date {
+            z-index: 1;
         }
         .roadmap-card {
             position: absolute; left: 50%; transform: translateX(-50%);
-            width: 165px; text-align: center; cursor: pointer; z-index: 1;
-            transition: width 0.2s ease;
+            width: 165px; text-align: center; cursor: pointer; z-index: 2;
+            background-color: transparent;
+            transition: width 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, padding 0.2s ease;
         }
         .roadmap-stop.top .roadmap-card { bottom: calc(50% + 22px); }
         .roadmap-stop.bottom .roadmap-card { top: calc(50% + 22px); }
@@ -455,13 +585,36 @@
             max-height: 0; opacity: 0; overflow: hidden; text-align: left;
             transition: max-height 0.3s ease, opacity 0.25s ease, margin-top 0.25s ease, padding-top 0.25s ease;
         }
+        /* Shared solid popover for top + bottom stops */
         .roadmap-card:hover, .roadmap-card.expanded {
-            width: 270px; z-index: 6;
-            background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
-            padding: 0.85rem 1rem; box-shadow: var(--shadow-hover);
+            width: 280px;
+            z-index: 60;
+            background-color: #fffdf8;
+            background-image: none;
+            opacity: 1;
+            isolation: isolate;
+            border: 1px solid var(--border); border-radius: var(--radius);
+            padding: 0.85rem 1rem;
+            box-shadow: 0 16px 36px rgba(43, 13, 20, 0.28);
+        }
+        /* Bottom stops: stay below the line, grow down — same opaque popover as top */
+        .roadmap-stop.bottom .roadmap-card:hover,
+        .roadmap-stop.bottom .roadmap-card.expanded {
+            top: calc(50% + 22px);
+            bottom: auto;
+            z-index: 60;
+            background-color: #fffdf8;
+            background-image: none;
+            opacity: 1;
+            isolation: isolate;
+        }
+        .roadmap-stop.bottom .roadmap-card:hover::after,
+        .roadmap-stop.bottom .roadmap-card.expanded::after {
+            top: -18px;
+            bottom: auto;
         }
         .roadmap-card:hover .roadmap-details, .roadmap-card.expanded .roadmap-details {
-            max-height: 320px; opacity: 1; margin-top: 0.6rem; padding-top: 0.6rem;
+            max-height: 280px; opacity: 1; margin-top: 0.6rem; padding-top: 0.6rem;
             border-top: 1px dashed var(--border); overflow-y: auto;
         }
         .roadmap-detail-date { color: var(--text-secondary); font-size: var(--fs-2xs); font-weight: 600; margin-bottom: 0.5rem; }
@@ -502,14 +655,17 @@
         }
         .cert-link:hover { text-decoration: underline; }
 
-        /* Standardised pinboard + sticky-note theme, reused by every card-style section */
+        /* Pinboard cork — mocha cream with burgundy flecks; fog peeks through */
         .notes-board {
-            background: #ab9170;
-            background-image: radial-gradient(rgba(44, 42, 37, 0.1) 1px, transparent 1px);
-            background-size: 16px 16px;
+            background-color: color-mix(in srgb, #c4a484 72%, transparent);
+            background-image:
+                radial-gradient(rgba(43, 13, 20, 0.12) 1px, transparent 1px),
+                linear-gradient(165deg, rgba(255, 248, 231, 0.2), transparent 55%);
+            background-size: 16px 16px, auto;
+            border: 1px solid color-mix(in srgb, var(--accent-2) 70%, var(--ink));
             border-radius: var(--radius);
             padding: 2.5rem 1.75rem 2rem;
-            box-shadow: inset 0 2px 10px rgba(44, 42, 37, 0.18);
+            box-shadow: inset 0 2px 10px rgba(43, 13, 20, 0.16);
             display: flex; flex-direction: column; gap: 2.25rem;
         }
         .board-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2.25rem; }
@@ -701,7 +857,7 @@
             background: var(--border); cursor: pointer; transition: background 0.2s ease, transform 0.2s ease;
         }
         .scroll-dot.active { background: var(--accent); transform: scale(1.3); }
-        .notes-board .scroll-dot { background: rgba(44, 42, 37, 0.25); }
+        .notes-board .scroll-dot { background: rgba(43, 13, 20, 0.28); }
         .notes-board .scroll-dot.active { background: var(--ink-text); }
 
         /* Board category labels, one per zone: pinned tab style so they pop off the board */
@@ -710,9 +866,10 @@
             font-family: 'Fraunces', serif; font-weight: 700; font-style: normal;
             font-size: var(--fs-lg); color: var(--ink);
             background: var(--ink-text);
+            border: 1px solid rgba(43, 13, 20, 0.08);
             padding: 0.5rem 1.1rem; border-radius: 999px;
             margin-bottom: 1.25rem;
-            box-shadow: 0 5px 14px rgba(44, 42, 37, 0.3);
+            box-shadow: 0 5px 14px rgba(43, 13, 20, 0.28);
         }
         .board-category .count {
             font-family: 'Inter', sans-serif; font-weight: 700; font-style: normal;
@@ -741,7 +898,8 @@
         }
         .cred-arrow {
             appearance: none; width: 36px; height: 36px; border-radius: 999px;
-            border: 1px solid var(--border); background: var(--surface);
+            border: 1px solid var(--border);
+            background: var(--surface);
             color: var(--text-primary); font-size: 1.05rem; line-height: 1;
             cursor: pointer; display: grid; place-items: center;
             box-shadow: var(--shadow);
@@ -775,14 +933,14 @@
         .cert-badges.is-manual::-webkit-scrollbar { display: none; }
         .cert-badges.is-manual .cert-badges-track { transform: none !important; }
 
-        /* Vertical certificate plaques (not pills) */
+        /* Certificate plaques on the credentials wash */
         .cert-badge {
             position: relative; cursor: pointer;
             flex: 0 0 auto; scroll-snap-align: start;
             width: 172px; min-height: 168px;
             display: flex; flex-direction: column; gap: 0.6rem;
             background:
-                linear-gradient(180deg, rgba(255,255,255,0.72) 0%, transparent 42%),
+                linear-gradient(180deg, rgba(255,255,255,0.55) 0%, transparent 42%),
                 var(--surface);
             border: 1px solid var(--border);
             border-radius: 4px 4px 14px 14px;
@@ -872,7 +1030,14 @@
         }
         .credential-group[data-kind="affiliations"] .cert-badge.expanded { width: 288px; }
 
-        .credentials-col { max-width: none; }
+        .credentials-col {
+            max-width: none;
+            background: color-mix(in srgb, color-mix(in srgb, var(--bg) 70%, var(--accent-2)) 62%, transparent);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem 1.35rem 1.25rem;
+            box-shadow: var(--shadow);
+        }
 
         /* Gallery: a light mix of personal and team photos, scrolls sideways */
         .gallery-grid {
@@ -1015,6 +1180,37 @@
     </nav>
 
     <div class="page-3d" id="page-3d" aria-hidden="true"></div>
+    <div class="page-flora" aria-hidden="true">
+        <!-- Fall tree — left edge (maple-ish autumn canopy) -->
+        <svg class="fall-tree tree-left" viewBox="0 0 220 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="trunk" d="M102 358 C 98 280, 96 220, 104 160 C 106 185, 118 195, 122 158 C 128 210, 124 280, 122 358 Z"/>
+            <path class="trunk" d="M108 210 C 70 190, 48 170, 36 150" stroke="#3d1219" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+            <path class="trunk" d="M114 200 C 150 180, 168 155, 178 130" stroke="#3d1219" stroke-width="4.5" stroke-linecap="round" opacity="0.65"/>
+            <path class="canopy-mocha" d="M110 175 C 40 165, 18 110, 45 70 C 20 50, 40 20, 75 28 C 85 5, 120 0, 140 22 C 165 8, 195 25, 190 55 C 215 70, 210 110, 180 125 C 195 155, 160 180, 110 175 Z" opacity="0.9"/>
+            <path class="canopy-burgundy" d="M95 150 C 50 145, 35 105, 55 78 C 42 60, 58 38, 82 42 C 90 22, 118 20, 130 40 C 150 30, 172 45, 168 68 C 188 80, 180 110, 155 122 C 165 145, 130 158, 95 150 Z" opacity="0.78"/>
+            <path class="canopy-rust" d="M130 145 C 100 140, 95 105, 112 85 C 100 70, 115 50, 135 55 C 142 38, 165 40, 172 58 C 190 65, 192 90, 172 102 C 182 122, 155 148, 130 145 Z" opacity="0.72"/>
+            <path class="canopy-amber" d="M70 130 C 48 125, 42 100, 58 85 C 48 72, 60 55, 78 60 C 84 45, 105 48, 108 65 C 122 70, 120 95, 100 105 C 108 120, 88 135, 70 130 Z" opacity="0.7"/>
+        </svg>
+        <!-- Fall tree — right edge -->
+        <svg class="fall-tree tree-right" viewBox="0 0 200 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path class="trunk" d="M92 338 C 88 265, 86 210, 94 155 C 96 178, 108 186, 112 152 C 118 200, 114 265, 112 338 Z"/>
+            <path class="trunk" d="M98 200 C 60 180, 42 155, 32 130" stroke="#3d1219" stroke-width="4.5" stroke-linecap="round" opacity="0.65"/>
+            <path class="trunk" d="M104 190 C 140 172, 158 148, 168 120" stroke="#3d1219" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+            <path class="canopy-rust" d="M100 165 C 38 155, 20 105, 42 68 C 22 48, 42 18, 72 26 C 82 4, 115 0, 132 20 C 155 8, 182 24, 178 52 C 200 65, 195 105, 168 118 C 182 145, 145 170, 100 165 Z" opacity="0.88"/>
+            <path class="canopy-burgundy" d="M85 140 C 48 135, 35 98, 52 75 C 40 58, 55 38, 76 42 C 84 24, 108 22, 118 40 C 136 32, 155 46, 152 66 C 170 76, 164 105, 142 115 C 150 135, 115 148, 85 140 Z" opacity="0.75"/>
+            <path class="canopy-mocha" d="M120 135 C 95 130, 90 100, 105 82 C 95 68, 110 50, 128 54 C 134 38, 155 40, 160 56 C 176 62, 178 85, 160 96 C 168 114, 142 138, 120 135 Z" opacity="0.8"/>
+            <path class="canopy-amber" d="M65 125 C 48 120, 42 98, 55 85 C 46 74, 58 58, 72 62 C 78 48, 96 50, 98 66 C 110 70, 108 92, 90 100 C 96 114, 80 128, 65 125 Z" opacity="0.68"/>
+        </svg>
+        <!-- Drifting autumn leaves -->
+        <svg class="fall-leaf l1" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 10 14, 4 10, 3 4 C 9 6, 12 12, 12 22 Z M12 22 C 14 14, 20 10, 21 4 C 15 6, 12 12, 12 22 Z"/><path d="M12 22 V 5" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.5"/></svg>
+        <svg class="fall-leaf l2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 8 16, 5 8, 12 2 C 19 8, 16 16, 12 22 Z"/><path d="M12 22 V 4" stroke="#3d1219" stroke-width="0.7" fill="none" opacity="0.35"/></svg>
+        <svg class="fall-leaf l3" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18 C 6 10, 12 6, 20 4 C 16 10, 12 14, 10 18 Z"/></svg>
+        <svg class="fall-leaf l4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 10 14, 4 10, 3 4 C 9 6, 12 12, 12 22 Z M12 22 C 14 14, 20 10, 21 4 C 15 6, 12 12, 12 22 Z"/></svg>
+        <svg class="fall-leaf l5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 8 16, 5 8, 12 2 C 19 8, 16 16, 12 22 Z"/></svg>
+        <svg class="fall-leaf l6" viewBox="0 0 24 24" fill="currentColor"><path d="M4 18 C 6 10, 12 6, 20 4 C 16 10, 12 14, 10 18 Z"/></svg>
+        <svg class="fall-leaf l7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 10 14, 4 10, 3 4 C 9 6, 12 12, 12 22 Z M12 22 C 14 14, 20 10, 21 4 C 15 6, 12 12, 12 22 Z"/></svg>
+        <svg class="fall-leaf l8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22 C 8 16, 5 8, 12 2 C 19 8, 16 16, 12 22 Z"/></svg>
+    </div>
 
     <section class="hero">
         <svg class="hero-line-accent" viewBox="0 0 900 300" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1765,21 +1961,31 @@
 
             // Quiet 3D fog behind the whole page (skipped when reduced motion)
             let vantaEffect = null;
-            if (!reduceMotion && window.VANTA && typeof VANTA.FOG === 'function' && document.getElementById('page-3d')) {
+            const fogEl = document.getElementById('page-3d');
+            if (!reduceMotion && window.VANTA && typeof VANTA.FOG === 'function' && fogEl) {
+                const syncFogSize = () => {
+                    fogEl.style.width = window.innerWidth + 'px';
+                    fogEl.style.height = window.innerHeight + 'px';
+                    if (vantaEffect && typeof vantaEffect.resize === 'function') vantaEffect.resize();
+                };
+                syncFogSize();
                 vantaEffect = VANTA.FOG({
-                    el: '#page-3d',
+                    el: fogEl,
                     THREE: window.THREE,
                     mouseControls: false,
                     touchControls: false,
                     gyroControls: false,
-                    highlightColor: 0xc4a484,
-                    midtoneColor: 0x8a3a4a,
-                    lowlightColor: 0xf0e4d4,
+                    highlightColor: 0xd4b896,
+                    midtoneColor: 0x7a2f3e,
+                    lowlightColor: 0xe8d5c0,
                     baseColor: 0xfff8e7,
-                    blurFactor: 0.72,
-                    speed: 0.28,
-                    zoom: 0.9,
+                    blurFactor: 0.52,
+                    speed: 0.35,
+                    zoom: 0.95,
                 });
+                syncFogSize();
+                requestAnimationFrame(syncFogSize);
+                window.addEventListener('resize', syncFogSize);
                 window.addEventListener('beforeunload', () => { if (vantaEffect) vantaEffect.destroy(); });
             }
 
