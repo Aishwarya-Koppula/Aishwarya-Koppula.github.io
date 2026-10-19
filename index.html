@@ -11,26 +11,27 @@
         html { background: var(--bg); }
 
         :root {
-            --bg: #f7f3ec;
-            --surface: #ffffff;
-            --surface-alt: #f0ebdf;
-            --text-primary: #2c2a25;
-            --text-secondary: #6b6355;
-            --text-tertiary: #9a9282;
-            --border: #e3dbc8;
-            --accent: #7c8a6e;
-            --accent-soft: #eef1e7;
-            --accent-soft-border: rgba(124, 138, 110, 0.3);
-            --accent-2: #c6885c;
-            --accent-2-soft: #f6e8dc;
-            --accent-2-soft-border: rgba(198, 136, 92, 0.32);
-            --ink: #33392f;
-            --ink-text: #f2ede1;
-            --ink-text-secondary: #c7c0ae;
+            /* Cosmic latte · mocha cream · deep burgundy */
+            --bg: #fff8e7;
+            --surface: #fffdf8;
+            --surface-alt: #f0e4d4;
+            --text-primary: #2b0d14;
+            --text-secondary: #6b4548;
+            --text-tertiary: #9a7a72;
+            --border: #e5d4c0;
+            --accent: #6e1a2b;
+            --accent-soft: #f5e6e8;
+            --accent-soft-border: rgba(110, 26, 43, 0.28);
+            --accent-2: #c4a484;
+            --accent-2-soft: #f3e8da;
+            --accent-2-soft-border: rgba(196, 164, 132, 0.38);
+            --ink: #3d1219;
+            --ink-text: #fff8e7;
+            --ink-text-secondary: #e5d4c0;
             --radius: 14px;
             --radius-sm: 10px;
-            --shadow: 0 1px 2px rgba(44, 42, 37, 0.05);
-            --shadow-hover: 0 14px 30px rgba(44, 42, 37, 0.1);
+            --shadow: 0 1px 2px rgba(43, 13, 20, 0.06);
+            --shadow-hover: 0 14px 30px rgba(43, 13, 20, 0.12);
             --max-width: 1360px;
 
             /* Type scale: six fixed sizes + three responsive display sizes. Keep every font-size on this scale. */
@@ -81,7 +82,7 @@
         /* Nav */
         nav {
             position: fixed; top: 0; width: 100%;
-            background: rgba(247, 243, 236, 0.9);
+            background: rgba(255, 248, 231, 0.9);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
             z-index: 1000; padding: 0.9rem 0;
@@ -332,7 +333,7 @@
         .about-toolkit-row.ai dt { color: var(--accent-2); }
         .about-toolkit-row.ai dd {
             color: var(--text-primary);
-            border-bottom: 1px solid rgba(198, 136, 92, 0.35);
+            border-bottom: 1px solid rgba(196, 164, 132, 0.45);
             padding-bottom: 0.15rem;
         }
 
@@ -529,9 +530,9 @@
             transition: transform 0.25s ease, box-shadow 0.25s ease;
         }
         .board-zone-notes.notes-wide .sticky-note { flex-basis: 175px; }
-        .sticky-note:nth-child(3n+1) { background: #f3ecd4; transform: rotate(-2.5deg); }
-        .sticky-note:nth-child(3n+2) { background: #e7ecd9; transform: rotate(1.8deg); }
-        .sticky-note:nth-child(3n) { background: #f6e3d0; transform: rotate(-1.2deg); }
+        .sticky-note:nth-child(3n+1) { background: #fff1d8; transform: rotate(-2.5deg); }
+        .sticky-note:nth-child(3n+2) { background: #f0e0d0; transform: rotate(1.8deg); }
+        .sticky-note:nth-child(3n) { background: #f3dfe3; transform: rotate(-1.2deg); }
         .sticky-note:hover { box-shadow: 0 10px 20px rgba(44, 42, 37, 0.28); }
         .sticky-note.expanded {
             flex-basis: 230px; transform: rotate(0deg); z-index: 5;
@@ -841,7 +842,7 @@
         }
         .credential-group[data-kind="awards"] .cert-badge {
             background:
-                linear-gradient(180deg, #fffaf5 0%, transparent 48%),
+                linear-gradient(180deg, #faf0e6 0%, transparent 48%),
                 var(--surface);
             border-color: var(--accent-2-soft-border);
         }
@@ -1017,8 +1018,8 @@
 
     <section class="hero">
         <svg class="hero-line-accent" viewBox="0 0 900 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0 200 C 150 50, 300 250, 450 120 S 750 30, 900 160" stroke="#7c8a6e" stroke-width="2"/>
-            <path d="M50 260 C 200 140, 320 300, 500 220 S 780 120, 870 240" stroke="#c6885c" stroke-width="2" opacity="0.6"/>
+            <path d="M0 200 C 150 50, 300 250, 450 120 S 750 30, 900 160" stroke="#6e1a2b" stroke-width="2"/>
+            <path d="M50 260 C 200 140, 320 300, 500 220 S 780 120, 870 240" stroke="#c4a484" stroke-width="2" opacity="0.6"/>
         </svg>
         <div class="container">
             <div class="hero-inner animate-in">
@@ -1771,10 +1772,10 @@
                     mouseControls: false,
                     touchControls: false,
                     gyroControls: false,
-                    highlightColor: 0x9aab8d,
-                    midtoneColor: 0xd4a57a,
-                    lowlightColor: 0xe8dfcf,
-                    baseColor: 0xf7f3ec,
+                    highlightColor: 0xc4a484,
+                    midtoneColor: 0x8a3a4a,
+                    lowlightColor: 0xf0e4d4,
+                    baseColor: 0xfff8e7,
                     blurFactor: 0.72,
                     speed: 0.28,
                     zoom: 0.9,
