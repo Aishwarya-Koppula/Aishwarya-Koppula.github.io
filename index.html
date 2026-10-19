@@ -291,7 +291,7 @@
             font-family: 'Fraunces', serif; font-weight: 700; font-size: var(--fs-title);
             color: var(--text-primary); margin-bottom: 1rem; line-height: 1.25;
         }
-        .about-copy p {
+        .about-copy .about-para {
             color: var(--text-secondary); font-size: var(--fs-sm); line-height: 1.7;
             margin-bottom: 0.9rem; max-width: 38rem;
         }
@@ -1154,6 +1154,10 @@
         .case-modal-links a.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
         body.case-modal-open { overflow: hidden; }
         .sticky-note[data-case] .sticky-note-hint::after { content: ' →'; }
+
+        /* Layout-neutral wrappers: Safari Reader zeros article score when ancestors match
+           comment|meta (WebKit ReaderArticleFinder). display:contents keeps the visual tree intact. */
+        .reader-optout { display: contents; }
     </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
 </head>
@@ -1173,8 +1177,12 @@
         </div>
     </nav>
 
+    <!-- Two CommentRegEx ancestors (comment + meta) collapse Safari Reader's article score to 0 -->
+    <div class="comment reader-optout">
+    <div class="meta reader-optout">
+
     <div class="page-3d" id="page-3d" aria-hidden="true"></div>
-    <div class="page-flora" aria-hidden="true">
+    <div class="page-flora instapaper_ignore" aria-hidden="true" role="presentation">
         <!-- Fall tree — left edge (maple-ish autumn canopy) -->
         <svg class="fall-tree tree-left" viewBox="0 0 220 360" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path class="trunk" d="M102 358 C 98 280, 96 220, 104 160 C 106 185, 118 195, 122 158 C 128 210, 124 280, 122 358 Z"/>
@@ -1209,18 +1217,18 @@
     <section class="hero">
         <div class="container">
             <div class="hero-inner animate-in">
-                <div class="hero-text-col">
+                <div class="hero-intro">
                     <div class="hero-badge"><span class="dot"></span>West Lafayette, IN · Open to Relocation</div>
                     <h1 class="hero-name">Aishwarya<br>Koppula<span class="accent">.</span></h1>
-                    <p class="hero-tagline">Product manager turning complex B2B and AI problems into products people rely on.</p>
-                    <p class="hero-summary">Purdue MEM student with four years shipping B2B and AI products — from Carrier's financial planning platform to GenAI systems at Trane, Cummins, and ISE. I start with users, partner with engineers, and make sure it delivers.</p>
+                    <div class="hero-tagline">Product manager turning complex B2B and AI problems into products people rely on.</div>
+                    <div class="hero-summary">Purdue MEM student with four years shipping B2B and AI products — from Carrier's financial planning platform to GenAI systems at Trane, Cummins, and ISE. I start with users, partner with engineers, and make sure it delivers.</div>
                     <a href="#about" class="hero-more">More about me →</a>
                 </div>
                 <div class="hero-photo-col">
                     <div class="hero-photo">
                         <img src="./Aishwarya_Koppula_3.jpg" alt="Aishwarya Koppula" width="220" height="220" decoding="async" fetchpriority="high">
                     </div>
-                    <p class="hero-photo-caption">Purdue MEM <span class="sep">&middot;</span> AI Workflows <span class="sep">&middot;</span> Product &amp; Program Management <span class="sep">&middot;</span> Ex-Carrier, Trane</p>
+                    <div class="hero-photo-caption">Purdue MEM <span class="sep">&middot;</span> AI Workflows <span class="sep">&middot;</span> Product &amp; Program Management <span class="sep">&middot;</span> Ex-Carrier, Trane</div>
                     <div class="hero-divider"></div>
                     <div class="stats-grid">
                         <div class="stat">
@@ -1255,19 +1263,19 @@
             <div class="section-header">
                 <div class="section-eyebrow">Beyond the résumé</div>
                 <h2 class="section-title">I'm Aishwarya.</h2>
-                <p class="section-subtitle">Curious builder, clarity-obsessed collaborator, happiest when fuzzy problems turn into products people use.</p>
+                <div class="section-subtitle">Curious builder, clarity-obsessed collaborator, happiest when fuzzy problems turn into products people use.</div>
             </div>
             <div class="about-layout">
-                <div class="about-copy">
-                    <p class="about-lead">A builder at heart. A curious learner always.</p>
-                    <p>I'm a Master of Engineering Management student at Purdue with four years of product experience across B2B platforms and AI. At Carrier, I owned a financial and regulatory planning platform end to end and became the youngest recipient of the company's Leadership Award. Since then, I've built AI products and use cases at Trane, Cummins, and ISE — from competitor intelligence tools to enterprise data pipelines to industrial fault detection.</p>
-                    <p>I start with what users really need, work closely with engineers to build it, and make sure it delivers. Outside of work, I build my own AI workflows and ship small tools to learn new technologies. I'm looking for product roles where AI meets real business problems.</p>
-                    <p>I'm happiest around people who care about what they're creating — swapping perspectives, making sense of ideas together, and watching something go from “what if?” to “this actually works.”</p>
+                <div class="about-copy sidebar">
+                    <div class="about-lead">A builder at heart. A curious learner always.</div>
+                    <div class="about-para">I'm a Master of Engineering Management student at Purdue with four years of product experience across B2B platforms and AI. At Carrier, I owned a financial and regulatory planning platform end to end and became the youngest recipient of the company's Leadership Award. Since then, I've built AI products and use cases at Trane, Cummins, and ISE — from competitor intelligence tools to enterprise data pipelines to industrial fault detection.</div>
+                    <div class="about-para">I start with what users really need, work closely with engineers to build it, and make sure it delivers. Outside of work, I build my own AI workflows and ship small tools to learn new technologies. I'm looking for product roles where AI meets real business problems.</div>
+                    <div class="about-para">I'm happiest around people who care about what they're creating — swapping perspectives, making sense of ideas together, and watching something go from “what if?” to “this actually works.”</div>
                 </div>
                 <aside class="about-side">
                     <div class="margin-notes">
                         <div class="margin-notes-head">
-                            <p class="margin-kicker">Margin notes</p>
+                            <div class="margin-kicker">Margin notes</div>
                             <span class="margin-page">pg. 01</span>
                         </div>
 
@@ -1285,7 +1293,7 @@
 
                         <div class="margin-annot">
                             <span class="margin-label"><span class="mark">ii.</span> Currently into</span>
-                            <p class="about-holes">Weird history facts <span class="sep">/</span> corners of the internet <span class="sep">/</span> design toolkit</p>
+                            <div class="about-holes">Weird history facts <span class="sep">/</span> corners of the internet <span class="sep">/</span> design toolkit</div>
                         </div>
 
                         <div class="margin-annot">
@@ -1334,7 +1342,7 @@
                 <div class="experience-col" id="experience">
                     <div class="section-header">
                         <h2 class="section-title">Professional Experience</h2>
-                        <p class="section-subtitle">A roadmap of where I've studied and worked. Tap a stop for the full story.</p>
+                        <div class="section-subtitle">A roadmap of where I've studied and worked. Tap a stop for the full story.</div>
                     </div>
             <div class="roadmap">
                 <div class="roadmap-stop top">
@@ -1342,10 +1350,10 @@
                         <div class="roadmap-icon">🎓</div>
                         <div class="roadmap-role">B.Tech, Computer Science</div>
                         <div class="roadmap-org">JNTU Hyderabad</div>
-                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-hint">Tap for details</div>
                         <div class="roadmap-details">
                             <div class="roadmap-detail-date">Jul 2018 – Jul 2022 · GPA 3.9/4.0</div>
-                            <p class="roadmap-detail-text">G. Narayanamma Institute of Technology &amp; Science (GNITS). Student Coordinator at Indian Society of Technical Education. Software Developer Intern at Intrinsic Science Labs.</p>
+                            <div class="roadmap-detail-text">G. Narayanamma Institute of Technology &amp; Science (GNITS). Student Coordinator at Indian Society of Technical Education. Software Developer Intern at Intrinsic Science Labs.</div>
                         </div>
                     </div>
                     <div class="roadmap-date">2018–22</div>
@@ -1357,7 +1365,7 @@
                         <div class="roadmap-icon"><img src="./logo-apple.png" alt="Apple"></div>
                         <div class="roadmap-role">Project Intern</div>
                         <div class="roadmap-org">Apple</div>
-                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-hint">Tap for details</div>
                         <div class="roadmap-details">
                             <div class="roadmap-detail-date">Sep 2021 – Jun 2022 · Hyderabad, India</div>
                             <ul class="roadmap-highlights">
@@ -1374,7 +1382,7 @@
                         <div class="roadmap-icon"><img src="./logo-carrier.png" alt="Carrier"></div>
                         <div class="roadmap-role">Product Owner</div>
                         <div class="roadmap-org">Carrier</div>
-                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-hint">Tap for details</div>
                         <div class="roadmap-details">
                             <div class="roadmap-detail-date">Aug 2022 – Dec 2025 · Hyderabad, India</div>
                             <ul class="roadmap-highlights">
@@ -1396,10 +1404,10 @@
                         <div class="roadmap-icon"><img src="./logo-purdue.png" alt="Purdue University"></div>
                         <div class="roadmap-role">Master of Engineering Management</div>
                         <div class="roadmap-org">Purdue University</div>
-                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-hint">Tap for details</div>
                         <div class="roadmap-details">
                             <div class="roadmap-detail-date">Jan 2026 – Dec 2027 · GPA 4.0/4.0</div>
-                            <p class="roadmap-detail-text">Specialized coursework in Product Management, Agile Project Management, Business Analytics, Strategic Management, and Brand Management. Active member of American Society for Engineering Management (ASEM).</p>
+                            <div class="roadmap-detail-text">Specialized coursework in Product Management, Agile Project Management, Business Analytics, Strategic Management, and Brand Management. Active member of American Society for Engineering Management (ASEM).</div>
                         </div>
                     </div>
                 </div>
@@ -1409,7 +1417,7 @@
                         <div class="roadmap-icon"><img src="./logo-bayer.png" alt="Bayer"></div>
                         <div class="roadmap-role">Go-to-Market Strategist</div>
                         <div class="roadmap-org">Bayer</div>
-                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-hint">Tap for details</div>
                         <div class="roadmap-details">
                             <div class="roadmap-detail-date">Jan 2026 – May 2026 · LoriComunica (AAC App)</div>
                             <img src="./loricomunica-bayer-team.jpeg" alt="The LoriComunica team presenting the final strategy report at Bayer" class="note-detail-photo">
@@ -1428,7 +1436,7 @@
                         <div class="roadmap-icon"><img src="./logo-ise.png" alt="ISE"></div>
                         <div class="roadmap-role">AI Program &amp; Data Associate</div>
                         <div class="roadmap-org">ISE</div>
-                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-hint">Tap for details</div>
                         <div class="roadmap-details">
                             <div class="roadmap-detail-date">Jan 2026 – May 2026 · West Lafayette, IN</div>
                             <ul class="roadmap-highlights">
@@ -1444,7 +1452,7 @@
                         <div class="roadmap-icon"><img src="./logo-trane.png" alt="Trane Technologies"></div>
                         <div class="roadmap-role">AI Product Intern</div>
                         <div class="roadmap-org">Trane Technologies</div>
-                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-hint">Tap for details</div>
                         <div class="roadmap-details">
                             <div class="roadmap-detail-date">May 2026 – Aug 2026 · Davidson, NC</div>
                             <ul class="roadmap-highlights">
@@ -1462,7 +1470,7 @@
                         <div class="roadmap-icon"><img src="./logo-cummins.png" alt="Cummins"></div>
                         <div class="roadmap-role">Technical Program Manager</div>
                         <div class="roadmap-org">Cummins</div>
-                        <p class="roadmap-hint">Tap for details</p>
+                        <div class="roadmap-hint">Tap for details</div>
                         <div class="roadmap-details">
                             <div class="roadmap-detail-date">Aug 2026 – Dec 2026 · West Lafayette, IN</div>
                             <ul class="roadmap-highlights">
@@ -1479,7 +1487,7 @@
                     <div class="section-header">
                         <div class="section-eyebrow">Pinned Up</div>
                         <h2 class="section-title">The Board</h2>
-                        <p class="section-subtitle">Projects I've built and things I've written, pinned up. Tap any project for the full case study.</p>
+                        <div class="section-subtitle">Projects I've built and things I've written, pinned up. Tap any project for the full case study.</div>
                     </div>
             <div class="board-row-2">
                 <div class="notes-board">
@@ -1491,10 +1499,10 @@
                             <div class="note-icon">🤖</div>
                             <h3 class="note-title">Sentinel</h3>
                             <div class="note-meta">AI Market Intelligence Platform</div>
-                            <p class="sticky-note-hint">Tap for full story</p>
+                            <div class="sticky-note-hint">Tap for full story</div>
                             <div class="sticky-note-details">
                                 <div class="note-date">Personal Project · Jul 2026 – Present</div>
-                                <p class="note-description">Engineering a market intelligence engine (n8n, Claude API, multi-agent via MCP) automating competitive intelligence and secondary market research, replacing manual company research with ranked, RAG-verified ICP matching to inform strategic planning.</p>
+                                <div class="note-description">Engineering a market intelligence engine (n8n, Claude API, multi-agent via MCP) automating competitive intelligence and secondary market research, replacing manual company research with ranked, RAG-verified ICP matching to inform strategic planning.</div>
                                 <div class="note-tags">
                                     <span class="note-tag">Multi-Agent Systems</span>
                                     <span class="note-tag">MCP</span>
@@ -1509,10 +1517,10 @@
                             <div class="note-icon">👵</div>
                             <h3 class="note-title">Grandmode</h3>
                             <div class="note-meta">Consumer Practice App for Older Adults</div>
-                            <p class="sticky-note-hint">Tap for full story</p>
+                            <div class="sticky-note-hint">Tap for full story</div>
                             <div class="sticky-note-details">
                                 <div class="note-date">Sep 2026 – Present</div>
-                                <p class="note-description">Conducted 10 user interviews with older adults (ages 69 to 75) on everyday consumer app use, synthesizing insights via affinity and customer journey mapping into 2 core jobs-to-be-done, then ideated 60+ solution concepts across UX, fraud prevention, and authentication.</p>
+                                <div class="note-description">Conducted 10 user interviews with older adults (ages 69 to 75) on everyday consumer app use, synthesizing insights via affinity and customer journey mapping into 2 core jobs-to-be-done, then ideated 60+ solution concepts across UX, fraud prevention, and authentication.</div>
                                 <div class="note-tags">
                                     <span class="note-tag">User Research</span>
                                     <span class="note-tag">JTBD</span>
@@ -1526,14 +1534,14 @@
                             <div class="note-icon">🏠</div>
                             <h3 class="note-title">Lodge</h3>
                             <div class="note-meta">1st Place, MEMPC Hackathon 2026</div>
-                            <p class="sticky-note-hint">Tap for full story</p>
+                            <div class="sticky-note-hint">Tap for full story</div>
                             <div class="sticky-note-details">
                                 <div class="note-date">Purdue University | Inter-College Hackathon · April 2026</div>
                                 <div class="note-images">
                                     <img src="./lodge-app.jpeg" alt="Lodge App - Social infrastructure platform">
                                     <img src="./lodge-hackathon-win.jpeg" alt="Lodge winning 1st place at MEMPC Hackathon">
                                 </div>
-                                <p class="note-description">Shipped a production-ready behavioral matching engine from ideation to launch in 48 hours using Claude Code and Cursor, pairing 50+ live users on routine proximity and using the GPT-4.1 mini API to flag disengagement.</p>
+                                <div class="note-description">Shipped a production-ready behavioral matching engine from ideation to launch in 48 hours using Claude Code and Cursor, pairing 50+ live users on routine proximity and using the GPT-4.1 mini API to flag disengagement.</div>
                                 <a href="https://lodge-project-hackathon-kf92hl9ep.vercel.app" target="_blank" rel="noopener noreferrer" class="note-link">Live Demo</a>
                                 <a href="https://www.canva.com/design/DAHF7Lphm2k/j19o7zKBtvUGOqqTY5xwUA/edit" target="_blank" rel="noopener noreferrer" class="note-link">Pitch Deck</a>
                                 <div class="note-tags">
@@ -1550,10 +1558,10 @@
                             <div class="note-icon">📚</div>
                             <h3 class="note-title">Claro</h3>
                             <div class="note-meta">Johns Hopkins Product Hackathon</div>
-                            <p class="sticky-note-hint">Tap for full story</p>
+                            <div class="sticky-note-hint">Tap for full story</div>
                             <div class="sticky-note-details">
                                 <div class="note-date">AI-Powered Learning Platform · April 2026</div>
-                                <p class="note-description">Reduced irrelevant outputs 45% across 200+ syllabi through systematic LLM evaluation, building an agentic RAG powered knowledge graph with dual 2D/3D rendering to map concept dependencies and surface root cause.</p>
+                                <div class="note-description">Reduced irrelevant outputs 45% across 200+ syllabi through systematic LLM evaluation, building an agentic RAG powered knowledge graph with dual 2D/3D rendering to map concept dependencies and surface root cause.</div>
                                 <div class="note-tags">
                                     <span class="note-tag">React 18</span>
                                     <span class="note-tag">Firebase</span>
@@ -1569,10 +1577,10 @@
                             <div class="note-icon">🔗</div>
                             <h3 class="note-title">Agentic Briefing Pipeline</h3>
                             <div class="note-meta">Personal Project</div>
-                            <p class="sticky-note-hint">Tap for full story</p>
+                            <div class="sticky-note-hint">Tap for full story</div>
                             <div class="sticky-note-details">
                                 <div class="note-date">Feb 2026 - Mar 2026</div>
-                                <p class="note-description">Engineered a low code, no code n8n workflow with calendar and meeting tool integrations, using Claude API prompt engineering to centralize meeting notes, cutting retrieval time 80% with sub second latency.</p>
+                                <div class="note-description">Engineered a low code, no code n8n workflow with calendar and meeting tool integrations, using Claude API prompt engineering to centralize meeting notes, cutting retrieval time 80% with sub second latency.</div>
                                 <a href="https://github.com/Aishwarya-Koppula/meeting-intelligence-engine" target="_blank" rel="noopener noreferrer" class="note-link">GitHub</a>
                                 <div class="note-tags">
                                     <span class="note-tag">n8n</span>
@@ -1587,10 +1595,10 @@
                             <div class="note-icon">⚡</div>
                             <h3 class="note-title">WattWise</h3>
                             <div class="note-meta">Real-time Smart Energy Decision Engine</div>
-                            <p class="sticky-note-hint">Tap for full story</p>
+                            <div class="sticky-note-hint">Tap for full story</div>
                             <div class="sticky-note-details">
                                 <div class="note-date">Carrier Innovation Competition - 4th Place Globally (84 Teams) · Apr 2023 - Jun 2023</div>
-                                <p class="note-description">Led a 4-person team to build an integrated HVAC optimization, renewable integration, and load management solution, winning 4th and pitching a $4.7B market opportunity to the VP of Innovation.</p>
+                                <div class="note-description">Led a 4-person team to build an integrated HVAC optimization, renewable integration, and load management solution, winning 4th and pitching a $4.7B market opportunity to the VP of Innovation.</div>
                                 <div class="note-tags">
                                     <span class="note-tag">Product Innovation</span>
                                     <span class="note-tag">Team Leadership</span>
@@ -1612,10 +1620,10 @@
                                 <div class="note-icon">📖</div>
                                 <h3 class="note-title">Air and Sound Pollution Tracking Using IoT and Machine Learning</h3>
                                 <div class="note-meta">Published by CRC Press / Taylor &amp; Francis</div>
-                                <p class="sticky-note-hint">Tap for details</p>
+                                <div class="sticky-note-hint">Tap for details</div>
                                 <div class="sticky-note-details">
                                     <div class="note-date">2024</div>
-                                    <p class="note-description">Spearheaded research project developing an IoT and machine learning-based system for real-time monitoring of air and noise pollution. Led ML model training, data analysis, and integration with mobile app interfaces. Co-authors: K. Aishwarya, R. Christina, Y. Priya Amrutha.</p>
+                                    <div class="note-description">Spearheaded research project developing an IoT and machine learning-based system for real-time monitoring of air and noise pollution. Led ML model training, data analysis, and integration with mobile app interfaces. Co-authors: K. Aishwarya, R. Christina, Y. Priya Amrutha.</div>
                                     <a href="https://www.taylorfrancis.com/" target="_blank" rel="noopener noreferrer" class="note-link">📖 View Publication</a>
                                     <div class="note-tags">
                                         <span class="note-tag">IoT</span>
@@ -1630,10 +1638,10 @@
                                 <div class="note-icon">✍️</div>
                                 <h3 class="note-title">How Plotly Dash Became My Go-To for Data Visualization</h3>
                                 <div class="note-meta">Medium</div>
-                                <p class="sticky-note-hint">Tap for details</p>
+                                <div class="sticky-note-hint">Tap for details</div>
                                 <div class="sticky-note-details">
                                     <div class="note-date">February 2026</div>
-                                    <p class="note-description">A deep dive into why Plotly Dash stands out as a powerful framework for building interactive data visualizations and dashboards with Python.</p>
+                                    <div class="note-description">A deep dive into why Plotly Dash stands out as a powerful framework for building interactive data visualizations and dashboards with Python.</div>
                                     <a href="https://medium.com/@aishkoppula01/how-plotly-dash-became-my-go-to-for-data-visualization-and-why-it-should-be-yours-6348d8e2f0a1" target="_blank" rel="noopener noreferrer" class="note-link">📖 Read on Medium</a>
                                     <div class="note-tags">
                                         <span class="note-tag">Data Visualization</span>
@@ -1656,7 +1664,7 @@
             <div class="section-header">
                 <div class="section-eyebrow">Beyond The Board</div>
                 <h2 class="section-title">Credentials &amp; Recognition</h2>
-                <p class="section-subtitle">Certifications, awards, and communities. Use ‹ › to browse — tap a plaque for the story.</p>
+                <div class="section-subtitle">Certifications, awards, and communities. Use ‹ › to browse — tap a plaque for the story.</div>
             </div>
             <div class="credentials-col">
 
@@ -1670,7 +1678,7 @@
                         </div>
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">Scrum Alliance &middot; Issued Oct 2025 &middot; Expires Oct 2027</div>
-                            <p class="cert-badge-desc">Trained by Amit Kulkarni, CST&reg;. Certified to lead product development in Agile environments, manage product backlogs, and drive value delivery.</p>
+                            <div class="cert-badge-desc">Trained by Amit Kulkarni, CST&reg;. Certified to lead product development in Agile environments, manage product backlogs, and drive value delivery.</div>
                             <a href="./cspo-certificate.pdf" target="_blank" class="note-link">📄 View Certificate</a>
                         </div>
                     </div>
@@ -1682,7 +1690,7 @@
                         </div>
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">McKinsey &amp; Company &middot; Issued Dec 2025</div>
-                            <p class="cert-badge-desc">Completed comprehensive program on problem-solving, communication, and adaptable mindsets for the future of work.</p>
+                            <div class="cert-badge-desc">Completed comprehensive program on problem-solving, communication, and adaptable mindsets for the future of work.</div>
                             <a href="./mckinsey-certificate.png" target="_blank" class="note-link">📄 View Certificate</a>
                         </div>
                     </div>
@@ -1694,7 +1702,7 @@
                         </div>
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">World of Agile &middot; Issued Nov 2025 &middot; 6 Contact Hours</div>
-                            <p class="cert-badge-desc">Trained by Snehamayee, CST&reg;. Integrating AI with Agile methodologies to enhance team performance.</p>
+                            <div class="cert-badge-desc">Trained by Snehamayee, CST&reg;. Integrating AI with Agile methodologies to enhance team performance.</div>
                             <a href="./ai-for-agile-certificate.pdf" target="_blank" class="note-link">📄 View Certificate</a>
                         </div>
                     </div>
@@ -1706,7 +1714,7 @@
                         </div>
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">INSOFE &middot; Issued Nov 2018</div>
-                            <p class="cert-badge-desc">Comprehensive training in data science project execution and analysis techniques.</p>
+                            <div class="cert-badge-desc">Comprehensive training in data science project execution and analysis techniques.</div>
                         </div>
                     </div>
                 </div>
@@ -1723,7 +1731,7 @@
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">Purdue University &middot; April 2026</div>
                             <img src="./lodge-team.jpeg" alt="The Lodge team at Purdue after winning the MEMPC hackathon" class="note-detail-photo">
-                            <p class="cert-badge-desc">Won first place with Lodge, a social infrastructure platform, beating teams from Cornell, Duke, and five other top programs. Led product strategy and shipped a production-ready MVP pairing 50+ live users in 48 hours using Claude Code and Cursor.</p>
+                            <div class="cert-badge-desc">Won first place with Lodge, a social infrastructure platform, beating teams from Cornell, Duke, and five other top programs. Led product strategy and shipped a production-ready MVP pairing 50+ live users in 48 hours using Claude Code and Cursor.</div>
                             <a href="https://lodge-project-hackathon-kf92hl9ep.vercel.app" target="_blank" rel="noopener noreferrer" class="note-link">🔗 Live Demo</a>
                         </div>
                     </div>
@@ -1736,7 +1744,7 @@
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">Carrier Technologies India &middot; Youngest Recipient (Top 1%)</div>
                             <img src="./carrier-leadership-award.png" alt="Receiving the Carrier Leadership Award" class="note-detail-photo">
-                            <p class="cert-badge-desc">Youngest recipient of Carrier's Leadership Award, typically awarded to Senior Product Managers. Recognized for exceptional leadership and driving product innovation.</p>
+                            <div class="cert-badge-desc">Youngest recipient of Carrier's Leadership Award, typically awarded to Senior Product Managers. Recognized for exceptional leadership and driving product innovation.</div>
                         </div>
                     </div>
 
@@ -1748,7 +1756,7 @@
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">Carrier Technologies India &middot; 2025</div>
                             <img src="./carrier-bryant-award.png" alt="Receiving the Bryant Award" class="note-detail-photo">
-                            <p class="cert-badge-desc">Recognized for outstanding performance and making significant impact through exceptional contributions to engineering excellence.</p>
+                            <div class="cert-badge-desc">Recognized for outstanding performance and making significant impact through exceptional contributions to engineering excellence.</div>
                         </div>
                     </div>
 
@@ -1759,7 +1767,7 @@
                         </div>
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">Carrier Technologies India &middot; 2022-2025</div>
-                            <p class="cert-badge-desc">Multiple recognitions for exceptional performance, innovation, and contributions to product development and team success.</p>
+                            <div class="cert-badge-desc">Multiple recognitions for exceptional performance, innovation, and contributions to product development and team success.</div>
                         </div>
                     </div>
 
@@ -1771,7 +1779,7 @@
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">Toastmasters International &middot; 2024-2025</div>
                             <img src="./toastmasters-trophies.png" alt="Toastmasters speech contest trophies" class="note-detail-photo">
-                            <p class="cert-badge-desc">Third place in Evaluation Speech Contest and Humorous Speech Contest at Carrier Hyderabad Toastmasters Club, Area G3, District 126.</p>
+                            <div class="cert-badge-desc">Third place in Evaluation Speech Contest and Humorous Speech Contest at Carrier Hyderabad Toastmasters Club, Area G3, District 126.</div>
                         </div>
                     </div>
                 </div>
@@ -1797,7 +1805,7 @@
                         </div>
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">VP Public Relations &middot; Sep 2024 - Sep 2025</div>
-                            <p class="cert-badge-desc">Carrier Hyderabad Toastmasters Club.</p>
+                            <div class="cert-badge-desc">Carrier Hyderabad Toastmasters Club.</div>
                         </div>
                     </div>
 
@@ -1808,7 +1816,7 @@
                         </div>
                         <div class="cert-badge-details">
                             <div class="cert-badge-meta">Student Coordinator &middot; Jul 2019 - Jun 2022</div>
-                            <p class="cert-badge-desc">Led coordination between student committees and faculty advisors. Organized IGNIUM2K20, a 500+ participant inter-college technical fest.</p>
+                            <div class="cert-badge-desc">Led coordination between student committees and faculty advisors. Organized IGNIUM2K20, a 500+ participant inter-college technical fest.</div>
                         </div>
                     </div>
 
@@ -1842,7 +1850,7 @@
             <div class="section-header">
                 <div class="section-eyebrow">Along The Way</div>
                 <h2 class="section-title">A Few Moments</h2>
-                <p class="section-subtitle">Some faces and places behind the resume.</p>
+                <div class="section-subtitle">Some faces and places behind the resume.</div>
             </div>
             <div class="gallery-grid">
                 <img src="./aishwarya-office.jpeg" alt="Aishwarya at the office">
@@ -1865,9 +1873,9 @@
                     <div class="section-header">
                         <div class="section-eyebrow">Get In Touch</div>
                         <h2 class="section-title">Let's Connect</h2>
-                        <p class="section-subtitle">I'm always open to discussing product management opportunities, engineering leadership, research collaborations, or just connecting with fellow professionals.</p>
+                        <div class="section-subtitle">I'm always open to discussing product management opportunities, engineering leadership, research collaborations, or just connecting with fellow professionals.</div>
                     </div>
-                    <p class="intent-label">What brings you here? Any of these opens an email to me.</p>
+                    <div class="intent-label">What brings you here? Any of these opens an email to me.</div>
                     <div class="intent-chips">
                         <a href="mailto:aishkoppula01@gmail.com" class="intent-chip">💼 Opportunities</a>
                         <a href="mailto:aishkoppula01@gmail.com" class="intent-chip">🤝 Collaboration</a>
@@ -1910,7 +1918,7 @@
             <div class="case-modal-kicker" id="case-modal-kicker"></div>
             <div class="case-modal-badge" id="case-modal-badge" hidden></div>
             <h3 class="case-modal-title" id="case-modal-title"></h3>
-            <p class="case-modal-meta" id="case-modal-meta"></p>
+            <p class="case-modal-meta" id="case-modal-meta"></div>
             <div class="case-modal-tags" id="case-modal-tags"></div>
             <div class="case-modal-images" id="case-modal-images" hidden></div>
             <div class="case-block">
@@ -1938,6 +1946,9 @@
             <p>&copy; 2026 Aishwarya Koppula. All rights reserved.</p>
         </div>
     </footer>
+
+    </div><!-- /.meta.reader-optout -->
+    </div><!-- /.comment.reader-optout -->
 
     <script src="https://cdn.jsdelivr.net/npm/three@0.134.0/build/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vanta@0.5.24/dist/vanta.fog.min.js"></script>
